@@ -18,7 +18,7 @@ public class SlaveParameterCoil {
         modBusUnitSlave.setCoilValue(this.index, value);
     }
 
-    boolean getValue() {
+    public boolean getValue() {
         return modBusUnitSlave.getCoilValue(this.index);
     }
 

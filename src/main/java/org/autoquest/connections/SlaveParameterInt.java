@@ -11,7 +11,8 @@ public class SlaveParameterInt {
         this.name = name;
         this.modBusUnitSlave = modBusUnitSlave;
         modBusUnitSlave.addIntToDH(this);
-        this.index = modBusUnitSlave.getSlaveParameterIntList().size()-1;
+        this.index = (modBusUnitSlave.intMapSize()-1) + ((modBusUnitSlave.floatMapSize()) * 2);
+        System.out.println("int index: " + this.index);
     }
 
     public void setValue(int value) {

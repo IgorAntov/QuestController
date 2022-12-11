@@ -10,10 +10,13 @@ import com.intelligt.modbus.jlibmodbus.slave.ModbusSlave;
 import com.intelligt.modbus.jlibmodbus.slave.ModbusSlaveFactory;
 import com.intelligt.modbus.jlibmodbus.tcp.TcpParameters;
 import org.autoquest.connections.SlaveParameterCoil;
+import org.autoquest.connections.SlaveParameterFloat;
 import org.autoquest.connections.SlaveParameterInt;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 
 public class ModBusUnitSlave {
@@ -22,6 +25,7 @@ public class ModBusUnitSlave {
     private final TcpParameters tcpParameters = new TcpParameters();
     private final ArrayList<SlaveParameterCoil> parameterCoils = new ArrayList<>();
     private final ArrayList<SlaveParameterInt> parameterInts = new ArrayList<>();
+    private final ArrayList<SlaveParameterFloat> parameterFloats = new ArrayList<>();
     private final MBDataHolder dh = new MBDataHolder();
     private ModbusCoils modbusCoils;
     private ModbusHoldingRegisters modbusHoldingRegisters;
@@ -55,13 +59,12 @@ public class ModBusUnitSlave {
         return this;
     }
 
-    public ModBusUnitSlave setSlaveID(int inetAddress) {
+    public void setSlaveID(int inetAddress) {
         slave.setServerAddress(inetAddress);
-        return this;
     }
 
     public void evalMapSize() {
-        modbusHoldingRegisters = new ModbusHoldingRegisters(parameterInts.size());
+        modbusHoldingRegisters = new ModbusHoldingRegisters(parameterInts.size() + parameterFloats.size()*2);
         slave.getDataHolder().setHoldingRegisters(modbusHoldingRegisters);
         modbusCoils = new ModbusCoils(parameterCoils.size());
         slave.getDataHolder().setCoils(modbusCoils);
@@ -73,6 +76,10 @@ public class ModBusUnitSlave {
 
     public void addIntToDH(SlaveParameterInt parameterInt) {
         parameterInts.add(parameterInt);
+    }
+
+    public void addFloatToDH(SlaveParameterFloat parameterFloat) {
+        parameterFloats.add(parameterFloat);
     }
 
     public void setCoilValue(int index, boolean value) {
@@ -108,6 +115,35 @@ public class ModBusUnitSlave {
         }
     }
 
+    public void setFloatValue(int index, float value) {
+        byte[] b = ByteBuffer.allocate(4).putFloat(value).array();
+        try {
+            int r = b[0] & 0xFF;
+            r = (r << 8) | (b[1] & 0xFF);
+            modbusHoldingRegisters.set(index, r);
+            r = b[2] & 0xFF;
+            r = (r << 8) | (b[3] & 0xFF);
+            modbusHoldingRegisters.set(index + 1, r);
+        } catch (IllegalDataAddressException | IllegalDataValueException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public float getFloatValue(int index) {
+        try {
+              int v1 = modbusHoldingRegisters.get(index);
+              byte[] b1 = ByteBuffer.allocate(4).putInt(v1).array();
+              int v2 = modbusHoldingRegisters.get(index+1);
+              byte[] b2 = ByteBuffer.allocate(4).putInt(v2).array();
+              b1[0] = b1[2];
+              b1[1] = b1[3];
+              b1[2] = b2[2];
+              b1[3] = b2[3];
+            return ByteBuffer.wrap(b1).getFloat();
+        } catch (IllegalDataAddressException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public ArrayList<SlaveParameterCoil> getParameterCoils() {
         return parameterCoils;
     }
@@ -118,6 +154,18 @@ public class ModBusUnitSlave {
 
     public ArrayList<SlaveParameterInt> getSlaveParameterIntList() {
         return parameterInts;
+    }
+
+    public ArrayList<SlaveParameterFloat> getSlaveParameterFloatList() {
+        return parameterFloats;
+    }
+
+    public int intMapSize() {
+        return parameterInts.size();
+    }
+
+    public int floatMapSize() {
+        return parameterFloats.size();
     }
 
     public ModbusSlave getSlave() {

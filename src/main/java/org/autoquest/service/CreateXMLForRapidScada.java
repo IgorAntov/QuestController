@@ -1,7 +1,5 @@
 package org.autoquest.service;
 
-import org.autoquest.connections.units.units.WSMBUnitSlave;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;

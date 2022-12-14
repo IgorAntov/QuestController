@@ -1,37 +1,32 @@
 package org.autoquest.connections.units;
 
-import org.autoquest.connections.units.units.WSMBUnitSlave;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class MBUnitList {
-    public static void init() throws UnknownHostException {
+    public static final ModBusUnitSlave WS_MB_UNIT_SLAVE = new ModBusUnitSlave();
+    public static final ModBusUnitSlave WS_MB_UNIT_SLAVE_SIM = new ModBusUnitSlave();
 
-    /*
-        // Slave Settings for local PC (WS)
-        WSMBUnitSlave.getInstance().
+    public static void init() throws UnknownHostException {
+        WS_MB_UNIT_SLAVE.
                 setAddress(InetAddress.getLocalHost()).
                 setIsKeepAlive(true).
                 setPort(1024).
                 setSlaveID(1);
 
         // Slave Settings for local PC (WS Sim)
-        WSMBUnitSlave.getInstance().
+        WS_MB_UNIT_SLAVE_SIM.
                 setAddress(InetAddress.getLocalHost()).
                 setIsKeepAlive(true).
                 setPort(1024).
                 setSlaveID(2);
-*/
-        // Master Settings for local PC
-
     }
 
-    /**
-     * Evaluating modbus data range and run listeners
-     */
     public static void runListener() {
-        WSMBUnitSlave.getInstance().evalMapSize();
-        WSMBUnitSlave.getInstance().startListen();
+        WS_MB_UNIT_SLAVE.evalMapSize();
+        WS_MB_UNIT_SLAVE_SIM.evalMapSize();
+
+        WS_MB_UNIT_SLAVE.startListen();
+        WS_MB_UNIT_SLAVE_SIM.startListen();
     }
 }

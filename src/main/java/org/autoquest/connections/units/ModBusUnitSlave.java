@@ -14,9 +14,7 @@ import org.autoquest.connections.SlaveParameterFloat;
 import org.autoquest.connections.SlaveParameterInt;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.ArrayList;
 
 public class ModBusUnitSlave {
@@ -85,9 +83,7 @@ public class ModBusUnitSlave {
     public void setCoilValue(int index, boolean value) {
         try {
             modbusCoils.set(index, value);
-        } catch (IllegalDataAddressException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalDataValueException e) {
+        } catch (IllegalDataAddressException | IllegalDataValueException e) {
             throw new RuntimeException(e);
         }
     }
@@ -172,14 +168,4 @@ public class ModBusUnitSlave {
         return slave;
     }
 
-    /*
-    public boolean[] getMBCoilList() {
-        boolean[] coilsList = new boolean[parameterCoils.size()];
-        int index = 0;
-        for (SlaveParameterCoil pc : parameterCoils) {
-            coilsList[index++] = pc.isBit();
-        }
-        return coilsList;
-    }
- */
 }

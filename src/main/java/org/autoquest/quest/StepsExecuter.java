@@ -1,13 +1,15 @@
 package org.autoquest.quest;
 
 import org.autoquest.connections.Params;
+import org.autoquest.quest.steps.Step1;
 
 public class StepsExecuter {
 
-    void start() {
+    public static void start() {
         try {
             while (true) {
                 if (Params.START.getValue()) {
+                    Step1.start();
                     Thread.sleep(1000);
                     Params.START.setValue(false);
                     Thread.sleep(1000);

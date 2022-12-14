@@ -7,13 +7,22 @@ import java.net.UnknownHostException;
 
 public class MBUnitList {
     public static void init() throws UnknownHostException {
+
+    /*
         // Slave Settings for local PC (WS)
         WSMBUnitSlave.getInstance().
-        setAddress(InetAddress.getLocalHost()).
-        setIsKeepAlive(true).
-        setPort(1024).
-        setSlaveID(2);
+                setAddress(InetAddress.getLocalHost()).
+                setIsKeepAlive(true).
+                setPort(1024).
+                setSlaveID(1);
 
+        // Slave Settings for local PC (WS Sim)
+        WSMBUnitSlave.getInstance().
+                setAddress(InetAddress.getLocalHost()).
+                setIsKeepAlive(true).
+                setPort(1024).
+                setSlaveID(2);
+*/
         // Master Settings for local PC
 
     }

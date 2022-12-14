@@ -1,5 +1,7 @@
 package org.autoquest.service;
 
+import org.autoquest.connections.units.units.WSMBUnitSlave;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -14,28 +16,31 @@ public class CreateXMLForRapidScada {
     }
 
     public void createXMLFile(String path, String filename) {
-        sb.append("XML name:\n").append("s line");
+
+        XMLModBusTCPBuilder xmlModBusTCPBuilder = new XMLModBusTCPBuilder(WSMBUnitSlave.getInstance());
+        String result = xmlModBusTCPBuilder.buildXMLContent();
+
         try {
             String defXmlFileName = "ScadaCommSvcConfigTCP.xml";
             if (path.equals("") && filename.equals("")) {
                 Path file = Paths.get(defXmlFileName);
-                Files.write(file, Collections.singleton(sb), StandardCharsets.UTF_8);
+                Files.write(file, Collections.singleton(result), StandardCharsets.UTF_8);
                 System.out.println("xml file was created");
             }
             if (path.equals("") && !filename.equals("")) {
                 Path file = Paths.get(filename);
-                Files.write(file, Collections.singleton(sb), StandardCharsets.UTF_8);
-                System.out.println(filename + " file was created");
+                Files.write(file, Collections.singleton(result), StandardCharsets.UTF_8);
+                System.out.println(filename + "xml file was created");
             }
             if (!path.equals("") && filename.equals("")) {
                 Path file = Paths.get(path + defXmlFileName);
-                Files.write(file, Collections.singleton(sb), StandardCharsets.UTF_8);
-                System.out.println(filename + " file was created");
+                Files.write(file, Collections.singleton(result), StandardCharsets.UTF_8);
+                System.out.println(filename + "xml file was created");
             }
             if (!path.equals("") && !filename.equals("")) {
                 Path file = Paths.get(path + filename);
-                Files.write(file, Collections.singleton(sb), StandardCharsets.UTF_8);
-                System.out.println(filename + " file was created");
+                Files.write(file, Collections.singleton(result), StandardCharsets.UTF_8);
+                System.out.println(filename + "xml file was created");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

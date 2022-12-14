@@ -15,11 +15,15 @@ public class SlaveParameterCoil {
     }
 
     public void setValue(boolean value) {
-        modBusUnitSlave.setCoilValue(this.index, value);
+        synchronized (this) {
+            modBusUnitSlave.setCoilValue(this.index, value);
+        }
     }
 
     public boolean getValue() {
-        return modBusUnitSlave.getCoilValue(this.index);
+        synchronized (this) {
+            return modBusUnitSlave.getCoilValue(this.index);
+        }
     }
 
     public String getName() {
@@ -28,5 +32,9 @@ public class SlaveParameterCoil {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }

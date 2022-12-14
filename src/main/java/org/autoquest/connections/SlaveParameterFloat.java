@@ -16,11 +16,15 @@ public class SlaveParameterFloat {
     }
 
     public void setValue(float value) {
-        modBusUnitSlave.setFloatValue(this.index, value);
+        synchronized (this) {
+            modBusUnitSlave.setFloatValue(this.index, value);
+        }
     }
 
     public float getValue() {
-        return modBusUnitSlave.getFloatValue(this.index);
+        synchronized (this) {
+            return modBusUnitSlave.getFloatValue(this.index);
+        }
     }
 
     public String getName() {

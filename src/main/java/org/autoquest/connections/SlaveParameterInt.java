@@ -16,11 +16,15 @@ public class SlaveParameterInt {
     }
 
     public void setValue(int value) {
-        modBusUnitSlave.setIntValue(this.index, value);
+        synchronized (this) {
+            modBusUnitSlave.setIntValue(this.index, value);
+        }
     }
 
     public void getValue() {
-        modBusUnitSlave.getIntValue(this.index);
+        synchronized (this) {
+            modBusUnitSlave.getIntValue(this.index);
+        }
     }
 
     public String getName() {

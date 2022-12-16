@@ -1,15 +1,20 @@
 package org.autoquest.connections;
 
 import org.autoquest.connections.units.ModBusUnitSlave;
+import org.autoquest.connections.units.ParamType;
 
 public class SlaveParameterFloat {
     private String name = "";
     private final ModBusUnitSlave modBusUnitSlave;
     private final int index;
+    private final float initialValue;
+    private final ParamType paramType;
 
-    public SlaveParameterFloat(String name, ModBusUnitSlave modBusUnitSlave) {
+    public SlaveParameterFloat(String name, ModBusUnitSlave modBusUnitSlave, float initialValue, ParamType paramType) {
         this.name = name;
         this.modBusUnitSlave = modBusUnitSlave;
+        this.initialValue = initialValue;
+        this.paramType = paramType;
         modBusUnitSlave.addFloatToDH(this);
         this.index = modBusUnitSlave.intMapSize() + ((modBusUnitSlave.floatMapSize()-1) * 2);
         System.out.println("float index: " + this.index);

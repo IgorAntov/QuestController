@@ -1,6 +1,7 @@
 package org.autoquest.service;
 
 import org.apache.commons.cli.*;
+import org.autoquest.service.rscadaproject.RSProject;
 
 import java.nio.file.Path;
 
@@ -18,7 +19,31 @@ public class CommandLineP {
         CreateXMLForRapidScada createXMLForRapidScada  = new CreateXMLForRapidScada();
         String path = "";
         String filename = "";
+
+        options.addOption(Option.builder("x").longOpt("xml")
+                .desc("create Repid Scada project")
+                .hasArg(true)
+                .build());
+
+        CommandLine cmd = null;
+        try {
+            cmd = parser.parse(options, args);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (cmd.hasOption("xml")) {
+            path =  cmd.getOptionValue("xml");
+            RSProject rsProject = new RSProject(path);
+            rsProject.build();
+        //    createXMLForRapidScada.createXMLFile(path, filename);
+            System.exit(0);
+        }
+
+
 //        input = new Option("x", "xml", true, "create io points xml file");
+
+        /*
           options.addOption(Option.builder("x").longOpt("xml")
                 .desc("create io points xml file")
                 .hasArg(false)
@@ -50,6 +75,8 @@ public class CommandLineP {
             System.exit(0);
 //            throw new RuntimeException(e);
         }
+
+         */
 
     }
 }

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class ModBusUnitSlave {
 
+    private String name ="";
     private ModbusSlave slave;
     private final TcpParameters tcpParameters = new TcpParameters();
     private final ArrayList<SlaveParameterCoil> parameterCoils = new ArrayList<>();
@@ -168,4 +169,19 @@ public class ModBusUnitSlave {
         return slave;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getInetAddress() {
+        return tcpParameters.getHost().getHostAddress();
+    }
+
+    public String getAddress() {
+        return String.valueOf(slave.getServerAddress());
+    }
 }

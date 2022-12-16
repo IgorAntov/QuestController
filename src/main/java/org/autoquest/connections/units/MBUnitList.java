@@ -8,6 +8,7 @@ public class MBUnitList {
     public static final ModBusUnitSlave WS_MB_UNIT_SLAVE_SIM = new ModBusUnitSlave();
 
     public static void init() throws UnknownHostException {
+        WS_MB_UNIT_SLAVE.setName("WSModBusSlave");
         WS_MB_UNIT_SLAVE.
                 setAddress(InetAddress.getLocalHost()).
                 setIsKeepAlive(true).
@@ -15,6 +16,7 @@ public class MBUnitList {
                 setSlaveID(1);
 
         // Slave Settings for local PC (WS Sim)
+        WS_MB_UNIT_SLAVE_SIM.setName("Simulator");
         WS_MB_UNIT_SLAVE_SIM.
                 setAddress(InetAddress.getLocalHost()).
                 setIsKeepAlive(true).

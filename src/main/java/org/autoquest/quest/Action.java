@@ -1,5 +1,7 @@
 package org.autoquest.quest;
 
+import org.autoquest.connections.SlaveParameterCoil;
+
 public class Action extends Thread {
 
     private final int scanRate = 1000;
@@ -7,6 +9,7 @@ public class Action extends Thread {
     private boolean stopAction;
     private int delay = 0;
     private int afterDelay = 0;
+    private SlaveParameterCoil statusParam;
 
     private act doAction;
     @Override
@@ -15,6 +18,7 @@ public class Action extends Thread {
     }
 
     private void execute() {
+        statusParam.setValue(true);
         do  {
                 try {
                     if ((delay + scanRate) > 0) {
@@ -35,6 +39,10 @@ public class Action extends Thread {
 
     public void defineAction(act act) {
         doAction = act;
+    }
+
+    public void setStatusParam(SlaveParameterCoil statusParam) {
+        this.statusParam = statusParam;
     }
 
     @FunctionalInterface

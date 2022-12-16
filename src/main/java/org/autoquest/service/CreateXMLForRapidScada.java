@@ -7,6 +7,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 
+import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
+
 public class CreateXMLForRapidScada {
 
     private final StringBuilder sb = new StringBuilder();
@@ -15,7 +17,7 @@ public class CreateXMLForRapidScada {
 
     public void createXMLFile(String path, String filename) {
 
-        XMLModBusTCPBuilder xmlModBusTCPBuilder = new XMLModBusTCPBuilder(WSMBUnitSlave.getInstance());
+        XMLModBusTCPBuilder xmlModBusTCPBuilder = new XMLModBusTCPBuilder(WS_MB_UNIT_SLAVE);
         String result = xmlModBusTCPBuilder.buildXMLContent();
 
         try {

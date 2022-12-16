@@ -1,6 +1,9 @@
 package org.autoquest.quest;
 
+import org.autoquest.connections.SlaveParameterCoil;
+
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Transition extends Thread {
     private final int scanRate = 1000;

@@ -40,18 +40,18 @@ public class KPCreating {
         }
     }
     public StringBuilder getXmlContent() {
-        int index = 0;
+        int index = 1;
         StringBuilder sb = new StringBuilder();
         sb.append("<ArrayOfKP xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
 
         for (ModBusUnitSlave ms: MBUS) {
             sb.append("<KP>\n" +
-                    "<KPNum>" + (index+1) + "</KPNum>\n" +
+                    "<KPNum>" + index + "</KPNum>\n" +
                     "<Name>" + ms.getName() + "</Name>\n" +
                     "<KPTypeID>214</KPTypeID>\n" +
                     "<Address>" + ms.getAddress() + "</Address>\n" +
                     "<CallNum>" + ms.getInetAddress() + "</CallNum>\n" +
-                    "<CommLineNum>" + (index + 1) + "</CommLineNum>\n" +
+                    "<CommLineNum>" + index + "</CommLineNum>\n" +
                     "<Descr/>\n" +
                     "</KP>");
             index++;
@@ -61,14 +61,14 @@ public class KPCreating {
     }
 
     public StringBuilder getXmlContentCommLine() {
-        int index = 0;
+        int index = 1;
         StringBuilder sb = new StringBuilder();
         sb.append("<ArrayOfCommLine xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
 
         for (ModBusUnitSlave ms: MBUS) {
             sb.append("<CommLine>\n" +
-                    "<CommLineNum>" + (index+1) + "</CommLineNum>\n" +
-                    "<Name>" + ms.getName() + "CommLine" + "</Name>\n" +
+                    "<CommLineNum>" + index + "</CommLineNum>\n" +
+                    "<Name>" + ms.getName() + "LineComm" + "</Name>\n" +
                     "<Descr/>\n" +
                     "</CommLine>");
             index++;

@@ -9,10 +9,10 @@ public class StepsExecuter {
         try {
             while (true) {
                 if (Params.START.getValue()) {
-                    Params.ABORT.setValue(false);
-                    Step1.start();
+//                    Params.ABORT.setValue(false);
+//                    Step1.start();
                     Thread.sleep(1000);
-                    Params.START.setValue(false);
+//                    Params.START.setValue(false);
                     Thread.sleep(1000);
                 }
                 Thread.sleep(1000);

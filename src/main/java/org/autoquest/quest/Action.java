@@ -8,7 +8,7 @@ public class Action extends Thread {
     private boolean stored;
     private boolean stopAction;
     private int delay = 0;
-    private int afterDelay = 0;
+    private int afterActionDelay = 0;
     private SlaveParameterCoil statusParam;
 
     private act doAction;
@@ -25,8 +25,8 @@ public class Action extends Thread {
                         sleep(delay);
                     }
                     doAction.apply();
-                    if (delay > 0) {
-                        sleep(afterDelay);
+                    if (afterActionDelay > 0) {
+                        sleep(afterActionDelay);
                     }
                     if (stopAction) {
                         break;
@@ -74,11 +74,11 @@ public class Action extends Thread {
         this.delay = delay;
     }
 
-    public int getAfterDelay() {
-        return afterDelay;
+    public int getAfterActionDelay() {
+        return afterActionDelay;
     }
 
-    public void setAfterDelay(int afterDelay) {
-        this.afterDelay = afterDelay;
+    public void setAfterActionDelay(int afterActionDelay) {
+        this.afterActionDelay = afterActionDelay;
     }
 }

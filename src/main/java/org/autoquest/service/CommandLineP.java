@@ -37,7 +37,7 @@ public class CommandLineP {
             RSProject rsProject = new RSProject(path);
             rsProject.build();
         //    createXMLForRapidScada.createXMLFile(path, filename);
-            System.exit(0);
+   //         System.exit(0);
         }
 
 

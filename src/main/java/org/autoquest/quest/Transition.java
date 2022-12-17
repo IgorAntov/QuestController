@@ -1,10 +1,5 @@
 package org.autoquest.quest;
 
-import org.autoquest.connections.SlaveParameterCoil;
-
-import java.io.IOException;
-import java.util.ArrayList;
-
 public class Transition extends Thread {
     private final int scanRate = 1000;
     private Step step;
@@ -39,7 +34,7 @@ public class Transition extends Thread {
         R apply();
     }
 
-    public void setStep(Step step) {
+    public void goToNextStep(Step step) {
         this.step = step;
     }
 }

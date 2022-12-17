@@ -1,7 +1,6 @@
 package org.autoquest.quest;
 
 import org.autoquest.connections.SlaveParameterCoil;
-import org.autoquest.quest.steps.StepLast;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -43,7 +42,7 @@ public class Step extends Thread {
     }
 
     public void addTransition(Transition transition) {
-        transition.setStep(this);
+        transition.goToNextStep(this);
         transitions.add(transition);
     }
 

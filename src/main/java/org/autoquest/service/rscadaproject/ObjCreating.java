@@ -17,7 +17,7 @@ public class ObjCreating {
         this.path = path;
     }
 
-    public void Build() {
+    public void build() {
         Path file = Paths.get(path + "/BaseXML/Obj.xml");
         try {
             Files.write(file, Collections.singleton(getXmlContent()), StandardCharsets.UTF_8);

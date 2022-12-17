@@ -9,7 +9,9 @@ public class StepTemplate {
 
     public StepTemplate() {
         Transition lastTransition = new Transition(new StepLast());
-        lastTransition.condition(Params.ABORT::getValue);
+//        lastTransition.condition(Params.ABORT::getValue);
+        lastTransition.condition(()->true);
+
         step.addTransition(lastTransition);
     }
 

@@ -1,4 +1,4 @@
-package org.autoquest.connections.units;
+package org.autoquest.connections;
 
 public enum ParamType {
     READ,

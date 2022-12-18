@@ -16,7 +16,6 @@ import org.autoquest.connections.SlaveParameterInt;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 public class ModBusUnitSlave {
 
@@ -52,6 +51,14 @@ public class ModBusUnitSlave {
             CoilGroupRead coilGroupRead = new CoilGroupRead(modbusCoils, startIndex, parameterCoilsGroupRead);
             coilGroupRead.start();
 
+            startIndex = parameterInts.size();
+            IntGroupWrite intGroupWrite = new IntGroupWrite(modbusHoldingRegisters, startIndex, parameterIntsGroupWrite);
+            intGroupWrite.start();
+
+            startIndex = parameterInts.size() + parameterIntsGroupWrite.size();
+            IntGroupRead intGroupRead = new IntGroupRead(modbusHoldingRegisters, startIndex, parameterIntsGroupRead);
+            intGroupRead.start();
+
         } catch (ModbusIOException e) {
             throw new RuntimeException(e);
         }
@@ -60,17 +67,13 @@ public class ModBusUnitSlave {
     private void setInitValue() {
         for (SlaveParameterCoil p: parameterCoils) {
             p.setValue(p.getInitialValue());
-
         }
-    //    for (SlaveParameterCoil p: parameterCoilsGroupRead) {
-          //  p.setValue(p.getInitialValue());
-
-     //   }
-
-     //   setCoilValues(parameterCoils.size() + 1, values);
-     //   for (SlaveParameterCoil p: parameterCoilsGroupWrite) {
-     //       p.setValue(p.getInitialValue());
-     //   }
+        for (SlaveParameterInt p: parameterInts) {
+            p.setValue(p.getInitialValue());
+        }
+        for (SlaveParameterFloat p: parameterFloats) {
+            p.setValue(p.getInitialValue());
+        }
     }
 
     public ModBusUnitSlave setAddress(InetAddress inetAddress) {
@@ -96,13 +99,20 @@ public class ModBusUnitSlave {
     }
 
     public void evalMapSize() {
-        modbusHoldingRegisters = new ModbusHoldingRegisters(parameterInts.size() + parameterFloats.size()*2);
+        int size = parameterInts.size()
+                + parameterIntsGroupRead.size()
+                + parameterIntsGroupWrite.size()
+                + parameterFloats.size()*2;
+        System.out.println(size);
+        modbusHoldingRegisters = new ModbusHoldingRegisters(size);
         slave.getDataHolder().setHoldingRegisters(modbusHoldingRegisters);
+
         calcCoilsIndex();
         int coilMapSize = parameterCoils.size() + parameterCoilsGroupRead.size() + parameterCoilsGroupWrite.size();
         modbusCoils = new ModbusCoils(coilMapSize);
         slave.getDataHolder().setCoils(modbusCoils);
     }
+
     private void calcCoilsIndex() {
         int index = parameterCoils.size();
         for (SlaveParameterCoil coil: parameterCoilsGroupRead) {
@@ -112,7 +122,6 @@ public class ModBusUnitSlave {
         for (SlaveParameterCoil coil: parameterCoilsGroupWrite) {
             coil.setIndex(index++);
         }
-
     };
 
     public void addCoilToDH(SlaveParameterCoil parameterCoil) {
@@ -262,7 +271,6 @@ public class ModBusUnitSlave {
     public void addToFloatGroupWrite(SlaveParameterFloat slaveParameterFloat) {
         parameterFloatsGroupWrite.add(slaveParameterFloat);
     }
-
 
     public ArrayList<SlaveParameterCoil> getParameterCoilsGroupRead() {
         return parameterCoilsGroupRead;

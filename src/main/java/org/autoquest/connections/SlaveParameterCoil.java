@@ -6,7 +6,6 @@ public class SlaveParameterCoil implements IParameterCoil {
     private String name = "";
     private final ModBusUnitSlave modBusUnitSlave;
     private int index;
-//    private final boolean initialValue;
     private final ParamType paramType;
     private final MembershipType membershipType;
     private boolean value;
@@ -33,7 +32,6 @@ public class SlaveParameterCoil implements IParameterCoil {
     public void setValue(boolean value) {
         synchronized (this) {
             if (membershipType.equals(MembershipType.SINGLE)) {
-                System.out.println("Here " + this.name);
                 modBusUnitSlave.setCoilValue(this.index, value);
             } else this.value = value;
         }

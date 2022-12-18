@@ -2,36 +2,46 @@ package org.autoquest.connections;
 
 import org.autoquest.connections.units.ModBusUnitSlave;
 
-public class SlaveParameterInt {
+public class SlaveParameterInt implements IParameterInt {
     private String name = "";
     private final ModBusUnitSlave modBusUnitSlave;
     private int index;
-    private final int initialValue;
     private final ParamType paramType;
     private final MembershipType membershipType;
+    private int value;
 
     public SlaveParameterInt(String name, ModBusUnitSlave modBusUnitSlave, int initialValue, ParamType paramType, MembershipType membershipType) {
         this.name = name;
         this.modBusUnitSlave = modBusUnitSlave;
-        this.initialValue = initialValue;
+        this.value = initialValue;
         this.paramType = paramType;
         this.membershipType = membershipType;
         if (membershipType.equals(MembershipType.SINGLE)) {
             modBusUnitSlave.addIntToDH(this);
             this.index = (modBusUnitSlave.intMapSize() - 1) + ((modBusUnitSlave.floatMapSize()) * 2);
         }
-
+        if (membershipType.equals(MembershipType.GROUP) && paramType.equals(ParamType.READ)) {
+            this.modBusUnitSlave.addToIntGroupRead(this);
+        }
+        if (membershipType.equals(MembershipType.GROUP) && paramType.equals(ParamType.CONTROL)) {
+            this.modBusUnitSlave.addToIntGroupWrite(this);
+        }
     }
-
+    @Override
     public void setValue(int value) {
         synchronized (this) {
-            modBusUnitSlave.setIntValue(this.index, value);
+            if (membershipType.equals(MembershipType.SINGLE)) {
+                modBusUnitSlave.setIntValue(this.index, value);
+            } else this.value = value;
         }
     }
 
-    public void getValue() {
+    @Override
+    public int getValue() {
         synchronized (this) {
-            modBusUnitSlave.getIntValue(this.index);
+            if (membershipType.equals(MembershipType.SINGLE)) {
+                return modBusUnitSlave.getIntValue(this.index);
+            } else return this.value;
         }
     }
 
@@ -45,5 +55,13 @@ public class SlaveParameterInt {
 
     public int getIndex() {
         return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getInitialValue() {
+        return value;
     }
 }

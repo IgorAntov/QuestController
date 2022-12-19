@@ -59,6 +59,10 @@ public class ModBusUnitSlave {
             IntGroupRead intGroupRead = new IntGroupRead(modbusHoldingRegisters, startIndex, parameterIntsGroupRead);
             intGroupRead.start();
 
+//            startIndex = parameterFloats.size() * 2;
+//            FloatGroupWrite floatGroupWrite = new FloatGroupWrite(modbusHoldingRegisters, startIndex, parameterFloatsGroupWrite);
+//            floatGroupWrite.start();
+
         } catch (ModbusIOException e) {
             throw new RuntimeException(e);
         }

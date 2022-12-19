@@ -16,9 +16,11 @@ public class SlaveParameterInt implements IParameterInt {
         this.value = initialValue;
         this.paramType = paramType;
         this.membershipType = membershipType;
+        modBusUnitSlave.addIntToDH(this);
         if (membershipType.equals(MembershipType.SINGLE)) {
-            modBusUnitSlave.addIntToDH(this);
-            this.index = (modBusUnitSlave.intMapSize() - 1) + ((modBusUnitSlave.floatMapSize()) * 2);
+            this.index = (modBusUnitSlave.intMapSize()-1) + ((modBusUnitSlave.floatMapSize()) * 2);
+//            this.index = modBusUnitSlave.intMapSize() + ((modBusUnitSlave.floatMapSize() + 1) * 2);
+            System.out.println("int index " + this.index + " MapInt:" + modBusUnitSlave.intMapSize() + " MapFlow: " + modBusUnitSlave.floatMapSize());
         }
         if (membershipType.equals(MembershipType.GROUP) && paramType.equals(ParamType.READ)) {
             this.modBusUnitSlave.addToIntGroupRead(this);

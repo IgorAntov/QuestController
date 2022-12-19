@@ -18,8 +18,9 @@ public class SlaveParameterFloat implements IParameterFloat{
         this.membershipType = membershipType;
         modBusUnitSlave.addFloatToDH(this);
         if (membershipType.equals(MembershipType.SINGLE)) {
-            this.index = modBusUnitSlave.intMapSize() + ((modBusUnitSlave.floatMapSize() - 1) * 2);
-            System.out.println("float index: " + this.index);
+            this.index = modBusUnitSlave.intMapSize() + ((modBusUnitSlave.floatMapSize() -1) * 2);
+//            System.out.println("float index: " + this.index);
+            System.out.println("float index " + this.index + " MapInt:" + modBusUnitSlave.intMapSize() + " MapFlow: " + modBusUnitSlave.floatMapSize());
         }
         if (membershipType.equals(MembershipType.GROUP) && paramType.equals(ParamType.READ)) {
             this.modBusUnitSlave.addToFloatGroupRead(this);

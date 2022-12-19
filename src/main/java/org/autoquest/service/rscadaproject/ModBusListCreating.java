@@ -65,13 +65,13 @@ public class ModBusListCreating {
                     .append("  <ElemGroup active=\"true\" tableType=\"HoldingRegisters\" address=\"0\" name=\"intList\">\n")
 
                     .append(ms.getSlaveParameterIntList().stream()
-                            .map(x -> "   <Elem name=\"" + x.getName() + "\" type=\"ushort\" byteOrder=\"\"/>")
+                            .map(x -> "   <Elem name=\"" + x.getName() + "\" type=\"int\" byteOrder=\"\"/>")
                             .collect(Collectors.joining("\n"))).append("\n")
                     .append(ms.getParameterIntsGroupWrite().stream()
-                            .map(x -> "   <Elem name=\"" + x.getName() + "\" type=\"ushort\" byteOrder=\"\"/>")
+                            .map(x -> "   <Elem name=\"" + x.getName() + "\" type=\"int\" byteOrder=\"\"/>")
                             .collect(Collectors.joining("\n"))).append("\n")
                     .append(ms.getParameterIntsGroupRead().stream()
-                            .map(x -> "   <Elem name=\"" + x.getName() + "\" type=\"ushort\" byteOrder=\"\"/>")
+                            .map(x -> "   <Elem name=\"" + x.getName() + "\" type=\"int\" byteOrder=\"\"/>")
                             .collect(Collectors.joining("\n"))).append("\n")
 
                     .append(ms.getSlaveParameterFloatList().stream()

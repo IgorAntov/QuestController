@@ -27,13 +27,20 @@ public class Params {
 //    public static SlaveParameterCoil KEY_3 = new SlaveParameterCoil("coil KEY3", WS_MB_UNIT_SLAVE_SIM,  false, ParamType.CONTROL, MembershipType.GROUP);
 //    public static SlaveParameterCoil KEY_4 = new SlaveParameterCoil("coil KEY4", WS_MB_UNIT_SLAVE_SIM,  false, ParamType.CONTROL, MembershipType.GROUP);
 
-    public static final SlaveParameterInt I1 = new SlaveParameterInt("I1 test", WS_MB_UNIT_SLAVE, 10, ParamType.READ, MembershipType.SINGLE);
+    public static final SlaveParameterInt I1 = new SlaveParameterInt("I1 test SR", WS_MB_UNIT_SLAVE, 10, ParamType.READ, MembershipType.SINGLE);
+    public static final SlaveParameterInt I2 = new SlaveParameterInt("I2 test SR", WS_MB_UNIT_SLAVE, 20, ParamType.READ, MembershipType.SINGLE);
+    public static final SlaveParameterInt I3 = new SlaveParameterInt("I3 test GW", WS_MB_UNIT_SLAVE, 30, ParamType.CONTROL, MembershipType.GROUP);
+    public static final SlaveParameterInt I4 = new SlaveParameterInt("I4 GW", WS_MB_UNIT_SLAVE, 40, ParamType.CONTROL, MembershipType.GROUP);
+    public static final SlaveParameterInt I5 = new SlaveParameterInt("I3 GR", WS_MB_UNIT_SLAVE, 50, ParamType.READ, MembershipType.GROUP);
+    public static final SlaveParameterInt I6 = new SlaveParameterInt("I4 GR", WS_MB_UNIT_SLAVE, 60, ParamType.READ, MembershipType.GROUP);
 
-    public static final SlaveParameterInt I2 = new SlaveParameterInt("I2 test", WS_MB_UNIT_SLAVE, 20, ParamType.READ, MembershipType.SINGLE);
-    public static final SlaveParameterInt I3 = new SlaveParameterInt("I3 test", WS_MB_UNIT_SLAVE, 30, ParamType.CONTROL, MembershipType.GROUP);
-    public static final SlaveParameterInt I4 = new SlaveParameterInt("I4 test", WS_MB_UNIT_SLAVE, 40, ParamType.CONTROL, MembershipType.GROUP);
-    public static final SlaveParameterInt I5 = new SlaveParameterInt("I3 test", WS_MB_UNIT_SLAVE, 50, ParamType.READ, MembershipType.GROUP);
-    public static final SlaveParameterInt I6 = new SlaveParameterInt("I4 test", WS_MB_UNIT_SLAVE, 60, ParamType.READ, MembershipType.GROUP);
+
+    // Float
+
+    public static final SlaveParameterFloat F1 = new SlaveParameterFloat("F1 SR", WS_MB_UNIT_SLAVE, 10.123f, ParamType.CONTROL, MembershipType.SINGLE);
+    public static final SlaveParameterFloat F2 = new SlaveParameterFloat("F2 SR", WS_MB_UNIT_SLAVE, 20.654f, ParamType.READ, MembershipType.SINGLE);
+
+    public static final SlaveParameterInt I7 = new SlaveParameterInt("I1 RS", WS_MB_UNIT_SLAVE, 10, ParamType.READ, MembershipType.SINGLE);
 
 
     public static void init() {

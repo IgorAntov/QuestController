@@ -2,48 +2,49 @@ package org.autoquest.connections;
 
 import org.autoquest.connections.units.ModBusUnitSlave;
 
-public class SlaveParameterFloat implements IParameterFloat {
+public class SlaveParameterInt32 implements  IParameterInt {
+
     private String name = "";
     private final ModBusUnitSlave modBusUnitSlave;
     private int index;
     private final ParamType paramType;
     private final MembershipType membershipType;
-    private float value;
+    private int value;
 
-    public SlaveParameterFloat(String name, ModBusUnitSlave modBusUnitSlave, float initialValue, ParamType paramType, MembershipType membershipType) {
+    public SlaveParameterInt32(String name, ModBusUnitSlave modBusUnitSlave, int initialValue, ParamType paramType, MembershipType membershipType) {
         this.name = name;
         this.modBusUnitSlave = modBusUnitSlave;
         this.value = initialValue;
         this.paramType = paramType;
         this.membershipType = membershipType;
-        modBusUnitSlave.addFloatToDH(this);
+        modBusUnitSlave.addInt32ToDH(this);
         if (membershipType.equals(MembershipType.SINGLE)) {
-            this.index = modBusUnitSlave.intMapSize() + ((modBusUnitSlave.floatMapSize() -1) * 2);
+            this.index = (modBusUnitSlave.int32MapSize() - 1) * 2 + (modBusUnitSlave.floatMapSize() * 2);
 //            System.out.println("float index: " + this.index);
-            System.out.println("float index " + this.index + " MapInt:" + modBusUnitSlave.intMapSize() + " MapFlow: " + modBusUnitSlave.floatMapSize());
+            System.out.println("int32 index " + this.index + " MapInt:" + modBusUnitSlave.int32MapSize() + " MapFlow: " + modBusUnitSlave.floatMapSize());
         }
         if (membershipType.equals(MembershipType.GROUP) && paramType.equals(ParamType.READ)) {
-            this.modBusUnitSlave.addToFloatGroupRead(this);
+            this.modBusUnitSlave.addToIntGroupRead32(this);
         }
         if (membershipType.equals(MembershipType.GROUP) && paramType.equals(ParamType.CONTROL)) {
-            this.modBusUnitSlave.addToFloatGroupWrite(this);
+            this.modBusUnitSlave.addToIntGroupWrite32(this);
         }
     }
 
     @Override
-    public void setValue(float value) {
+    public void setValue(int value) {
         synchronized (this) {
             if (membershipType.equals(MembershipType.SINGLE)) {
-                modBusUnitSlave.setFloatValue(this.index, value);
+                modBusUnitSlave.setInt32Value(this.index, value);
             } else this.value = value;
         }
     }
 
     @Override
-    public float getValue() {
+    public int getValue() {
         synchronized (this) {
             if (membershipType.equals(MembershipType.SINGLE)) {
-                return modBusUnitSlave.getFloatValue(this.index);
+                return modBusUnitSlave.getInt32Value(this.index);
             } else return this.value;
         }
     }
@@ -64,7 +65,8 @@ public class SlaveParameterFloat implements IParameterFloat {
         this.index = index;
     }
 
-    public float getInitialValue() {
+    public int getInitialValue() {
         return value;
     }
+
 }

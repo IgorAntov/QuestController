@@ -16,9 +16,10 @@ public class SlaveParameterCoil implements IParameterCoil {
         this.value = initialValue;
         this.paramType = paramType;
         this.membershipType = membershipType;
+        this.modBusUnitSlave.addCoilToDH(this);
         if (membershipType.equals(MembershipType.SINGLE)) {
-            this.modBusUnitSlave.addCoilToDH(this);
             this.index = modBusUnitSlave.getSlaveParameterCoilList().size() - 1;
+            System.out.println("coil index :" + index);
         }
         if (membershipType.equals(MembershipType.GROUP) && paramType.equals(ParamType.READ)) {
             this.modBusUnitSlave.addToCoilGroupRead(this);

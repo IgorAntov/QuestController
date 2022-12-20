@@ -29,10 +29,10 @@ public class Params {
 
     public static final SlaveParameterInt32 I1 = new SlaveParameterInt32("I1 test SR", WS_MB_UNIT_SLAVE, -654165426, ParamType.READ, MembershipType.SINGLE);
     public static final SlaveParameterInt32 I2 = new SlaveParameterInt32("I2 test SR", WS_MB_UNIT_SLAVE, 223165495, ParamType.READ, MembershipType.SINGLE);
-//    public static final SlaveParameterInt32 I3 = new SlaveParameterInt32("I3 test GW", WS_MB_UNIT_SLAVE, -30, ParamType.CONTROL, MembershipType.GROUP);
-//    public static final SlaveParameterInt32 I4 = new SlaveParameterInt32("I4 GW", WS_MB_UNIT_SLAVE, 40, ParamType.CONTROL, MembershipType.GROUP);
-//    public static final SlaveParameterInt32 I5 = new SlaveParameterInt32("I3 GR", WS_MB_UNIT_SLAVE, 50, ParamType.READ, MembershipType.GROUP);
-//    public static final SlaveParameterInt32 I6 = new SlaveParameterInt32("I4 GR", WS_MB_UNIT_SLAVE, 60, ParamType.READ, MembershipType.GROUP);
+    public static final SlaveParameterInt32 I3 = new SlaveParameterInt32("I3 test GW", WS_MB_UNIT_SLAVE, -30, ParamType.CONTROL, MembershipType.GROUP);
+    public static final SlaveParameterInt32 I4 = new SlaveParameterInt32("I4 GW", WS_MB_UNIT_SLAVE, 40, ParamType.CONTROL, MembershipType.GROUP);
+    public static final SlaveParameterInt32 I5 = new SlaveParameterInt32("I3 GR", WS_MB_UNIT_SLAVE, 50, ParamType.READ, MembershipType.GROUP);
+    public static final SlaveParameterInt32 I6 = new SlaveParameterInt32("I4 GR", WS_MB_UNIT_SLAVE, 60, ParamType.READ, MembershipType.GROUP);
 
 
     // Float

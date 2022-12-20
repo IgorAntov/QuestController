@@ -50,11 +50,11 @@ public class ModBusUnitSlave {
 
             int startIndex = parameterCoils.size() - parameterCoilsGroupWrite.size() - parameterCoilsGroupWrite.size();
             CoilGroupWrite coilGroupWrite = new CoilGroupWrite(modbusCoils, startIndex, parameterCoilsGroupWrite);
-            coilGroupWrite.start();
+            coilGroupWrite.startWriting();
 
             startIndex = parameterCoils.size() - parameterCoilsGroupRead.size();
             CoilGroupRead coilGroupRead = new CoilGroupRead(modbusCoils, startIndex, parameterCoilsGroupRead);
-            coilGroupRead.start();
+            coilGroupRead.startReading();
 
 //            startIndex = parameterInts.size();
 //            IntGroupWrite intGroupWrite = new IntGroupWrite(modbusHoldingRegisters, startIndex, parameterIntsGroupWrite);
@@ -64,13 +64,15 @@ public class ModBusUnitSlave {
 //            IntGroupRead intGroupRead = new IntGroupRead(modbusHoldingRegisters, startIndex, parameterIntsGroupRead);
 //            intGroupRead.start();
 
-//              startIndex = parameterInts32.size();
-//              IntGroupWrite intGroupWrite = new IntGroupWrite(modbusHoldingRegisters, startIndex, parameterIntsGroupWrite);
-//              intGroupWrite.start();
+              startIndex = (parameterInts32.size() - parameterIntsGroupRead32.size() - parameterIntsGroupWrite32.size()) * 2;
+            System.out.println("indexW: " + startIndex);
+              Int32GroupWrite int32GroupWrite = new Int32GroupWrite(modbusHoldingRegisters, startIndex, parameterIntsGroupWrite32);
+              int32GroupWrite.startWriting();
 
-//            startIndex = parameterInts.size() + parameterIntsGroupWrite.size();
-//            IntGroupRead intGroupRead = new IntGroupRead(modbusHoldingRegisters, startIndex, parameterIntsGroupRead);
-//            intGroupRead.start();
+            startIndex = (parameterInts32.size() - parameterIntsGroupRead32.size()) *2;
+            System.out.println("indexR: " + startIndex);
+            Int32GroupRead int32GroupRead = new Int32GroupRead(modbusHoldingRegisters, startIndex, parameterIntsGroupRead32);
+            int32GroupRead.start();
 
 
 //            startIndex = parameterFloats.size() * 2;

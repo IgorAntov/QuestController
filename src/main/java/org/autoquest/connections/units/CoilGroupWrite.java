@@ -23,6 +23,7 @@ public class CoilGroupWrite extends Thread {
     public void startWriting() {
         start();
     }
+
     @Override
     public void run() {
         try {

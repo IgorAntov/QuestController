@@ -7,7 +7,7 @@ import org.autoquest.connections.SlaveParameterCoil;
 
 import java.util.ArrayList;
 
-public class CoilGroupRead extends Thread{
+public class CoilGroupRead extends Thread {
 
     private ModbusCoils modbusCoils;
     private ArrayList<SlaveParameterCoil> parameterCoils;
@@ -22,13 +22,16 @@ public class CoilGroupRead extends Thread{
     public void startReading() {
         start();
     }
+
     @Override
     public void run() {
         try {
             do {
-                boolean[] values = modbusCoils.getRange(index, parameterCoils.size());
-                for (int i = 0; i < parameterCoils.size(); i++) {
-                    parameterCoils.get(i).setValue(values[i]);
+                if (parameterCoils.size() > 0) {
+                    boolean[] values = modbusCoils.getRange(index, parameterCoils.size());
+                    for (int i = 0; i < parameterCoils.size(); i++) {
+                        parameterCoils.get(i).setValue(values[i]);
+                    }
                 }
                 sleep(1000);
             } while (true);

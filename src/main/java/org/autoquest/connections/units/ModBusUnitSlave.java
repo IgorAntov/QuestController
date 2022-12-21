@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class ModBusUnitSlave {
 
-    private String name ="";
+    private String name = "";
     private ModbusSlave slave;
     private final TcpParameters tcpParameters = new TcpParameters();
     private final ArrayList<SlaveParameterCoil> parameterCoils = new ArrayList<>();
@@ -48,13 +48,17 @@ public class ModBusUnitSlave {
             slave.listen();
             setInitValue();
 
-            int startIndex = parameterCoils.size() - parameterCoilsGroupWrite.size() - parameterCoilsGroupWrite.size();
-            CoilGroupWrite coilGroupWrite = new CoilGroupWrite(modbusCoils, startIndex, parameterCoilsGroupWrite);
-            coilGroupWrite.startWriting();
+            int startIndex = parameterCoils.size() - parameterCoilsGroupWrite.size() - parameterCoilsGroupRead.size();
+            if (parameterCoilsGroupWrite.size() > 0) {
+                CoilGroupWrite coilGroupWrite = new CoilGroupWrite(modbusCoils, startIndex, parameterCoilsGroupWrite);
+                coilGroupWrite.startWriting();
+            }
 
             startIndex = parameterCoils.size() - parameterCoilsGroupRead.size();
-            CoilGroupRead coilGroupRead = new CoilGroupRead(modbusCoils, startIndex, parameterCoilsGroupRead);
-            coilGroupRead.startReading();
+            if (parameterCoilsGroupRead.size() > 0) {
+                CoilGroupRead coilGroupRead = new CoilGroupRead(modbusCoils, startIndex, parameterCoilsGroupRead);
+                coilGroupRead.startReading();
+            }
 
 //            startIndex = parameterInts.size();
 //            IntGroupWrite intGroupWrite = new IntGroupWrite(modbusHoldingRegisters, startIndex, parameterIntsGroupWrite);
@@ -64,20 +68,29 @@ public class ModBusUnitSlave {
 //            IntGroupRead intGroupRead = new IntGroupRead(modbusHoldingRegisters, startIndex, parameterIntsGroupRead);
 //            intGroupRead.start();
 
-              startIndex = (parameterInts32.size() - parameterIntsGroupRead32.size() - parameterIntsGroupWrite32.size()) * 2;
-            System.out.println("indexW: " + startIndex);
-              Int32GroupWrite int32GroupWrite = new Int32GroupWrite(modbusHoldingRegisters, startIndex, parameterIntsGroupWrite32);
-              int32GroupWrite.startWriting();
+            startIndex = (parameterInts32.size() - parameterIntsGroupRead32.size() - parameterIntsGroupWrite32.size()) * 2;
+            if (parameterIntsGroupWrite32.size() > 0) {
+                Int32GroupWrite int32GroupWrite = new Int32GroupWrite(modbusHoldingRegisters, startIndex, parameterIntsGroupWrite32);
+                int32GroupWrite.startWriting();
+            }
 
-            startIndex = (parameterInts32.size() - parameterIntsGroupRead32.size()) *2;
-            System.out.println("indexR: " + startIndex);
-            Int32GroupRead int32GroupRead = new Int32GroupRead(modbusHoldingRegisters, startIndex, parameterIntsGroupRead32);
-            int32GroupRead.start();
+            startIndex = (parameterInts32.size() - parameterIntsGroupRead32.size()) * 2;
+            if (parameterIntsGroupRead32.size() > 0) {
+                Int32GroupRead int32GroupRead = new Int32GroupRead(modbusHoldingRegisters, startIndex, parameterIntsGroupRead32);
+                int32GroupRead.startReading();
+            }
 
+            startIndex = (parameterInts32.size() + parameterFloats.size() - parameterFloatsGroupRead.size() - parameterFloatsGroupWrite.size()) * 2;;
+            if (parameterFloatsGroupWrite.size() > 0) {
+                FloatGroupWrite floatGroupWrite = new FloatGroupWrite(modbusHoldingRegisters, startIndex, parameterFloatsGroupWrite);
+                floatGroupWrite.startWriting();
+            }
 
-//            startIndex = parameterFloats.size() * 2;
-//            FloatGroupWrite floatGroupWrite = new FloatGroupWrite(modbusHoldingRegisters, startIndex, parameterFloatsGroupWrite);
-//            floatGroupWrite.start();
+            startIndex = (parameterInts32.size() + parameterFloats.size() - parameterFloatsGroupRead.size()) * 2;;
+            if (parameterFloatsGroupRead.size() > 0) {
+                FloatGroupRead floatGroupRead = new FloatGroupRead(modbusHoldingRegisters, startIndex, parameterFloatsGroupRead);
+                floatGroupRead.startReading();
+            }
 
         } catch (ModbusIOException e) {
             throw new RuntimeException(e);
@@ -85,13 +98,13 @@ public class ModBusUnitSlave {
     }
 
     private void setInitValue() {
-        for (SlaveParameterCoil p: parameterCoils) {
+        for (SlaveParameterCoil p : parameterCoils) {
             p.setValue(p.getInitialValue());
         }
-        for (SlaveParameterInt32 p: parameterInts32) {
+        for (SlaveParameterInt32 p : parameterInts32) {
             p.setValue(p.getInitialValue());
         }
-        for (SlaveParameterFloat p: parameterFloats) {
+        for (SlaveParameterFloat p : parameterFloats) {
             p.setValue(p.getInitialValue());
         }
     }
@@ -133,14 +146,16 @@ public class ModBusUnitSlave {
 
     private void calcCoilsIndex() {
         int index = parameterCoils.size();
-        for (SlaveParameterCoil coil: parameterCoilsGroupRead) {
+        for (SlaveParameterCoil coil : parameterCoilsGroupRead) {
             coil.setIndex(index++);
         }
         index = parameterCoils.size() + parameterCoilsGroupRead.size();
-        for (SlaveParameterCoil coil: parameterCoilsGroupWrite) {
+        for (SlaveParameterCoil coil : parameterCoilsGroupWrite) {
             coil.setIndex(index++);
         }
-    };
+    }
+
+    ;
 
     public void addCoilToDH(SlaveParameterCoil parameterCoil) {
         parameterCoils.add(parameterCoil);
@@ -181,6 +196,7 @@ public class ModBusUnitSlave {
             throw new RuntimeException(e);
         }
     }
+
     public void setIntValue(int index, int value) {
         try {
             modbusHoldingRegisters.set(index, value);
@@ -213,14 +229,14 @@ public class ModBusUnitSlave {
 
     public float getFloatValue(int index) {
         try {
-              int v1 = modbusHoldingRegisters.get(index);
-              byte[] b1 = ByteBuffer.allocate(4).putInt(v1).array();
-              int v2 = modbusHoldingRegisters.get(index+1);
-              byte[] b2 = ByteBuffer.allocate(4).putInt(v2).array();
-              b1[0] = b1[2];
-              b1[1] = b1[3];
-              b1[2] = b2[2];
-              b1[3] = b2[3];
+            int v1 = modbusHoldingRegisters.get(index);
+            byte[] b1 = ByteBuffer.allocate(4).putInt(v1).array();
+            int v2 = modbusHoldingRegisters.get(index + 1);
+            byte[] b2 = ByteBuffer.allocate(4).putInt(v2).array();
+            b1[0] = b1[2];
+            b1[1] = b1[3];
+            b1[2] = b2[2];
+            b1[3] = b2[3];
             return ByteBuffer.wrap(b1).getFloat();
         } catch (IllegalDataAddressException e) {
             throw new RuntimeException(e);
@@ -245,7 +261,7 @@ public class ModBusUnitSlave {
         try {
             int v1 = modbusHoldingRegisters.get(index);
             byte[] b1 = ByteBuffer.allocate(4).putInt(v1).array();
-            int v2 = modbusHoldingRegisters.get(index+1);
+            int v2 = modbusHoldingRegisters.get(index + 1);
             byte[] b2 = ByteBuffer.allocate(4).putInt(v2).array();
             b1[0] = b1[2];
             b1[1] = b1[3];
@@ -256,6 +272,7 @@ public class ModBusUnitSlave {
             throw new RuntimeException(e);
         }
     }
+
     public ArrayList<SlaveParameterCoil> getParameterCoils() {
         return parameterCoils;
     }

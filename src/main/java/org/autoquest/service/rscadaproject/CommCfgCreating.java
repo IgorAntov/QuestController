@@ -34,24 +34,25 @@ public class CommCfgCreating {
     public StringBuilder getXmlContent() {
         int index = 1;
         StringBuilder sb = new StringBuilder();
-        for (ModBusUnitSlave ms: MBUS) {
-            sb.append("<ScadaCommSvcConfig>\n" +
-                    "<!-- Общие параметры -->\n" +
-                    "<CommonParams>\n" +
-                    "<Param name=\"ServerUse\" value=\"true\" descr=\"Использовать SCADA-Сервер\"/>\n" +
-                    "<Param name=\"ServerHost\" value=\"localhost\" descr=\"Имя компьютера или IP-адрес SCADA-Сервера\"/>\n" +
-                    "<Param name=\"ServerPort\" value=\"10000\" descr=\"Номер TCP-порта SCADA-Сервера\"/>\n" +
-                    "<Param name=\"ServerUser\" value=\"ScadaComm\" descr=\"Имя пользователя для подключения к SCADA-Серверу\"/>\n" +
-                    "<Param name=\"ServerPwd\" value=\"12345\" descr=\"Пароль пользователя для подключения к SCADA-Серверу\"/>\n" +
-                    "<Param name=\"ServerTimeout\" value=\"10000\" descr=\"Таймаут ожидания ответа SCADA-Сервера, мс\"/>\n" +
-                    "<Param name=\"WaitForStop\" value=\"10000\" descr=\"Ожидание остановки линий связи, мс\"/>\n" +
-                    "<Param name=\"SendModData\" value=\"true\" descr=\"Передавать только изменившиеся теги КП\"/>\n" +
-                    "<Param name=\"SendAllDataPer\" value=\"60\" descr=\"Период передачи всех тегов КП, с\"/>\n" +
-                    "</CommonParams>\n" +
-                    "<!-- Линии связи -->\n" +
-                    "<CommLines>\n" +
-                    "<!-- Линия " + index +" -->\n" +
-                    "<CommLine active=\"true\" bind=\"true\" number=\"" + index + "\" name=\""+ ms.getName() +"LineComm\">\n" +
+
+        sb.append("<ScadaCommSvcConfig>\n" +
+                "<!-- Общие параметры -->\n" +
+                "<CommonParams>\n" +
+                "<Param name=\"ServerUse\" value=\"true\" descr=\"Использовать SCADA-Сервер\"/>\n" +
+                "<Param name=\"ServerHost\" value=\"localhost\" descr=\"Имя компьютера или IP-адрес SCADA-Сервера\"/>\n" +
+                "<Param name=\"ServerPort\" value=\"10000\" descr=\"Номер TCP-порта SCADA-Сервера\"/>\n" +
+                "<Param name=\"ServerUser\" value=\"ScadaComm\" descr=\"Имя пользователя для подключения к SCADA-Серверу\"/>\n" +
+                "<Param name=\"ServerPwd\" value=\"12345\" descr=\"Пароль пользователя для подключения к SCADA-Серверу\"/>\n" +
+                "<Param name=\"ServerTimeout\" value=\"10000\" descr=\"Таймаут ожидания ответа SCADA-Сервера, мс\"/>\n" +
+                "<Param name=\"WaitForStop\" value=\"10000\" descr=\"Ожидание остановки линий связи, мс\"/>\n" +
+                "<Param name=\"SendModData\" value=\"true\" descr=\"Передавать только изменившиеся теги КП\"/>\n" +
+                "<Param name=\"SendAllDataPer\" value=\"60\" descr=\"Период передачи всех тегов КП, с\"/>\n" +
+                "</CommonParams>\n" +
+                "<!-- Линии связи -->\n" +
+                "<CommLines>\n");
+        for (ModBusUnitSlave ms : MBUS) {
+            sb.append("<!-- Линия " + index + " -->\n" +
+                    "<CommLine active=\"true\" bind=\"true\" number=\"" + index + "\" name=\"" + ms.getName() + "LineComm\">\n" +
                     "<CommChannel type=\"TcpClient\">\n" +
                     "<Param name=\"Behavior\" value=\"Master\"/>\n" +
                     "<Param name=\"ConnMode\" value=\"Individual\"/>\n" +
@@ -60,7 +61,7 @@ public class CommCfgCreating {
                     "<Param name=\"InactiveTime\" value=\"60\"/>\n" +
                     "<Param name=\"ReconnectAfter\" value=\"5\"/>\n" +
                     "<Param name=\"StayConnected\" value=\"True\"/>\n" +
-                    "<Param name=\"TcpPort\" value=\""+ ms.getPort() +"\"/>\n" +
+                    "<Param name=\"TcpPort\" value=\"" + ms.getPort() + "\"/>\n" +
                     "</CommChannel>\n" +
                     "<LineParams>\n" +
                     "<Param name=\"ReqTriesCnt\" value=\"3\" descr=\"Количество попыток перезапроса КП при ошибке\"/>\n" +
@@ -73,14 +74,15 @@ public class CommCfgCreating {
                     "<Param name=\"TransMode\" value=\"TCP\"/>\n" +
                     "</CustomParams>\n" +
                     "<ReqSequence>\n" +
-                    "<KP active=\"true\" bind=\"true\" number=\"" + index + "\" name=\"" + ms.getName()+ "\" dll=\"KpModbus.dll\" address=\"" + ms.getAddress() + "\" " +
+                    "<KP active=\"true\" bind=\"true\" number=\"" + index + "\" name=\"" + ms.getName() + "\" dll=\"KpModbus.dll\" address=\"" + ms.getAddress() + "\" " +
                     "callNum=\"" + ms.getInetAddress() + "\" timeout=\"1000\" delay=\"200\" time=\"00:00:00\" period=\"00:00:00\" cmdLine=\"" + ms.getName() + "ModBusList.xml\"/>\n" +
                     "</ReqSequence>\n" +
-                    "</CommLine>\n" +
-                    "</CommLines>\n" +
-                    "</ScadaCommSvcConfig>");
+                    "</CommLine>\n");
             index++;
         }
+        sb.append("</CommLines>\n" +
+                "</ScadaCommSvcConfig>");
+
 
         return sb;
     }

@@ -5,6 +5,7 @@ import com.intelligt.modbus.jlibmodbus.exception.IllegalDataAddressException;
 import org.autoquest.connections.SlaveParameterFloat;
 import org.autoquest.connections.SlaveParameterInt;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 public class FloatGroupRead extends Thread {
@@ -22,13 +23,23 @@ public class FloatGroupRead extends Thread {
     public void startReading() {
         start();
     }
+
     @Override
     public void run() {
         try {
             do {
-                int[] values = modbusHoldingRegisters.getRange(index, parameterFloats.size());
+                int[] values = modbusHoldingRegisters.getRange(index, parameterFloats.size() * 2);
+//                System.out.println("SS " + values.length);
                 for (int i = 0; i < parameterFloats.size(); i++) {
-                    parameterFloats.get(i).setValue(values[i]);
+                    int v1 = values[i * 2];
+                    byte[] b1 = ByteBuffer.allocate(4).putInt(v1).array();
+                    int v2 = values[i * 2 + 1];
+                    byte[] b2 = ByteBuffer.allocate(4).putInt(v2).array();
+                    b1[0] = b1[2];
+                    b1[1] = b1[3];
+                    b1[2] = b2[2];
+                    b1[3] = b2[3];
+                    parameterFloats.get(i).setValue(ByteBuffer.wrap(b1).getFloat());
                 }
                 sleep(500);
             } while (true);

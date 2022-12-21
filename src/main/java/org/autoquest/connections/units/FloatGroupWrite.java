@@ -29,10 +29,10 @@ public class FloatGroupWrite extends Thread {
         try {
             do {
                 int[] values = new int[parameterFloats.size() * 2];
-                for (int i = 0; i < (parameterFloats.size() * 2); i++) {
+                for (int i = 0; i < parameterFloats.size(); i++) {
                     int[] int32 = intToFloat(parameterFloats.get(i).getValue());
-                    values[i++] = int32[0];
-                    values[i] = int32[1];
+                    values[i*2] = int32[0];
+                    values[i*2+1] = int32[1];
 //                    parameterInts.get(i).setValue(parameterInts.get(i).getValue() + 10);
                 }
                 modbusHoldingRegisters.setRange(index, values);

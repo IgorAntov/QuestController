@@ -20,8 +20,7 @@ public class SlaveParameterInt32 implements  IParameterInt {
         modBusUnitSlave.addInt32ToDH(this);
         if (membershipType.equals(MembershipType.SINGLE)) {
             this.index = (modBusUnitSlave.int32MapSize() - 1) * 2 + (modBusUnitSlave.floatMapSize() * 2);
-//            System.out.println("float index: " + this.index);
-            System.out.println("int32 index " + this.index + " MapInt:" + modBusUnitSlave.int32MapSize() + " MapFlow: " + modBusUnitSlave.floatMapSize());
+//            System.out.println("int32 index " + this.index + " MapInt:" + modBusUnitSlave.int32MapSize() + " MapFlow: " + modBusUnitSlave.floatMapSize());
         }
         if (membershipType.equals(MembershipType.GROUP) && paramType.equals(ParamType.READ)) {
             this.modBusUnitSlave.addToIntGroupRead32(this);

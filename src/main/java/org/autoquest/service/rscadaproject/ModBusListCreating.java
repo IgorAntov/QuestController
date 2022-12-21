@@ -29,16 +29,16 @@ public class ModBusListCreating {
         try {
             for (ModBusUnitSlave ms : MBUS) {
                 Path file = Paths.get(path + "/Instances/Default/ScadaComm/Config/" + ms.getName() + "ModBusList.xml");
-                Files.write(file, Collections.singleton(getXmlContent()), StandardCharsets.UTF_8);
+                Files.write(file, Collections.singleton(getXmlContent(ms)), StandardCharsets.UTF_8);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public StringBuilder getXmlContent() {
+    public StringBuilder getXmlContent(ModBusUnitSlave ms ) {
         StringBuilder sb = new StringBuilder();
-        for (ModBusUnitSlave ms : MBUS) {
+//        for (ModBusUnitSlave ms : MBUS) {
             sb.append("""
                             <?xml version="1.0" encoding="utf-8"?>
                             <DevTemplate>
@@ -82,7 +82,7 @@ public class ModBusListCreating {
                     .append("  </ElemGroup>\n")
                     .append(" </ElemGroups>\n")
                     .append("</DevTemplate>");
-        }
+     //   }
         return sb;
     }
 

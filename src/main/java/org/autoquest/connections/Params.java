@@ -2,15 +2,21 @@ package org.autoquest.connections;
 
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
+// Initialisation Order
+// 1. Coil => Single(Control, Read) -> Group(Control -> Read)
+// 2. Int32 => Single(Control, Read) -> Group(Control -> Read)
+// 3. Float => Single(Control, Read) -> Group(Control -> Read)
+
 public class Params {
 
     public static final SlaveParameterCoil START = new SlaveParameterCoil("START SEQ", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.SINGLE);
     public static final SlaveParameterCoil ABORT = new SlaveParameterCoil("ABORT SEQ", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.SINGLE);
 
-    public static final SlaveParameterCoil CONTROL = new SlaveParameterCoil("ControlTest", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
-    public static final SlaveParameterCoil CONTROL2 = new SlaveParameterCoil("ControlTest2", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
-    public static final SlaveParameterCoil READ = new SlaveParameterCoil("ReadTest", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
-    public static final SlaveParameterCoil READ2 = new SlaveParameterCoil("ReadTest2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
+    public static final SlaveParameterCoil CONTROL = new SlaveParameterCoil("C1 GW", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
+    public static final SlaveParameterCoil CONTROL2 = new SlaveParameterCoil("C2 GW", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
+
+    public static final SlaveParameterCoil READ = new SlaveParameterCoil("C3 GR", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
+    public static final SlaveParameterCoil READ2 = new SlaveParameterCoil("C4 GR", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
     //Step1
 
@@ -29,21 +35,26 @@ public class Params {
 
     public static final SlaveParameterInt32 I1 = new SlaveParameterInt32("I1 test SR", WS_MB_UNIT_SLAVE, -654165426, ParamType.READ, MembershipType.SINGLE);
     public static final SlaveParameterInt32 I2 = new SlaveParameterInt32("I2 test SR", WS_MB_UNIT_SLAVE, 223165495, ParamType.READ, MembershipType.SINGLE);
+    public static final SlaveParameterInt32 I7 = new SlaveParameterInt32("I7 SW", WS_MB_UNIT_SLAVE, 3377, ParamType.CONTROL, MembershipType.SINGLE);
     public static final SlaveParameterInt32 I3 = new SlaveParameterInt32("I3 test GW", WS_MB_UNIT_SLAVE, -30, ParamType.CONTROL, MembershipType.GROUP);
-    public static final SlaveParameterInt32 I4 = new SlaveParameterInt32("I4 GW", WS_MB_UNIT_SLAVE, 40, ParamType.CONTROL, MembershipType.GROUP);
     public static final SlaveParameterInt32 I5 = new SlaveParameterInt32("I3 GR", WS_MB_UNIT_SLAVE, 50, ParamType.READ, MembershipType.GROUP);
     public static final SlaveParameterInt32 I6 = new SlaveParameterInt32("I4 GR", WS_MB_UNIT_SLAVE, 60, ParamType.READ, MembershipType.GROUP);
 
 
     // Float
 
-//    public static final SlaveParameterFloat F1 = new SlaveParameterFloat("F1 SR", WS_MB_UNIT_SLAVE, 10.123f, ParamType.CONTROL, MembershipType.SINGLE);
-//    public static final SlaveParameterFloat F2 = new SlaveParameterFloat("F2 SR", WS_MB_UNIT_SLAVE, 20.654f, ParamType.READ, MembershipType.SINGLE);
+    public static final SlaveParameterFloat F1 = new SlaveParameterFloat("F1 SR", WS_MB_UNIT_SLAVE, 10.123f, ParamType.READ, MembershipType.SINGLE);
+    public static final SlaveParameterFloat F2 = new SlaveParameterFloat("F2 SR", WS_MB_UNIT_SLAVE, 20.654f, ParamType.READ, MembershipType.SINGLE);
 
-//    public static final SlaveParameterInt I7 = new SlaveParameterInt("I1 RS", WS_MB_UNIT_SLAVE, 10, ParamType.READ, MembershipType.SINGLE);
+    public static final SlaveParameterFloat F3 = new SlaveParameterFloat("F3 GW", WS_MB_UNIT_SLAVE, -30.645f, ParamType.CONTROL, MembershipType.GROUP);
+    public static final SlaveParameterFloat F4 = new SlaveParameterFloat("F4 GW", WS_MB_UNIT_SLAVE, 40.645f, ParamType.CONTROL, MembershipType.GROUP);
 
+
+    public static final SlaveParameterFloat F5 = new SlaveParameterFloat("F5 GW", WS_MB_UNIT_SLAVE, 50.3f, ParamType.READ, MembershipType.GROUP);
+
+    public static final SlaveParameterFloat F6 = new SlaveParameterFloat("F6 GW", WS_MB_UNIT_SLAVE, 60.3f, ParamType.READ, MembershipType.GROUP);
 
     public static void init() {
-    };
+    }
 
 }

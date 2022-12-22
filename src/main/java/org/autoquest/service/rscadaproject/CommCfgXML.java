@@ -10,11 +10,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class CommCfgCreating {
+public class CommCfgXML {
     private ArrayList<ModBusUnitSlave> MBUS = new ArrayList<>();
     private final String path;
 
-    public CommCfgCreating(String path) {
+    public CommCfgXML(String path) {
         this.path = path;
     }
 

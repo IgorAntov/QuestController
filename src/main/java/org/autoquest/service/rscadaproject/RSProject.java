@@ -2,7 +2,6 @@ package org.autoquest.service.rscadaproject;
 
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE_SIM;
-//import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE_SIM;
 
 public class RSProject {
     public final String path;
@@ -12,23 +11,34 @@ public class RSProject {
     }
 
     public void build() {
-        ObjCreating buildObj = new ObjCreating("QuestTest", path);
+        ObjXML buildObj = new ObjXML("QuestTest", path);
         buildObj.build();
 
-        KPCreating kpCreating = new KPCreating(path);
+        KPXML kpCreating = new KPXML(path);
         kpCreating.add(WS_MB_UNIT_SLAVE);
         kpCreating.add(WS_MB_UNIT_SLAVE_SIM);
         kpCreating.buildKP();
         kpCreating.buildCommLine();
 
-        CommCfgCreating commCfgCreating = new CommCfgCreating(path);
+        CommCfgXML commCfgCreating = new CommCfgXML(path);
         commCfgCreating.add(WS_MB_UNIT_SLAVE);
         commCfgCreating.add(WS_MB_UNIT_SLAVE_SIM);
         commCfgCreating.build();
 
-        ModBusListCreating modBusListCreating = new ModBusListCreating(path);
+        ModBusListXML modBusListCreating = new ModBusListXML(path);
         modBusListCreating.add(WS_MB_UNIT_SLAVE);
         modBusListCreating.add(WS_MB_UNIT_SLAVE_SIM);
         modBusListCreating.build();
+
+        InCnlXML inCnlXML = new InCnlXML(path);
+        inCnlXML.add(WS_MB_UNIT_SLAVE);
+        inCnlXML.add(WS_MB_UNIT_SLAVE_SIM);
+        inCnlXML.build();
+
+        CtrlCnlXML CtrlCnlXML = new CtrlCnlXML(path);
+        CtrlCnlXML.add(WS_MB_UNIT_SLAVE);
+        CtrlCnlXML.add(WS_MB_UNIT_SLAVE_SIM);
+        CtrlCnlXML.build();
+
     }
 }

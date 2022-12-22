@@ -39,4 +39,11 @@ public class CoilGroupWrite extends Thread {
             throw new RuntimeException(e);
         }
     }
+
+    public void calcIndex() {
+        int index = this.index;
+        for (int i = 0; i < parameterCoils.size(); i++) {
+            parameterCoils.get(i).setIndex(index++);
+        }
+    }
 }

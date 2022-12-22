@@ -55,4 +55,11 @@ public class FloatGroupWrite extends Thread {
         return result;
     }
 
+    public void calcIndex() {
+        int index = this.index;
+        for (int i = 0; i < parameterFloats.size(); i++) {
+            parameterFloats.get(i).setIndex(index);
+            index = index + 2;
+        }
+    }
 }

@@ -45,4 +45,12 @@ public class Int32GroupRead extends Thread {
             throw new RuntimeException(e);
         }
     }
+
+    public void calcIndex() {
+        int index = this.index;
+        for (int i = 0; i < parameterInt32.size(); i++) {
+            parameterInt32.get(i).setIndex(index);
+            index = index + 2;
+        }
+    }
 }

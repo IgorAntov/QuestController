@@ -9,7 +9,7 @@ import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Params {
 
-    public static final SlaveParameterCoil START = new SlaveParameterCoil("START SEQ", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.SINGLE);
+    public static final SlaveParameterCoil START = new SlaveParameterCoil("START SEQ", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
     public static final SlaveParameterCoil ABORT = new SlaveParameterCoil("ABORT SEQ", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.SINGLE);
 
     public static final SlaveParameterCoil CONTROL = new SlaveParameterCoil("C1 GW", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);

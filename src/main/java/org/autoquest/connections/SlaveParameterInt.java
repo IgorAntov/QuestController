@@ -9,6 +9,7 @@ public class SlaveParameterInt implements IParameterInt {
     private final ParamType paramType;
     private final MembershipType membershipType;
     private int value;
+    private int channelNumber;
 
     public SlaveParameterInt(String name, ModBusUnitSlave modBusUnitSlave, int initialValue, ParamType paramType, MembershipType membershipType) {
         this.name = name;
@@ -65,5 +66,13 @@ public class SlaveParameterInt implements IParameterInt {
 
     public int getInitialValue() {
         return value;
+    }
+
+    public int getChannelNumber() {
+        return channelNumber;
+    }
+
+    public void setChannelNumber(int channelNumber) {
+        this.channelNumber = channelNumber;
     }
 }

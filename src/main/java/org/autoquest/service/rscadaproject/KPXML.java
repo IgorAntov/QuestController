@@ -10,11 +10,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class KPCreating {
+public class KPXML {
     public final String path;
     private ArrayList<ModBusUnitSlave> MBUS = new ArrayList<>();
 
-    public KPCreating(String path) {
+    public KPXML(String path) {
         this.path = path;
     }
 

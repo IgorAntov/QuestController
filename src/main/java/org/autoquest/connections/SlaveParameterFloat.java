@@ -9,6 +9,7 @@ public class SlaveParameterFloat implements IParameterFloat {
     private final ParamType paramType;
     private final MembershipType membershipType;
     private float value;
+    private int channelNumber;
 
     public SlaveParameterFloat(String name, ModBusUnitSlave modBusUnitSlave, float initialValue, ParamType paramType, MembershipType membershipType) {
         this.name = name;
@@ -65,5 +66,17 @@ public class SlaveParameterFloat implements IParameterFloat {
 
     public float getInitialValue() {
         return value;
+    }
+
+    public ParamType getParamType() {
+        return paramType;
+    }
+
+    public int getChannelNumber() {
+        return channelNumber;
+    }
+
+    public void setChannelNumber(int channelNumber) {
+        this.channelNumber = channelNumber;
     }
 }

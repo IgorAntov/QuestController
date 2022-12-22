@@ -9,6 +9,7 @@ public class SlaveParameterCoil implements IParameterCoil {
     private final ParamType paramType;
     private final MembershipType membershipType;
     private boolean value;
+    private int channelNumber;
 
     public SlaveParameterCoil(String name, ModBusUnitSlave modBusUnitSlave, boolean initialValue, ParamType paramType, MembershipType membershipType) {
         this.name = name;
@@ -65,5 +66,17 @@ public class SlaveParameterCoil implements IParameterCoil {
 
     public boolean getInitialValue() {
         return value;
+    }
+
+    public ParamType getParamType() {
+        return paramType;
+    }
+
+    public int getChannelNumber() {
+        return channelNumber;
+    }
+
+    public void setChannelNumber(int channelNumber) {
+        this.channelNumber = channelNumber;
     }
 }

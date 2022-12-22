@@ -1,7 +1,8 @@
 package org.autoquest;
 
 import org.autoquest.connections.Params;
-import org.autoquest.connections.adapters.U1Params;
+import org.autoquest.connections.adapters.ParamsAdapter;
+import org.autoquest.connections.adapters.SimulatorParams;
 import org.autoquest.connections.units.MBUnitList;
 import org.autoquest.quest.StepsExecuter;
 import org.autoquest.service.CommandLineP;
@@ -13,9 +14,10 @@ public class QuestName {
         try {
             MBUnitList.init();
             Params.init();
-            U1Params.init();
-            CommandLineP.parseCL(args);
+            SimulatorParams.init();
             MBUnitList.runListener();
+            ParamsAdapter.ParamsAdapterInit();
+            CommandLineP.parseCL(args);
             StepsExecuter.start();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);

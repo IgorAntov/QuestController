@@ -7,12 +7,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 
-public class ObjCreating {
+public class ObjXML {
 
     private final String projectName;
     private final String path;
 ;
-    public ObjCreating(String projectName, String path) {
+    public ObjXML(String projectName, String path) {
         this.projectName = projectName;
         this.path = path;
     }

@@ -1,8 +1,9 @@
 package org.autoquest.connections;
 
+import org.autoquest.connections.units.IParameter;
 import org.autoquest.connections.units.ModBusUnitSlave;
 
-public class SlaveParameterFloat implements IParameterFloat {
+public class SlaveParameterFloat implements IParameterFloat, IParameter {
     private String name = "";
     private final ModBusUnitSlave modBusUnitSlave;
     private int index;
@@ -48,6 +49,7 @@ public class SlaveParameterFloat implements IParameterFloat {
         }
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -68,10 +70,12 @@ public class SlaveParameterFloat implements IParameterFloat {
         return value;
     }
 
+    @Override
     public ParamType getParamType() {
         return paramType;
     }
 
+    @Override
     public int getChannelNumber() {
         return channelNumber;
     }

@@ -1,8 +1,9 @@
 package org.autoquest.connections;
 
+import org.autoquest.connections.units.IParameter;
 import org.autoquest.connections.units.ModBusUnitSlave;
 
-public class SlaveParameterCoil implements IParameterCoil {
+public class SlaveParameterCoil implements IParameterCoil, IParameter {
     private String name = "";
     private final ModBusUnitSlave modBusUnitSlave;
     private int index;
@@ -43,11 +44,11 @@ public class SlaveParameterCoil implements IParameterCoil {
         synchronized (this) {
             if (membershipType.equals(MembershipType.SINGLE)) {
                 return modBusUnitSlave.getCoilValue(this.index);
-            }
-            else return this.value;
+            } else return this.value;
         }
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -68,10 +69,12 @@ public class SlaveParameterCoil implements IParameterCoil {
         return value;
     }
 
+    @Override
     public ParamType getParamType() {
         return paramType;
     }
 
+    @Override
     public int getChannelNumber() {
         return channelNumber;
     }

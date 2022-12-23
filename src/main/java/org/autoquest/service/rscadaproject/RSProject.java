@@ -1,5 +1,8 @@
 package org.autoquest.service.rscadaproject;
 
+import org.autoquest.quest.view.GraphicConfig;
+import org.autoquest.quest.view.Group;
+
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE_SIM;
 
@@ -39,6 +42,11 @@ public class RSProject {
         CtrlCnlXML.add(WS_MB_UNIT_SLAVE);
         CtrlCnlXML.add(WS_MB_UNIT_SLAVE_SIM);
         CtrlCnlXML.build();
+
+        //Graphics
+        GraphicConfig.build();
+        InterfaceXML interfaceXML = new InterfaceXML(path);
+        interfaceXML.build();
 
     }
 }

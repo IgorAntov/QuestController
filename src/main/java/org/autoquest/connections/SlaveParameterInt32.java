@@ -1,8 +1,9 @@
 package org.autoquest.connections;
 
+import org.autoquest.connections.units.IParameter;
 import org.autoquest.connections.units.ModBusUnitSlave;
 
-public class SlaveParameterInt32 implements  IParameterInt {
+public class SlaveParameterInt32 implements  IParameterInt, IParameter {
 
     private String name = "";
     private final ModBusUnitSlave modBusUnitSlave;
@@ -48,7 +49,7 @@ public class SlaveParameterInt32 implements  IParameterInt {
             } else return this.value;
         }
     }
-
+@Override
     public String getName() {
         return name;
     }
@@ -69,10 +70,12 @@ public class SlaveParameterInt32 implements  IParameterInt {
         return value;
     }
 
+    @Override
     public ParamType getParamType() {
         return paramType;
     }
 
+    @Override
     public int getChannelNumber() {
         return channelNumber;
     }

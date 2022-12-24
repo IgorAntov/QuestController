@@ -25,8 +25,6 @@ public class Adapter {
                 do {
                     for (AdapterBoolean ab : adapterBooleans) {
                         ab.getOut().setValue(ab.getIn().getValue());
-                        System.out.println("In: " + ab.getIn().getValue());
-                        System.out.println("Out: " + ab.getOut().getValue());
                     }
                     sleep(1000);
                 } while (true);

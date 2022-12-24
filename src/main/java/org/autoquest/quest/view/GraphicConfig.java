@@ -14,9 +14,14 @@ public class GraphicConfig {
 
     }
 
-    public static StringBuilder getXMLContent(StringBuilder sb, int index) {
-        build();
-        return graphic.getContent(sb, index);
-    }
+  //  public static StringBuilder getXMLContent(StringBuilder sb, int index) {
+  //      StringBuilder sbx = new StringBuilder();
+  //      sbx.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+  //              "<SchemeView title=\"\" xmlns:basic=\"urn:rapidscada:scheme:basic\">\n");
+  //      build();
+  //      graphic.getContent(sbx, index);
+  //      sbx.append("</SchemeView>");
+  //      return sbx;
+  //  }
 
 }

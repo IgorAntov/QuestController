@@ -9,9 +9,6 @@ public class StepsExecuter {
         try {
             while (true) {
                 if (Params.START.getValue()) {
-//                    System.out.println("f5 " + Params.F5.getValue());
-//                    System.out.println("f6 " + Params.F6.getValue());
-
 //                    Params.ABORT.setValue(false);
 //                    Step1.start();
                     Thread.sleep(1000);

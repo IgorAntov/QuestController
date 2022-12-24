@@ -8,15 +8,46 @@ public class Led implements IGraphic {
 
     private int x;
     private int y;
-    private String name;
+    private String name="";
+    private String desc="";
     private IParameter parameter;
     private String hint;
     private int height = 20;
     private int width = 20;
 
     @Override
-    public StringBuilder getContent(StringBuilder sb, int index) {
-        return null;
+    public void getContent(StringBuilder sb, int index) {
+        sb.append(" <basic:Led>\n" +
+                "      <BackColor>Silver</BackColor>\n" +
+                "      <BorderColor>Black</BorderColor>\n" +
+                "      <BorderWidth>3</BorderWidth>\n" +
+                "      <ToolTip>" + hint + "</ToolTip>\n" +
+                "      <ID>" + index + "</ID>\n" +
+                "      <Name>" + name + "</Name>\n" +
+                "      <Location>\n" +
+                "        <X>" + x + "</X>\n" +
+                "        <Y>" + y + "</Y>\n" +
+                "      </Location>\n" +
+                "      <Size>\n" +
+                "        <Width>" + width + "</Width>\n" +
+                "        <Height>" + height + "</Height>\n" +
+                "      </Size>\n" +
+                "      <ZIndex>0</ZIndex>\n" +
+                "      <BorderOpacity>30</BorderOpacity>\n" +
+                "      <Action>DrawDiagram</Action>\n" +
+                "      <Conditions>\n" +
+                "        <Condition>\n" +
+                "          <CompareOperator1>GreaterThan</CompareOperator1>\n" +
+                "          <CompareArgument1>0</CompareArgument1>\n" +
+                "          <CompareOperator2>LessThan</CompareOperator2>\n" +
+                "          <CompareArgument2>0</CompareArgument2>\n" +
+                "          <LogicalOperator>None</LogicalOperator>\n" +
+                "          <Color>Green</Color>\n" +
+                "        </Condition>\n" +
+                "      </Conditions>\n" +
+                "      <InCnlNum>" + parameter.getChannelNumber() + "</InCnlNum>\n" +
+                "      <CtrlCnlNum>0</CtrlCnlNum>\n" +
+                "    </basic:Led>\n");
     }
 
     @Override
@@ -49,5 +80,14 @@ public class Led implements IGraphic {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getDesc() {
+        return null;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

@@ -47,6 +47,7 @@ public class RSProject {
         GraphicConfig.build();
         InterfaceXML interfaceXML = new InterfaceXML(path);
         interfaceXML.build();
+        interfaceXML.getScreenXML();
 
     }
 }

@@ -12,8 +12,8 @@ public class Graphic implements IGraphic {
     public final ArrayList<IGraphic> groups = new ArrayList<>();
 
     @Override
-    public StringBuilder getContent(StringBuilder sb, int index) {
-        return null;
+    public void getContent(StringBuilder sb, int index) {
+
     }
 
     @Override
@@ -26,8 +26,9 @@ public class Graphic implements IGraphic {
         return null;
     }
 
-    public StringBuilder getGraphicsXML(StringBuilder sb, int index){
-        return getContent(sb, index);
+    @Override
+    public String getDesc() {
+        return null;
     }
 
     public void addGroup(IGraphic group) {

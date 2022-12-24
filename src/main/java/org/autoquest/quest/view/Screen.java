@@ -5,14 +5,33 @@ import java.util.ArrayList;
 public class Screen implements IGraphic {
 
     private String name = "";
+    private String desc = "";
     private int height;
     private int width;
 
     private final ArrayList<IGraphic> elements = new ArrayList<>();
 
     @Override
-    public StringBuilder getContent(StringBuilder sb, int index) {
-        return null;
+    public void getContent(StringBuilder sb, int index) {
+        sb.append("<Scheme>\n" +
+                "    <Version>5.3.1.1</Version>\n" +
+                "    <Size>\n" +
+                "      <Width>" + width + "</Width>\n" +
+                "      <Height>" + height + "</Height>\n" +
+                "    </Size>\n" +
+                "    <BackColor>White</BackColor>\n" +
+                "    <BackImageName />\n" +
+                "    <Font>\n" +
+                "      <Name>Arial</Name>\n" +
+                "      <Size>12</Size>\n" +
+                "      <Bold>false</Bold>\n" +
+                "      <Italic>false</Italic>\n" +
+                "      <Underline>false</Underline>\n" +
+                "    </Font>\n" +
+                "    <ForeColor>Black</ForeColor>\n" +
+                "    <Title />\n" +
+                "    <CnlFilter />\n" +
+                "  </Scheme>\n");
     }
 
     @Override
@@ -40,4 +59,13 @@ public class Screen implements IGraphic {
     }
 
 
+    @Override
+    public String getDesc() {
+        return desc;
+    }
+
+    public Screen setDesc(String desc) {
+        this.desc = desc;
+        return this;
+    }
 }

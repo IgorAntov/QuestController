@@ -91,7 +91,6 @@ public class ModBusListXML {
         for (SlaveParameterCoil p : ms.getParameterCoils()) {
             if (p.getParamType().equals(ParamType.READ)) {
                 sb.append("<Cmd tableType=\"Coils\" multiple=\"false\" address=\"" + p.getIndex() + "\" cmdNum=\"" + index++ + "\" name=\"" + p.getName() + "control\"/>\n");
-                System.out.println("xml:" + p);
             }
         }
         for (SlaveParameterInt32 p : ms.getSlaveParameterInt32List()) {

@@ -44,7 +44,6 @@ public class CoilGroupRead extends Thread {
         int index = this.index;
         for (int i = 0; i < parameterCoils.size(); i++) {
             parameterCoils.get(i).setIndex(index++);
-            System.out.println("gr:" + parameterCoils.get(i));
         }
     }
 }

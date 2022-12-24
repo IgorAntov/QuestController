@@ -16,7 +16,7 @@ public class Group implements IGraphic{
     }
 
     @Override
-    public StringBuilder getContent(StringBuilder sb, int index) {
+    public void getContent(StringBuilder sb, int index) {
         sb.append("<Interface>\n" +
                 "                    <ItfID>" + index + "</ItfID>\n" +
                 "                    <Name>" + name + "/</Name>\n" +
@@ -24,8 +24,6 @@ public class Group implements IGraphic{
                 "                    <Hidden>false</Hidden>\n" +
                 "                    <ObjNum xsi:nil=\"true\"/>\n" +
                 "                    </Interface>\n");
-
-        return sb;
     }
 
     @Override
@@ -39,6 +37,11 @@ public class Group implements IGraphic{
     @Override
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public String getDesc() {
+        return desc;
     }
 
 }

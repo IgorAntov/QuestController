@@ -9,6 +9,7 @@ public class Switch  implements IGraphic {
     private int x;
     private int y;
     private String name;
+    private String desc = "";
     private IParameter parameterOut;
     private IParameter parameterStatus;
     private String hint;
@@ -16,8 +17,7 @@ public class Switch  implements IGraphic {
     private int width = 45;
 
     @Override
-    public StringBuilder getContent(StringBuilder sb, int index) {
-        return null;
+    public void getContent(StringBuilder sb, int index) {
     }
 
     @Override
@@ -54,5 +54,14 @@ public class Switch  implements IGraphic {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

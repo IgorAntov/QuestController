@@ -10,6 +10,7 @@ public class Screen1 {
 
     private static final Screen screen1 = new Screen()
             .setName("Screen1")
+            .setDesc("ScreenDesc")
             .setScreenSize(1000, 600);
     public static Screen getScreen() {
         Led led1 = new Led();
@@ -23,6 +24,7 @@ public class Screen1 {
         switch1.setParameterControl(SimulatorParams.KEY1);
         switch1.setParameterStatus(Params.START);
         switch1.setHint("Popup Message For Switch");
+        screen1.addElement(switch1);
         return screen1;
     }
 }

@@ -27,7 +27,6 @@ public class Int32GroupRead extends Thread {
         try {
             do {
                 int[] values = modbusHoldingRegisters.getRange(index, parameterInt32.size()*2);
-                System.out.println("SS " + values.length);
                 for (int i = 0; i < parameterInt32.size(); i++) {
                     int v1 = values[i*2];
                     byte[] b1 = ByteBuffer.allocate(4).putInt(v1).array();

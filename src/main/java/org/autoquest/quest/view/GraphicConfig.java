@@ -2,6 +2,7 @@ package org.autoquest.quest.view;
 
 import org.autoquest.QuestName;
 import org.autoquest.quest.view.graphics.Screen1;
+import org.autoquest.quest.view.graphics.Screen2;
 
 public class GraphicConfig {
 
@@ -11,7 +12,7 @@ public class GraphicConfig {
         Group group1 = new Group("Group1", "DescGroup");
         graphic.addGroup(group1);
         group1.addScreen(Screen1.getScreen());
-
+        group1.addScreen(Screen2.getScreen());
     }
 
   //  public static StringBuilder getXMLContent(StringBuilder sb, int index) {

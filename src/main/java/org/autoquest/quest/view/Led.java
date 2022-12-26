@@ -34,7 +34,7 @@ public class Led implements IGraphic {
                 "      </Size>\n" +
                 "      <ZIndex>0</ZIndex>\n" +
                 "      <BorderOpacity>30</BorderOpacity>\n" +
-                "      <Action>DrawDiagram</Action>\n" +
+                "      <Action>None</Action>\n" +
                 "      <Conditions>\n" +
                 "        <Condition>\n" +
                 "          <CompareOperator1>GreaterThan</CompareOperator1>\n" +

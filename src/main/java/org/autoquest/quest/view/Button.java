@@ -4,7 +4,7 @@ import org.autoquest.connections.units.IParameter;
 
 import java.util.ArrayList;
 
-public class Switch  implements IGraphic {
+public class Button   implements IGraphic {
 
     private int x;
     private int y;
@@ -13,19 +13,19 @@ public class Switch  implements IGraphic {
     private IParameter parameterControl;
     private IParameter parameterStatus;
     private String hint;
-    private int height = 20;
-    private int width = 45;
+    private int height = 35;
+    private int width = 88;
 
     @Override
     public void getContent(StringBuilder sb, int index) {
-        sb.append("    <basic:Toggle>\n" +
-                "      <BackColor>Status</BackColor>\n" +
-                "      <BorderColor>Status</BorderColor>\n" +
-                "      <BorderWidth>2</BorderWidth>\n" +
+        sb.append("<basic:Button>\n" +
+                "      <BackColor>Transparent</BackColor>\n" +
+                "      <BorderColor />\n" +
+                "      <BorderWidth>0</BorderWidth>\n" +
                 "      <ToolTip>" + hint + "</ToolTip>\\n\n" +
                 "      <ID>" + index + "</ID>\n" +
-                "      <Name>" + name + "</Name>\n" +
-                "     <Location>\n" +
+                "      <Name>" + name + index + "</Name>\n" +
+                "      <Location>\n" +
                 "        <X>" + x + "</X>\n" +
                 "        <Y>" + y + "</Y>\n" +
                 "      </Location>\n" +
@@ -33,13 +33,19 @@ public class Switch  implements IGraphic {
                 "        <Width>" + width + "</Width>\n" +
                 "        <Height>" + height + "</Height>\n" +
                 "      </Size>\n" +
-                "      <ZIndex>0</ZIndex>\n" +
-                "      <LeverColor>White</LeverColor>\n" +
-                "      <Padding>0</Padding>\n" +
-                "      <Action>SendCommandNow</Action>\n" +
+                "      <ZIndex>1</ZIndex>\n" +
+                "      <ForeColor>Yellow</ForeColor>\n" +
+                "      <ImageName>key.svg</ImageName>\n" +
+                "      <ImageSize>\n" +
+                "        <Width>30</Width>\n" +
+                "        <Height>30</Height>\n" +
+                "      </ImageSize>\n" +
+                "      <Text>Обход</Text>\n" +
+                "      <Action>SendCommand</Action>\n" +
+                "      <BoundProperty>Visible</BoundProperty>\n" +
                 "      <InCnlNum>" + parameterStatus.getChannelNumber() + "</InCnlNum>\n" +
                 "      <CtrlCnlNum>" + parameterControl.getChannelNumber() + "</CtrlCnlNum>\n" +
-                "    </basic:Toggle>\n");
+                "    </basic:Button>\n");
     }
 
     @Override

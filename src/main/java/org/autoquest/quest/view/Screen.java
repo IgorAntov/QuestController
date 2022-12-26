@@ -2,7 +2,7 @@ package org.autoquest.quest.view;
 
 import java.util.ArrayList;
 
-public class Screen implements IGraphic {
+public class Screen {
 
     private String name = "";
     private String desc = "";
@@ -11,7 +11,8 @@ public class Screen implements IGraphic {
 
     private final ArrayList<IGraphic> elements = new ArrayList<>();
 
-    @Override
+    private final ArrayList<String> images = new ArrayList<>();
+
     public void getContent(StringBuilder sb, int index) {
         sb.append("<Scheme>\n" +
                 "    <Version>5.3.1.1</Version>\n" +
@@ -34,7 +35,7 @@ public class Screen implements IGraphic {
                 "  </Scheme>\n");
     }
 
-    @Override
+
     public ArrayList<IGraphic> getElements() {
         return elements;
     }
@@ -42,7 +43,7 @@ public class Screen implements IGraphic {
     public void addElement(IGraphic screen) {
         elements.add(screen);
     }
-    @Override
+
     public String getName() {
         return name;
     }
@@ -58,8 +59,6 @@ public class Screen implements IGraphic {
         return this;
     }
 
-
-    @Override
     public String getDesc() {
         return desc;
     }
@@ -67,5 +66,13 @@ public class Screen implements IGraphic {
     public Screen setDesc(String desc) {
         this.desc = desc;
         return this;
+    }
+
+    public ArrayList<String> getImages() {
+        return images;
+    }
+
+    public void addImage(String name) {
+        images.add(name);
     }
 }

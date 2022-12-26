@@ -2,20 +2,19 @@ package org.autoquest.quest.view;
 
 import java.util.ArrayList;
 
-public class Group implements IGraphic{
+public class Group {
 
     private final String name;
 
     private final String desc;
 
-    private final ArrayList<IGraphic> screens = new ArrayList<>();
+    private final ArrayList<Screen> screens = new ArrayList<>();
 
     public Group(String name, String desc) {
         this.name = name;
         this.desc = desc;
     }
 
-    @Override
     public void getContent(StringBuilder sb, int index) {
         sb.append("<Interface>\n" +
                 "                    <ItfID>" + index + "</ItfID>\n" +
@@ -26,20 +25,17 @@ public class Group implements IGraphic{
                 "                    </Interface>\n");
     }
 
-    @Override
-    public ArrayList<IGraphic> getElements() {
+    public ArrayList<Screen> getElements() {
         return screens;
     }
 
-    public void addScreen(IGraphic screen) {
+    public void addScreen(Screen screen) {
         screens.add(screen);
     }
-    @Override
     public String getName() {
         return this.name;
     }
 
-    @Override
     public String getDesc() {
         return desc;
     }

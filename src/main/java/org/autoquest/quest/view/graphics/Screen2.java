@@ -2,16 +2,15 @@ package org.autoquest.quest.view.graphics;
 
 import org.autoquest.connections.Params;
 import org.autoquest.connections.adapters.SimulatorParams;
-import org.autoquest.quest.view.Button;
 import org.autoquest.quest.view.Led;
 import org.autoquest.quest.view.Screen;
 import org.autoquest.quest.view.Switch;
 
-public class Screen1 {
+public class Screen2 {
 
     private static final Screen screen1 = new Screen()
-            .setName("Screen1")
-            .setDesc("ScreenDesc")
+            .setName("Screen2")
+            .setDesc("ScreenDesc2")
             .setScreenSize(600, 600);
     public static Screen getScreen() {
         Led led1 = new Led();
@@ -26,16 +25,6 @@ public class Screen1 {
         switch1.setParameterStatus(Params.START);
         switch1.setHint("Popup Message For Switch");
         screen1.addElement(switch1);
-
-        Button button1 = new Button();
-        button1.setPosition(150, 150);
-        button1.setParameterControl(SimulatorParams.KEY1);
-        button1.setParameterStatus(Params.START);
-        button1.setHint("Popup Message For Button");
-        screen1.addElement(button1);
-
-        screen1.addImage("key.svg");
-
         return screen1;
     }
 }

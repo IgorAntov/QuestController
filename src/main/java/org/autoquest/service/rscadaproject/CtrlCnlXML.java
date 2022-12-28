@@ -58,7 +58,8 @@ public class CtrlCnlXML {
                             "<ObjNum>1</ObjNum>\n" +
                             "<KPNum>" + index + "</KPNum>\n" +
                             "<CmdNum>" + paramIndex + "</CmdNum>\n" +
-                            "<CmdValID xsi:nil=\"true\"/>\n" +
+                            "<CmdValID>1</CmdValID>\n" +
+ //                           "<CmdValID xsi:nil=\"true\"/>\n" +
                             "<FormulaUsed>false</FormulaUsed>\n" +
                             "<Formula/>\n" +
                             "<EvEnabled>false</EvEnabled>");

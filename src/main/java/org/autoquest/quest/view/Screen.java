@@ -1,5 +1,8 @@
 package org.autoquest.quest.view;
 
+import org.autoquest.quest.Step;
+import org.autoquest.quest.StepTemplate;
+
 import java.util.ArrayList;
 
 public class Screen {
@@ -74,5 +77,9 @@ public class Screen {
 
     public void addImage(String name) {
         images.add(name);
+    }
+
+    public void addFrame(ArrayList<IGraphic> frameContent) {
+      elements.addAll(frameContent);
     }
 }

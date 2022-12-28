@@ -1,40 +1,57 @@
 package org.autoquest.quest;
 
-public class Transition extends Thread {
-    private final int scanRate = 1000;
-    private Step step;
-    private final Step nextStep;
+import org.autoquest.connections.SlaveParameterCoil;
 
-    private boolean cndResult;
-    public Transition(Step nextStep) {
-        this.nextStep = nextStep;
+public class Transition extends Thread {
+    private final int scanRate = 300;
+    private boolean passed = false;
+    private cnd checkCND;
+    private SlaveParameterCoil bypass;
+    private SlaveParameterCoil status;
+    private String name;
+
+    public Transition(String name) {
+        this.name = name;
     }
 
     @Override
     public void run() {
-        while (!step.isStepDone()) {
+        do {
             try {
                 sleep(scanRate);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            if (cndResult) {
-                step.setStepDone(true);
-                nextStep.start();
+            if (checkCND.apply() || bypass.getValue()) {
+                passed = true;
             }
-        }
+        } while (true);
     }
 
-    public void condition (cnd<Boolean> cnd) {
-        this.cndResult = cnd.apply();
+    public void condition(cnd<Boolean> cnd) {
+        checkCND = cnd;
+    }
+
+    public String getTransitionName() {
+        return name;
     }
 
     @FunctionalInterface
     public interface cnd<R> {
-        R apply();
+        boolean apply();
     }
 
-    public void goToNextStep(Step step) {
-        this.step = step;
+    public boolean isPassed() {
+        return this.passed;
     }
+
+    public void setBypassParam(SlaveParameterCoil bypass) {
+        this.bypass = bypass;
+    }
+
+    public void setStatusParam(SlaveParameterCoil status) {
+        this.status = status;
+    }
+
+
 }

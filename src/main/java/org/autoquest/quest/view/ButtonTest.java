@@ -4,17 +4,17 @@ import org.autoquest.connections.units.IParameter;
 
 import java.util.ArrayList;
 
-public class Button   implements IGraphic {
+public class ButtonTest  implements IGraphic {
 
     private int x;
     private int y;
-    private String name;
+    private String name = "Тест";
     private String desc = "";
     private IParameter parameterControl;
     private IParameter parameterStatus;
     private String hint;
-    private int height = 35;
-    private int width = 88;
+    private int height = 25;
+    private int width = 45;
 
     @Override
     public void getContent(StringBuilder sb, int index) {
@@ -34,13 +34,13 @@ public class Button   implements IGraphic {
                 "        <Height>" + height + "</Height>\n" +
                 "      </Size>\n" +
                 "      <ZIndex>1</ZIndex>\n" +
-                "      <ForeColor>Yellow</ForeColor>\n" +
-                "      <ImageName>key.svg</ImageName>\n" +
+                "      <ForeColor>Black</ForeColor>\n" +
+                "      <ImageName />\n" +
                 "      <ImageSize>\n" +
                 "        <Width>30</Width>\n" +
                 "        <Height>30</Height>\n" +
                 "      </ImageSize>\n" +
-                "      <Text>Обход</Text>\n" +
+                "      <Text>Тест</Text>\n" +
                 "      <Action>SendCommand</Action>\n" +
                 "      <BoundProperty>Visible</BoundProperty>\n" +
                 "      <InCnlNum>" + parameterStatus.getChannelNumber() + "</InCnlNum>\n" +
@@ -58,7 +58,7 @@ public class Button   implements IGraphic {
         this.y = y;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -91,5 +91,13 @@ public class Button   implements IGraphic {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
     }
 }

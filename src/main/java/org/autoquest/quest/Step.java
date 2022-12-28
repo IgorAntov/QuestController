@@ -1,7 +1,10 @@
 package org.autoquest.quest;
 
 import org.autoquest.connections.SlaveParameterCoil;
+import org.autoquest.quest.steps.StepLast;
+import org.autoquest.service.Global;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -11,6 +14,9 @@ public class Step extends Thread {
     private ArrayList<Action> actions = new ArrayList<>();
     private ArrayList<Transition> transitions = new ArrayList<>();
     private SlaveParameterCoil statusParam;
+    protected Step nextStep;
+    private String stepName = "";
+
     @Override
     public void run() {
         execute();
@@ -35,6 +41,23 @@ public class Step extends Thread {
                     transition.start();
             }
         }
+        boolean isDone;
+        do {
+            isDone = true;
+            for (Transition t: transitions) {
+                isDone = isDone && t.isPassed();
+            }
+            if (isDone && nextStep != null) {
+                goToNextStep();
+                break;
+            }
+            if (isDone) {
+                break;
+            }
+            if (Global.ABORT) {
+                break;
+            }
+        } while (true);
     }
 
     public void addAction(Action action) {
@@ -42,7 +65,6 @@ public class Step extends Thread {
     }
 
     public void addTransition(Transition transition) {
-        transition.goToNextStep(this);
         transitions.add(transition);
     }
 
@@ -69,4 +91,29 @@ public class Step extends Thread {
     public void setStatusParam(SlaveParameterCoil statusParam) {
         this.statusParam = statusParam;
     }
+
+    private void goToNextStep() {
+        nextStep.start();
+    }
+
+    public void setNextStep(Step step) {
+        nextStep = step;
+    }
+
+    public ArrayList<Action> getActions() {
+        return actions;
+    }
+
+    public ArrayList<Transition> getTransitions() {
+        return transitions;
+    }
+
+    public String getStepName() {
+        return stepName;
+    }
+
+    public void setStepName(String stepName) {
+        this.stepName = stepName;
+    }
+
 }

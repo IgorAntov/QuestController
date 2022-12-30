@@ -15,6 +15,7 @@ public class Action extends Thread {
     private String actionName;
     private SlaveParameterCoil testStart;
     private SlaveParameterCoil testStop;
+    private String desc ="";
 
     public Action(String actionName, ActionType actionType) {
         this.actionType = actionType;
@@ -67,6 +68,14 @@ public class Action extends Thread {
 
     public String getActionName() {
         return actionName;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     @FunctionalInterface

@@ -10,7 +10,7 @@ public class StaticText implements IGraphic {
     private String desc = "";
     private String hint = "";
     private int height = 25;
-    private int width = 100;
+    private int width = 200;
 
     @Override
     public void getContent(StringBuilder sb, int index) {

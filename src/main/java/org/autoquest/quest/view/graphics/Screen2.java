@@ -10,7 +10,7 @@ public class Screen2 {
 
     private static final Screen screen1 = new Screen()
             .setName("Screen2")
-            .setDesc("ScreenDesc2")
+            .setDesc("Комната 2")
             .setScreenSize(600, 600);
     public static Screen getScreen() {
         Led led1 = new Led();

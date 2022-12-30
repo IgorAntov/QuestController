@@ -17,7 +17,7 @@ public class StaticTextFrame implements IGraphic {
         sb.append("    <StaticText>\n" +
                 "      <BackColor>WhiteSmoke</BackColor>\n" +
                 "      <BorderColor>DodgerBlue</BorderColor>\n" +
-                "      <BorderWidth>2</BorderWidth>\n" +
+                "      <BorderWidth>1</BorderWidth>\n" +
                 "      <ToolTip>" + hint + "</ToolTip>\n" +
                 "      <ID>" + index + "</ID>\n" +
                 "      <Name>" + name + "</Name>\n" +
@@ -34,7 +34,7 @@ public class StaticTextFrame implements IGraphic {
                 "      <Font>\n" +
                 "        <Name>STIX</Name>\n" +
                 "        <Size>20</Size>\n" +
-                "        <Bold>true</Bold>\n" +
+                "        <Bold>false</Bold>\n" +
                 "        <Italic>false</Italic>\n" +
                 "        <Underline>false</Underline>\n" +
                 "      </Font>\n" +

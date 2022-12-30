@@ -12,7 +12,7 @@ public class ButtonTest  implements IGraphic {
     private String desc = "";
     private IParameter parameterControl;
     private IParameter parameterStatus;
-    private String hint;
+    private String hint="";
     private int height = 25;
     private int width = 45;
 
@@ -21,7 +21,7 @@ public class ButtonTest  implements IGraphic {
         sb.append("<basic:Button>\n" +
                 "      <BackColor>Transparent</BackColor>\n" +
                 "      <BorderColor />\n" +
-                "      <BorderWidth>0</BorderWidth>\n" +
+                "      <BorderWidth>1</BorderWidth>\n" +
                 "      <ToolTip>" + hint + "</ToolTip>\\n\n" +
                 "      <ID>" + index + "</ID>\n" +
                 "      <Name>" + name + index + "</Name>\n" +
@@ -40,7 +40,7 @@ public class ButtonTest  implements IGraphic {
                 "        <Width>30</Width>\n" +
                 "        <Height>30</Height>\n" +
                 "      </ImageSize>\n" +
-                "      <Text>Тест</Text>\n" +
+                "      <Text>" + name + "</Text>\n" +
                 "      <Action>SendCommand</Action>\n" +
                 "      <BoundProperty>Visible</BoundProperty>\n" +
                 "      <InCnlNum>" + parameterStatus.getChannelNumber() + "</InCnlNum>\n" +

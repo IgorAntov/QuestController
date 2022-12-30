@@ -1,10 +1,8 @@
 package org.autoquest.quest;
 
 import org.autoquest.connections.SlaveParameterCoil;
-import org.autoquest.quest.steps.StepLast;
 import org.autoquest.service.Global;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Iterator;
 

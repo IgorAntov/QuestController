@@ -13,30 +13,26 @@ public class Screen1 {
 
     private static final Screen screen1 = new Screen()
             .setName("Screen1")
-            .setDesc("ScreenDesc")
+            .setDesc("Комната 1")
             .setScreenSize(800, 1000);
     public static Screen getScreen() {
-        Led led1 = new Led();
-        led1.setPosition(50, 50);
-        led1.setParameter(Params.START);
-        led1.setHint("Всплывающая подсказка");
-        screen1.addElement(led1);
 
-        Switch switch1 = new Switch();
-        switch1.setPosition(150, 50);
-        switch1.setParameterControl(SimulatorParams.KEY1);
-        switch1.setParameterStatus(Params.START);
-        switch1.setHint("Popup Message For Switch");
-        screen1.addElement(switch1);
+//        Switch switch1 = new Switch();
+//        switch1.setPosition(150, 50);
+//        switch1.setParameterControl(SimulatorParams.KEY1);
+//        switch1.setParameterStatus(Params.START);
+//        switch1.setHint("Popup Message For Switch");
+//        screen1.addElement(switch1);
 
-        ButtonBypass buttonBypass1 = new ButtonBypass();
-        buttonBypass1.setPosition(150, 150);
-        buttonBypass1.setParameterControl(SimulatorParams.KEY1);
-        buttonBypass1.setParameterStatus(Params.START);
-        buttonBypass1.setHint("Popup Message For Button");
-        screen1.addElement(buttonBypass1);
-        
+//        ButtonBypass buttonBypass1 = new ButtonBypass();
+//        buttonBypass1.setPosition(150, 150);
+//        buttonBypass1.setParameterControl(SimulatorParams.KEY1);
+//        buttonBypass1.setParameterStatus(Params.START);
+//        buttonBypass1.setHint("Popup Message For Button");
+//        screen1.addElement(buttonBypass1);
+
         screen1.addFrame(Step1.getStepFrame(100,100));
+        screen1.addFrame(Step1.getStepFrame(420,100));
 
         screen1.addImage("key.svg");
         screen1.addImage("StepActive.svg");

@@ -12,7 +12,7 @@ public class Params {
     public static final SlaveParameterCoil START = new SlaveParameterCoil("START_SEQ", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
     public static final SlaveParameterCoil ABORT = new SlaveParameterCoil("ABORT_SEQ", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.SINGLE);
 
-    public static final SlaveParameterCoil ACTION1 = new SlaveParameterCoil("Action1", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.SINGLE);
+    public static final SlaveParameterCoil ACTION1 = new SlaveParameterCoil("ACTION1", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.SINGLE);
     public static final SlaveParameterCoil ACTION2 = new SlaveParameterCoil("ACTION2", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.SINGLE);
 
     public static final SlaveParameterCoil KEY1 = new SlaveParameterCoil("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);

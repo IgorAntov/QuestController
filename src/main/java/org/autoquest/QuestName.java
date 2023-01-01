@@ -16,10 +16,11 @@ public class QuestName {
             MBUnitList.init();
             Params.init();
             SimulatorParams.init();
-            MBUnitList.runListener();
+//            MBUnitList.runListener();
             ParamsAdapter.ParamsAdapterInit();
             Configuration.inti();
             CommandLineP.parseCL(args);
+            MBUnitList.runListener();
             StepsExecuter.start();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);

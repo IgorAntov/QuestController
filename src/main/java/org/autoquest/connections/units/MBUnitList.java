@@ -7,7 +7,7 @@ public class MBUnitList {
 //    public static final ModBusUnitSlave WS_MB_UNIT_SLAVE = new ModBusUnitSlave();
     public static final MBUnitSlave WS_MB_UNIT_SLAVE_SIM = new MBUnitSlave();
 
-    public static final MBUnitSlave WS_MB_UNIT_SLAVE2 = new MBUnitSlave();
+    public static final MBUnitSlave WS_MB_UNIT_SLAVE = new MBUnitSlave();
 
     public static void init() throws UnknownHostException {
 //        WS_MB_UNIT_SLAVE.setName("WSModBusSlave");
@@ -25,8 +25,8 @@ public class MBUnitList {
                 setPort(1025).
                 setSlaveID(1);
 
-        WS_MB_UNIT_SLAVE2.setName("WSModBusSlave");
-        WS_MB_UNIT_SLAVE2.
+        WS_MB_UNIT_SLAVE.setName("WSModBusSlave");
+        WS_MB_UNIT_SLAVE.
                 setAddress(InetAddress.getLocalHost()).
                 setIsKeepAlive(true).
                 setPort(1024).
@@ -36,12 +36,12 @@ public class MBUnitList {
 
     public static void runListener() {
 //        WS_MB_UNIT_SLAVE.evalMapSize();
-        WS_MB_UNIT_SLAVE2.evalMapSize();
+        WS_MB_UNIT_SLAVE.evalMapSize();
         WS_MB_UNIT_SLAVE_SIM.evalMapSize();
 
 
 //        WS_MB_UNIT_SLAVE.startListen();
-        WS_MB_UNIT_SLAVE2.startListen();
+        WS_MB_UNIT_SLAVE.startListen();
         WS_MB_UNIT_SLAVE_SIM.startListen();
     }
 }

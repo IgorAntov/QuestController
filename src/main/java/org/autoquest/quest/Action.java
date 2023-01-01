@@ -1,6 +1,12 @@
 package org.autoquest.quest;
 
 import org.autoquest.connections.MBParameter;
+import org.autoquest.connections.MembershipType;
+import org.autoquest.connections.ParamType;
+import org.autoquest.connections.Params;
+import org.autoquest.connections.adapters.Adapter;
+
+import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Action extends Thread {
 
@@ -24,11 +30,26 @@ public class Action extends Thread {
         this.actionName = actionName;
         if (actionType.equals(ActionType.STORED))
             StoredActions.addAction(actionName, this);
+        initAction();
     }
 
     public Action(String actionName) {
         this.actionType = ActionType.NON_STORED;
         this.actionName = actionName;
+        initAction();
+    }
+
+    private void initAction() {
+        MBParameter actionStatus = new MBParameter(String.format("ActStatus%s", actionName), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
+        setStatusParam(actionStatus);
+        MBParameter actionTestStart = new MBParameter(String.format("ActTestStart%s", actionName), WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
+        MBParameter actionTestStop = new MBParameter(String.format("ActTestStop%s", actionName), WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
+        setTestParams(actionTestStart, actionTestStop);
+        MBParameter action1Enabled = new MBParameter(String.format("ActEnabled%s", actionName), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
+        MBParameter actionEnabledConfirm = new MBParameter(String.format("ActEnabledCFM%s", actionName), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
+        setEnabled(action1Enabled);
+        setEnabledConfirm(actionEnabledConfirm);
+        Adapter.setAdapter(action1Enabled, actionEnabledConfirm);
     }
 
     @Override

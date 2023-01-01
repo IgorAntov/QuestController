@@ -1,7 +1,5 @@
 package org.autoquest.connections.adapters;
 
-import org.autoquest.connections.DataType;
-import org.autoquest.connections.IParameterCoil;
 import org.autoquest.connections.MBParameter;
 
 import java.util.ArrayList;

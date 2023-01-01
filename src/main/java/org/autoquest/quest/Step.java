@@ -22,6 +22,7 @@ public class Step extends Thread {
 
     public void execute() {
         statusParam.setValue(true);
+        stepDone = false;
         if (stepDelay > 0) {
             try {
                 sleep(stepDelay);
@@ -47,9 +48,13 @@ public class Step extends Thread {
             }
             if (isDone && nextStep != null) {
                 goToNextStep();
+                stepDone = true;
+                statusParam.setValue(false);
                 break;
             }
             if (isDone) {
+                statusParam.setValue(true);
+                stepDone = true;
                 break;
             }
             if (Global.ABORT) {

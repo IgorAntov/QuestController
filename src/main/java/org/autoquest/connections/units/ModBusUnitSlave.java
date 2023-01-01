@@ -17,6 +17,8 @@ import org.autoquest.connections.SlaveParameterInt32;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ModBusUnitSlave {
 
@@ -46,6 +48,11 @@ public class ModBusUnitSlave {
     public void startListen() {
         try {
             slave.listen();
+            parameterCoils.sort(Comparator.comparing(SlaveParameterCoil::getParamType));
+            int index = 0;
+            for ( SlaveParameterCoil p: parameterCoils) {
+                p.setIndex(index++);
+            }
             setInitValue();
 
             int startIndex = parameterCoils.size() - parameterCoilsGroupWrite.size() - parameterCoilsGroupRead.size();

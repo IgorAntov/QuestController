@@ -1,9 +1,8 @@
 package org.autoquest.service.rscadaproject;
 
-import org.autoquest.connections.ParamType;
-import org.autoquest.connections.SlaveParameterCoil;
-import org.autoquest.connections.SlaveParameterFloat;
-import org.autoquest.connections.SlaveParameterInt32;
+import org.autoquest.connections.*;
+import org.autoquest.connections.units.MBUnitList;
+import org.autoquest.connections.units.MBUnitSlave;
 import org.autoquest.connections.units.ModBusUnitSlave;
 
 import java.io.IOException;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class ModBusListXML {
 
-    private ArrayList<ModBusUnitSlave> MBUS = new ArrayList<>();
+    private ArrayList<MBUnitSlave> MBUS = new ArrayList<>();
     private final String path;
 
 
@@ -25,13 +24,13 @@ public class ModBusListXML {
         this.path = path;
     }
 
-    public void add(ModBusUnitSlave modBusUnitSlave) {
+    public void add(MBUnitSlave modBusUnitSlave) {
         MBUS.add(modBusUnitSlave);
     }
 
     public void build() {
         try {
-            for (ModBusUnitSlave ms : MBUS) {
+            for (MBUnitSlave ms : MBUS) {
                 Path file = Paths.get(path + "/Instances/Default/ScadaComm/Config/" + ms.getName() + "ModBusList.xml");
                 Files.write(file, Collections.singleton(getXmlContent(ms)), StandardCharsets.UTF_8);
             }
@@ -40,10 +39,9 @@ public class ModBusListXML {
         }
     }
 
-    public StringBuilder getXmlContent(ModBusUnitSlave ms) {
+    public StringBuilder getXmlContent(MBUnitSlave ms) {
         StringBuilder sb = new StringBuilder();
         int index = 1;
-//        for (ModBusUnitSlave ms : MBUS) {
         sb.append("""
                         <?xml version="1.0" encoding="utf-8"?>
                         <DevTemplate>
@@ -57,62 +55,40 @@ public class ModBusListXML {
                          <ElemGroups>
                         """)
                 .append("  <ElemGroup active=\"true\" tableType=\"Coils\" address=\"0\" name=\"coilList\">\n")
-                .append(ms.getSlaveParameterCoilList().stream()
+                .append(ms.getCoilsList().stream()
                         .map(x -> "   <Elem name=\"" + x.getName() + "\"/>")
                         .collect(Collectors.joining("\n"))).append("\n")
 
-                //              .append(ms.getParameterCoilsGroupWrite().stream()
-                //                      .map(x -> "   <Elem name=\"" + x.getName() + "\"/>")
-                //                      .collect(Collectors.joining("\n"))).append("\n")
-                //              .append(ms.getParameterCoilsGroupRead().stream()
-                //                      .map(x -> "   <Elem name=\"" + x.getName() + "\"/>")
-                //                      .collect(Collectors.joining("\n"))).append("\n")
                 .append("  </ElemGroup>\n")
                 .append("  <ElemGroup active=\"true\" tableType=\"HoldingRegisters\" address=\"0\" name=\"intList\">\n")
 
-                .append(ms.getSlaveParameterInt32List().stream()
+                .append(ms.getInt32List().stream()
                         .map(x -> "   <Elem name=\"" + x.getName() + "\" type=\"int\" byteOrder=\"\"/>")
                         .collect(Collectors.joining("\n"))).append("\n")
 
-                //            .append(ms.getParameterIntsGroupWrite().stream()
-                //                    .map(x -> "   <Elem name=\"" + x.getName() + "\" type=\"int\" byteOrder=\"\"/>")
-                //                    .collect(Collectors.joining("\n"))).append("\n")
-                //            .append(ms.getParameterIntsGroupRead().stream()
-                //                    .map(x -> "   <Elem name=\"" + x.getName() + "\" type=\"int\" byteOrder=\"\"/>")
-                //                    .collect(Collectors.joining("\n"))).append("\n")
-
-                .append(ms.getSlaveParameterFloatList().stream()
+                .append(ms.getFloatList().stream()
                         .map(x -> "   <Elem name=\"" + x.getName() + "\" type=\"float\" byteOrder=\"\"/>")
                         .collect(Collectors.joining("\n"))).append("\n")
                 .append("  </ElemGroup>\n")
                 .append(" </ElemGroups>\n")
                 .append("<Cmds>\n");
 
-        for (SlaveParameterCoil p : ms.getParameterCoils()) {
+        for (MBParameter p : ms.getCoilsList()) {
             if (p.getParamType().equals(ParamType.READ)) {
                 sb.append("<Cmd tableType=\"Coils\" multiple=\"false\" address=\"" + p.getIndex() + "\" cmdNum=\"" + index++ + "\" name=\"" + p.getName() + "control\"/>\n");
             }
         }
-        for (SlaveParameterInt32 p : ms.getSlaveParameterInt32List()) {
+        for (MBParameter p : ms.getInt32List()) {
             if (p.getParamType().equals(ParamType.READ)) {
                 sb.append("<Cmd tableType=\"HoldingRegisters\" multiple=\"true\" address=\"" + p.getIndex() + "\" elemType=\"int\" elemCnt=\"1\" byteOrder=\"\" cmdNum=\"" + index++ + "\" name=\"" + p.getName() + "control\"/>\n");
             }
         }
-        for (SlaveParameterFloat p : ms.getSlaveParameterFloatList()) {
+        for (MBParameter p : ms.getFloatList()) {
             if (p.getParamType().equals(ParamType.READ)) {
                 sb.append("<Cmd tableType=\"HoldingRegisters\" multiple=\"true\" address=\"" + p.getIndex() + "\" elemType=\"float\" elemCnt=\"1\" byteOrder=\"\" cmdNum=\"" + index++ + "\" name=\"" + p.getName() + "control\"/>\n");
             }
         }
-
-        //           .append(ms.getSlaveParameterCoilList().stream().filter(e->e.getParamType().equals(ParamType.READ))
-        //                   .map(x -> "<Cmd tableType=\"Coils\" multiple=\"false\" address=\"" + x.getIndex() + "\" cmdNum=\"1\" name=\"writeC3\"/>"))
-
-
-        //                     "<Cmd tableType=\"HoldingRegisters\" multiple=\"true\" address=\"8\" elemType=\"int\" elemCnt=\"1\" byteOrder=\"\" cmdNum=\"3\" name=\"writeInt32I3\"/>\n" +
-        //                     "<Cmd tableType=\"HoldingRegisters\" multiple=\"true\" address=\"10\" elemType=\"int\" elemCnt=\"1\" byteOrder=\"\" cmdNum=\"4\" name=\"writeInt32I4\"/>\n" +
-        //                     "<Cmd tableType=\"HoldingRegisters\" multiple=\"true\" address=\"16\" elemType=\"float\" elemCnt=\"1\" byteOrder=\"\" cmdNum=\"5\" name=\"writeF3\"/>\n" +
-        //                     "<Cmd tableType=\"HoldingRegisters\" multiple=\"true\" address=\"18\" elemType=\"float\" elemCnt=\"1\" byteOrder=\"\" cmdNum=\"6\" name=\"writeF4\"/>\n" +
-        sb.append("</Cmds>\n");
+     sb.append("</Cmds>\n");
         sb.append("</DevTemplate>");
         return sb;
     }

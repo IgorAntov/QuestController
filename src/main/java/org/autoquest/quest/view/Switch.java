@@ -1,6 +1,6 @@
 package org.autoquest.quest.view;
 
-import org.autoquest.connections.units.IParameter;
+import org.autoquest.connections.MBParameter;
 
 import java.util.ArrayList;
 
@@ -10,11 +10,11 @@ public class Switch  implements IGraphic {
     private int y;
     private String name;
     private String desc = "";
-    private IParameter parameterControl;
-    private IParameter parameterStatus;
+    private MBParameter parameterControl;
+    private MBParameter parameterStatus;
     private String hint;
-    private int height = 20;
-    private int width = 45;
+    private int height = 15;
+    private int width = 30;
 
     @Override
     public void getContent(StringBuilder sb, int index) {
@@ -56,11 +56,11 @@ public class Switch  implements IGraphic {
         this.name = name;
     }
 
-    public void setParameterControl(IParameter parameter) {
+    public void setParameterControl(MBParameter parameter) {
         this.parameterControl = parameter;
     }
 
-    public void setParameterStatus(IParameter parameter) {
+    public void setParameterStatus(MBParameter parameter) {
         this.parameterStatus = parameter;
     }
 
@@ -85,5 +85,21 @@ public class Switch  implements IGraphic {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
     }
 }

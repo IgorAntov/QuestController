@@ -1,6 +1,6 @@
 package org.autoquest.quest;
 
-import org.autoquest.connections.SlaveParameterCoil;
+import org.autoquest.connections.MBParameter;
 
 public class Action extends Thread {
 
@@ -9,13 +9,15 @@ public class Action extends Thread {
     private boolean stopAction;
     private int delay = 0;
     private int afterActionDelay = 0;
-    private SlaveParameterCoil statusParam;
+    private MBParameter statusParam;
     private act doAction;
     private ActionType actionType;
     private String actionName;
-    private SlaveParameterCoil testStart;
-    private SlaveParameterCoil testStop;
-    private String desc ="";
+    private MBParameter testStart;
+    private MBParameter testStop;
+    private MBParameter enabled;
+    private MBParameter enabledConfirm;
+    private String desc = "";
 
     public Action(String actionName, ActionType actionType) {
         this.actionType = actionType;
@@ -35,30 +37,32 @@ public class Action extends Thread {
     }
 
     private void execute() {
-        statusParam.setValue(true);
-        do {
-            try {
-                if ((delay + scanRate) > 0) {
-                    sleep(delay);
+        if (enabled.getBoolValue()) {
+            statusParam.setValue(true);
+            do {
+                try {
+                    if ((delay + scanRate) > 0) {
+                        sleep(delay);
+                    }
+                    doAction.apply();
+                    if (afterActionDelay > 0) {
+                        sleep(afterActionDelay);
+                    }
+                    if (stopAction) {
+                        break;
+                    }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
-                doAction.apply();
-                if (afterActionDelay > 0) {
-                    sleep(afterActionDelay);
-                }
-                if (stopAction) {
-                    break;
-                }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        } while (stored);
+            } while (stored);
+        }
     }
 
     public void defineAction(act act) {
         doAction = act;
     }
 
-    public void setStatusParam(SlaveParameterCoil statusParam) {
+    public void setStatusParam(MBParameter statusParam) {
         this.statusParam = statusParam;
     }
 
@@ -76,6 +80,22 @@ public class Action extends Thread {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public MBParameter getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(MBParameter enabled) {
+        this.enabled = enabled;
+    }
+
+    public MBParameter getEnabledConfirm() {
+        return enabledConfirm;
+    }
+
+    public void setEnabledConfirm(MBParameter enabledConfirm) {
+        this.enabledConfirm = enabledConfirm;
     }
 
     @FunctionalInterface
@@ -111,26 +131,27 @@ public class Action extends Thread {
         this.afterActionDelay = afterActionDelay;
     }
 
-    public void setTestParams(SlaveParameterCoil startParam, SlaveParameterCoil stopParam) {
+    public void setTestParams(MBParameter startParam, MBParameter stopParam) {
         TestActionList.addAction(startParam, this);
-         this.testStart = startParam;
+        this.testStart = startParam;
         TestActionList.addAction(stopParam, this);
         this.testStop = stopParam;
     }
-    public void setTestParams(SlaveParameterCoil startParam) {
+
+    public void setTestParams(MBParameter startParam) {
         TestActionList.addAction(startParam, this);
         this.testStart = startParam;
     }
 
-    public SlaveParameterCoil getTestStart() {
+    public MBParameter getTestStart() {
         return testStart;
     }
 
-    public SlaveParameterCoil getTestStop() {
+    public MBParameter getTestStop() {
         return testStop;
     }
 
-    public SlaveParameterCoil getStatusParam() {
+    public MBParameter getStatusParam() {
         return statusParam;
     }
 }

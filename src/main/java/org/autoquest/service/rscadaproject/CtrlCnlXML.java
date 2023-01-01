@@ -1,10 +1,7 @@
 package org.autoquest.service.rscadaproject;
 
-import org.autoquest.connections.ParamType;
-import org.autoquest.connections.SlaveParameterCoil;
-import org.autoquest.connections.SlaveParameterFloat;
-import org.autoquest.connections.SlaveParameterInt32;
-import org.autoquest.connections.units.ModBusUnitSlave;
+import org.autoquest.connections.*;
+import org.autoquest.connections.units.MBUnitSlave;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -19,13 +16,13 @@ public class CtrlCnlXML {
     public final String path;
 
     public final int step = 100;
-    private ArrayList<ModBusUnitSlave> MBUS = new ArrayList<>();
+    private ArrayList<MBUnitSlave> MBUS = new ArrayList<>();
 
     public CtrlCnlXML(String path) {
         this.path = path;
     }
 
-    public void add(ModBusUnitSlave modBusUnitSlave) {
+    public void add(MBUnitSlave modBusUnitSlave) {
         MBUS.add(modBusUnitSlave);
     }
 
@@ -43,10 +40,10 @@ public class CtrlCnlXML {
         StringBuilder sb = new StringBuilder();
         sb.append("<ArrayOfCtrlCnl xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n");
 
-        for (ModBusUnitSlave ms : MBUS) {
+        for (MBUnitSlave ms : MBUS) {
 
             int paramIndex = 1;
-            for (SlaveParameterCoil p : ms.getParameterCoils()) {
+            for (MBParameter p : ms.getCoilsList()) {
                 if (p.getParamType().equals(ParamType.READ)) {
                     int cnlNumber = step * index + paramIndex;
                     p.setChannelNumber(cnlNumber);
@@ -59,7 +56,6 @@ public class CtrlCnlXML {
                             "<KPNum>" + index + "</KPNum>\n" +
                             "<CmdNum>" + paramIndex + "</CmdNum>\n" +
                             "<CmdValID>1</CmdValID>\n" +
- //                           "<CmdValID xsi:nil=\"true\"/>\n" +
                             "<FormulaUsed>false</FormulaUsed>\n" +
                             "<Formula/>\n" +
                             "<EvEnabled>false</EvEnabled>");
@@ -67,7 +63,7 @@ public class CtrlCnlXML {
                     paramIndex++;
                 }
             }
-            for (SlaveParameterInt32 p : ms.getSlaveParameterInt32List()) {
+            for (MBParameter p : ms.getInt32List()) {
                 if (p.getParamType().equals(ParamType.READ)) {
                     int cnlNumber = step * index + paramIndex;
                     p.setChannelNumber(cnlNumber);
@@ -87,7 +83,7 @@ public class CtrlCnlXML {
                     paramIndex++;
                 }
             }
-            for (SlaveParameterFloat p : ms.getSlaveParameterFloatList()) {
+            for (MBParameter p : ms.getFloatList()) {
                 if (p.getParamType().equals(ParamType.READ)) {
                     int cnlNumber = step * index + paramIndex;
                     p.setChannelNumber(cnlNumber);

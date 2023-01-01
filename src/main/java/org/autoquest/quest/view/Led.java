@@ -1,5 +1,6 @@
 package org.autoquest.quest.view;
 
+import org.autoquest.connections.MBParameter;
 import org.autoquest.connections.units.IParameter;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class Led implements IGraphic {
     private int y;
     private String name="";
     private String desc="";
-    private IParameter parameter;
+    private MBParameter parameter;
     private String hint;
     private int height = 15;
     private int width = 15;
@@ -64,7 +65,7 @@ public class Led implements IGraphic {
         this.name = name;
     }
 
-    public void setParameter(IParameter parameter) {
+    public void setParameter(MBParameter parameter) {
         this.parameter = parameter;
     }
 

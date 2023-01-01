@@ -1,5 +1,6 @@
 package org.autoquest.service.rscadaproject;
 
+import org.autoquest.connections.units.MBUnitSlave;
 import org.autoquest.connections.units.ModBusUnitSlave;
 
 import java.io.IOException;
@@ -12,13 +13,13 @@ import java.util.Collections;
 
 public class KPXML {
     public final String path;
-    private ArrayList<ModBusUnitSlave> MBUS = new ArrayList<>();
+    private ArrayList<MBUnitSlave> MBUS = new ArrayList<>();
 
     public KPXML(String path) {
         this.path = path;
     }
 
-    public void add(ModBusUnitSlave modBusUnitSlave) {
+    public void add(MBUnitSlave modBusUnitSlave) {
         MBUS.add(modBusUnitSlave);
     }
 
@@ -44,7 +45,7 @@ public class KPXML {
         StringBuilder sb = new StringBuilder();
         sb.append("<ArrayOfKP xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
 
-        for (ModBusUnitSlave ms: MBUS) {
+        for (MBUnitSlave ms: MBUS) {
             sb.append("<KP>\n" +
                     "<KPNum>" + index + "</KPNum>\n" +
                     "<Name>" + ms.getName() + "</Name>\n" +
@@ -65,7 +66,7 @@ public class KPXML {
         StringBuilder sb = new StringBuilder();
         sb.append("<ArrayOfCommLine xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
 
-        for (ModBusUnitSlave ms: MBUS) {
+        for (MBUnitSlave ms: MBUS) {
             sb.append("<CommLine>\n" +
                     "<CommLineNum>" + index + "</CommLineNum>\n" +
                     "<Name>" + ms.getName() + "LineComm" + "</Name>\n" +

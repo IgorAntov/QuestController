@@ -1,5 +1,7 @@
 package org.autoquest.service.rscadaproject;
 
+import org.autoquest.connections.units.MBUnitList;
+import org.autoquest.connections.units.MBUnitSlave;
 import org.autoquest.connections.units.ModBusUnitSlave;
 
 import java.io.IOException;
@@ -11,14 +13,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class CommCfgXML {
-    private ArrayList<ModBusUnitSlave> MBUS = new ArrayList<>();
+    private ArrayList<MBUnitSlave> MBUS = new ArrayList<>();
     private final String path;
 
     public CommCfgXML(String path) {
         this.path = path;
     }
 
-    public void add(ModBusUnitSlave modBusUnitSlave) {
+    public void add(MBUnitSlave modBusUnitSlave) {
         MBUS.add(modBusUnitSlave);
     }
 
@@ -50,7 +52,7 @@ public class CommCfgXML {
                 "</CommonParams>\n" +
                 "<!-- Линии связи -->\n" +
                 "<CommLines>\n");
-        for (ModBusUnitSlave ms : MBUS) {
+        for (MBUnitSlave ms : MBUS) {
             sb.append("<!-- Линия " + index + " -->\n" +
                     "<CommLine active=\"true\" bind=\"true\" number=\"" + index + "\" name=\"" + ms.getName() + "LineComm\">\n" +
                     "<CommChannel type=\"TcpClient\">\n" +

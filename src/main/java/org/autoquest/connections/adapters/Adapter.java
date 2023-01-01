@@ -1,20 +1,21 @@
 package org.autoquest.connections.adapters;
 
+import org.autoquest.connections.DataType;
 import org.autoquest.connections.IParameterCoil;
-import org.autoquest.connections.Params;
+import org.autoquest.connections.MBParameter;
 
 import java.util.ArrayList;
 
 public class Adapter {
 
-    private static final ArrayList<AdapterBoolean> adapterBooleans = new ArrayList<>();
+    private static final ArrayList<AdapterParameter> adapterParameters = new ArrayList<>();
 
     public static void adapterStart() {
         new RunAdapter().watch();
     }
 
-    public static void setAdapterBoolean(IParameterCoil in, IParameterCoil out) {
-        adapterBooleans.add(new AdapterBoolean(in, out));
+    public static void setAdapter(MBParameter in, MBParameter out) {
+        adapterParameters.add(new AdapterParameter(in, out));
     }
 
     private static class RunAdapter extends Thread {
@@ -23,8 +24,10 @@ public class Adapter {
         public void run() {
             try {
                 do {
-                    for (AdapterBoolean ab : adapterBooleans) {
-                        ab.getOut().setValue(ab.getIn().getValue());
+                    for (AdapterParameter ab : adapterParameters) {
+                        if (ab.getIn().getDataType().equals(ab.getOut().getDataType())) {
+                            ab.getIn().setValue(ab.getOut().getBoolValue());
+                        } else throw new IllegalArgumentException();
                     }
                     sleep(1000);
                 } while (true);

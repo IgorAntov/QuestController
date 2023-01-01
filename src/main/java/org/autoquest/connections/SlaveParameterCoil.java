@@ -82,4 +82,12 @@ public class SlaveParameterCoil implements IParameterCoil, IParameter {
     public void setChannelNumber(int channelNumber) {
         this.channelNumber = channelNumber;
     }
+
+    @Override
+    public String toString() {
+        return "SlaveParameterCoil{" +
+                "name='" + name + '\'' +
+                ", paramType=" + paramType +
+                '}';
+    }
 }

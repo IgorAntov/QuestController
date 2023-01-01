@@ -1,6 +1,8 @@
 package org.autoquest.quest.view;
 
-import org.autoquest.connections.units.IParameter;
+
+
+import org.autoquest.connections.MBParameter;
 
 import java.util.ArrayList;
 
@@ -10,16 +12,23 @@ public class ButtonTest  implements IGraphic {
     private int y;
     private String name = "Тест";
     private String desc = "";
-    private IParameter parameterControl;
-    private IParameter parameterStatus;
+    private MBParameter parameterControl;
+    private MBParameter parameterStatus;
     private String hint="";
     private int height = 25;
     private int width = 45;
 
     @Override
     public void getContent(StringBuilder sb, int index) {
+        int statusChannelNumber = 0;
+        int controlChannelNumber = parameterControl.getChannelNumber();
+        String boundProperty = "None";
+        if (parameterStatus != null) {
+            statusChannelNumber = parameterStatus.getChannelNumber();
+            boundProperty = "Visibile";
+        }
         sb.append("<basic:Button>\n" +
-                "      <BackColor>Transparent</BackColor>\n" +
+                "      <BackColor></BackColor>\n" +
                 "      <BorderColor />\n" +
                 "      <BorderWidth>1</BorderWidth>\n" +
                 "      <ToolTip>" + hint + "</ToolTip>\\n\n" +
@@ -42,9 +51,9 @@ public class ButtonTest  implements IGraphic {
                 "      </ImageSize>\n" +
                 "      <Text>" + name + "</Text>\n" +
                 "      <Action>SendCommand</Action>\n" +
-                "      <BoundProperty>Visible</BoundProperty>\n" +
-                "      <InCnlNum>" + parameterStatus.getChannelNumber() + "</InCnlNum>\n" +
-                "      <CtrlCnlNum>" + parameterControl.getChannelNumber() + "</CtrlCnlNum>\n" +
+                "      <BoundProperty>" + boundProperty + "</BoundProperty>\n" +
+                "      <InCnlNum>" + statusChannelNumber + "</InCnlNum>\n" +
+                "      <CtrlCnlNum>" + controlChannelNumber + "</CtrlCnlNum>\n" +
                 "    </basic:Button>\n");
     }
 
@@ -62,11 +71,11 @@ public class ButtonTest  implements IGraphic {
         this.name = name;
     }
 
-    public void setParameterControl(IParameter parameter) {
+    public void setParameterControl(MBParameter parameter) {
         this.parameterControl = parameter;
     }
 
-    public void setParameterStatus(IParameter parameter) {
+    public void setParameterStatus(MBParameter parameter) {
         this.parameterStatus = parameter;
     }
 

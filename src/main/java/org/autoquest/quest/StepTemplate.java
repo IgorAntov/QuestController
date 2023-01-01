@@ -15,6 +15,7 @@ public class StepTemplate {
     public static void start() {
         step.start();
     }
+
     public static Step getPointer() {
         return step;
     }
@@ -28,17 +29,16 @@ public class StepTemplate {
         StaticTextFrame staticTextFrame = new StaticTextFrame();
         staticTextFrame.setPosition(x, y);
         staticTextFrame.setDesc(step.getStepName());
-        int height =  (step.getActions().size() + step.getTransitions().size()) * vSpacing + topSetOff + 20;
-        staticTextFrame.setSize(height, 300);
+        int height = (step.getActions().size() + step.getTransitions().size()) * vSpacing + topSetOff + 20;
+        staticTextFrame.setSize(height, 310);
         frameCollector.add(staticTextFrame);
 
         int spacingIndex = 1;
-        for (Action action: step.getActions()) {
+        for (Action action : step.getActions()) {
 
             ButtonTest buttonTest = new ButtonTest();
             buttonTest.setPosition(staticTextFrame.getX() + lineLeft, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex);
             buttonTest.setParameterControl(action.getTestStart());
-            buttonTest.setParameterStatus(action.getStatusParam());
             frameCollector.add(buttonTest);
 
             if (action.getTestStop() != null) {
@@ -46,18 +46,24 @@ public class StepTemplate {
                 buttonStopTest.setName("Стоп");
                 buttonStopTest.setPosition(staticTextFrame.getX() + lineLeft + buttonTest.getWidth() + 5, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex);
                 buttonStopTest.setParameterControl(action.getTestStop());
-                buttonStopTest.setParameterStatus(action.getStatusParam());
                 frameCollector.add(buttonStopTest);
             }
 
+            Switch switch1 = new Switch();
+            switch1.setPosition(staticTextFrame.getX() + lineLeft + buttonTest.getWidth() * 2 + 15, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 5);
+            switch1.setParameterControl(action.getEnabled());
+            switch1.setParameterStatus(action.getEnabledConfirm());
+            switch1.setHint("Вкл/Выкл");
+            frameCollector.add(switch1);
+
             Led led1 = new Led();
-            led1.setPosition(staticTextFrame.getX() + lineLeft + buttonTest.getWidth() * 2 + 20, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 5);
+            led1.setPosition(staticTextFrame.getX() + lineLeft + buttonTest.getWidth() * 2 + switch1.getWidth() + 22, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 5);
             led1.setParameter(action.getStatusParam());
             led1.setHint(action.getDesc());
             frameCollector.add(led1);
 
             StaticText staticText = new StaticText();
-            staticText.setPosition(staticTextFrame.getX() + lineLeft + buttonTest.getWidth() * 2 + led1.getWidth() + 28, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex);
+            staticText.setPosition(staticTextFrame.getX() + lineLeft + buttonTest.getWidth() * 2 + switch1.getWidth() + led1.getWidth() + 28, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex);
             staticText.setDesc(action.getActionName());
             frameCollector.add(staticText);
             spacingIndex++;

@@ -1,9 +1,8 @@
 package org.autoquest.service.rscadaproject;
 
-import org.autoquest.connections.ParamType;
-import org.autoquest.connections.SlaveParameterCoil;
-import org.autoquest.connections.SlaveParameterFloat;
-import org.autoquest.connections.SlaveParameterInt32;
+import org.autoquest.connections.*;
+import org.autoquest.connections.units.MBUnitList;
+import org.autoquest.connections.units.MBUnitSlave;
 import org.autoquest.connections.units.ModBusUnitSlave;
 
 import java.io.IOException;
@@ -19,13 +18,13 @@ public class InCnlXML {
     public final String path;
 
     public final int step = 100;
-    private ArrayList<ModBusUnitSlave> MBUS = new ArrayList<>();
+    private ArrayList<MBUnitSlave> MBUS = new ArrayList<>();
 
     public InCnlXML(String path) {
         this.path = path;
     }
 
-    public void add(ModBusUnitSlave modBusUnitSlave) {
+    public void add(MBUnitSlave modBusUnitSlave) {
         MBUS.add(modBusUnitSlave);
     }
 
@@ -43,11 +42,10 @@ public class InCnlXML {
         StringBuilder sb = new StringBuilder();
         sb.append("<ArrayOfInCnl xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n");
 
-        for (ModBusUnitSlave ms : MBUS) {
+        for (MBUnitSlave ms : MBUS) {
 
             int paramIndex = 1;
-            for (SlaveParameterCoil p : ms.getParameterCoils()) {
- //               if (p.getParamType().equals(ParamType.CONTROL)) {
+            for (MBParameter p : ms.getCoilsList()) {
                     sb.append("<InCnl>\n");
                     int cnlNumber = step * index + paramIndex;
                     p.setChannelNumber(cnlNumber);
@@ -74,11 +72,9 @@ public class InCnlXML {
                             "<LimHigh xsi:nil=\"true\"/>\n" +
                             "<LimHighCrash xsi:nil=\"true\"/>\n");
                     sb.append("</InCnl>\n");
- //               }
                 paramIndex++;
             }
-            for (SlaveParameterInt32 p : ms.getSlaveParameterInt32List()) {
- //               if (p.getParamType().equals(ParamType.CONTROL)) {
+            for (MBParameter p : ms.getInt32List()) {
                 int cnlNumber = step * index + paramIndex;
                 p.setChannelNumber(cnlNumber);
                 sb.append("<InCnl>\n");
@@ -105,11 +101,9 @@ public class InCnlXML {
                                 "<LimHigh xsi:nil=\"true\"/>\n" +
                                 "<LimHighCrash xsi:nil=\"true\"/>\n");
                     sb.append("</InCnl>\n");
-//                }
                 paramIndex++;
             }
-            for (SlaveParameterFloat p : ms.getSlaveParameterFloatList()) {
-//                if (p.getParamType().equals(ParamType.CONTROL)) {
+            for (MBParameter p : ms.getFloatList()) {
                 int cnlNumber = step * index + paramIndex;
                 p.setChannelNumber(cnlNumber);
                 sb.append("<InCnl>\n");
@@ -136,7 +130,6 @@ public class InCnlXML {
                             "<LimHigh xsi:nil=\"true\"/>\n" +
                             "<LimHighCrash xsi:nil=\"true\"/>\n");
                     sb.append("</InCnl>\n");
- //               }
                 paramIndex++;
             }
             index++;

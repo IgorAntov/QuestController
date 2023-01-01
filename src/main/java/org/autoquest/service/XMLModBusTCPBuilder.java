@@ -1,9 +1,6 @@
 package org.autoquest.service;
 
 import org.autoquest.connections.units.MBUnitSlave;
-import org.autoquest.connections.units.ModBusUnitSlave;
-
-import java.util.stream.Collectors;
 
 public class XMLModBusTCPBuilder {
     private final StringBuilder sb = new StringBuilder();

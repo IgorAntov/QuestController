@@ -1,6 +1,6 @@
 package org.autoquest.quest;
 
-import org.autoquest.connections.SlaveParameterCoil;
+import org.autoquest.connections.MBParameter;
 import org.autoquest.service.Global;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class Step extends Thread {
     private int stepDelay = 0;
     private ArrayList<Action> actions = new ArrayList<>();
     private ArrayList<Transition> transitions = new ArrayList<>();
-    private SlaveParameterCoil statusParam;
+    private MBParameter statusParam;
     protected Step nextStep;
     private String stepName = "";
 
@@ -86,7 +86,7 @@ public class Step extends Thread {
         }
     }
 
-    public void setStatusParam(SlaveParameterCoil statusParam) {
+    public void setStatusParam(MBParameter statusParam) {
         this.statusParam = statusParam;
     }
 

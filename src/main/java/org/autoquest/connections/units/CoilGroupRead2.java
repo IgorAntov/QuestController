@@ -4,7 +4,6 @@ import com.intelligt.modbus.jlibmodbus.data.ModbusCoils;
 import com.intelligt.modbus.jlibmodbus.exception.IllegalDataAddressException;
 import com.intelligt.modbus.jlibmodbus.exception.IllegalDataValueException;
 import org.autoquest.connections.MBParameter;
-import org.autoquest.connections.SlaveParameterCoil;
 
 import java.util.ArrayList;
 

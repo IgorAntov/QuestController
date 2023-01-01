@@ -1,7 +1,6 @@
 package org.autoquest.service.rscadaproject;
 
 import org.autoquest.connections.units.MBUnitSlave;
-import org.autoquest.connections.units.ModBusUnitSlave;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -1,7 +1,6 @@
 package org.autoquest.quest;
 
 import org.autoquest.connections.MBParameter;
-import org.autoquest.connections.SlaveParameterCoil;
 
 public class Transition extends Thread {
     private final int scanRate = 300;

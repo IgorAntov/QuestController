@@ -3,7 +3,6 @@ package org.autoquest.connections.units;
 import com.intelligt.modbus.jlibmodbus.data.ModbusHoldingRegisters;
 import com.intelligt.modbus.jlibmodbus.exception.IllegalDataAddressException;
 import org.autoquest.connections.MBParameter;
-import org.autoquest.connections.SlaveParameterFloat;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;

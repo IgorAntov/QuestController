@@ -32,7 +32,7 @@ public class Screen1 {
 //        screen1.addElement(buttonBypass1);
 
         screen1.addFrame(Step1.getStepFrame(100,100));
-        screen1.addFrame(Step1.getStepFrame(420,100));
+        screen1.addFrame(Step1.getStepFrame(450,100));
 
         screen1.addImage("key.svg");
         screen1.addImage("StepActive.svg");

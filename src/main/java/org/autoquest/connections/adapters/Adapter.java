@@ -26,7 +26,7 @@ public class Adapter {
                 do {
                     for (AdapterParameter ab : adapterParameters) {
                         if (ab.getIn().getDataType().equals(ab.getOut().getDataType())) {
-                            ab.getIn().setValue(ab.getOut().getBoolValue());
+                            ab.getOut().setValue(ab.getIn().getBoolValue());
                         } else throw new IllegalArgumentException();
                     }
                     sleep(1000);

@@ -50,7 +50,7 @@ public class MBParameter {
 
     public void setValue(boolean value) {
             if (membershipType.equals(MembershipType.SINGLE)) {
-                modBusUnitSlave.setCoilValue(this.index, valueBool);
+                modBusUnitSlave.setCoilValue(this.index, value);
             } else this.valueBool = value;
     }
 
@@ -134,4 +134,17 @@ public class MBParameter {
     public DataType getDataType() {
         return dataType;
     }
+
+    public boolean getBoolInitialValue() {
+        return valueBool;
+    }
+
+    public int getInt32InitialValue() {
+        return valueInt32;
+    }
+
+    public float getFloatInitialValue() {
+        return valueFloat;
+    }
+
 }

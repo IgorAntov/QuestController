@@ -78,6 +78,7 @@ public class MBUnitSlave {
             slave.listen();
             sortParameters(parameters);
             setIndes();
+            setInitValue();
 
             ArrayList<MBParameter> mbParametersWrite = (ArrayList<MBParameter>) parameters.stream()
                     .filter(x -> (x.getParamType().equals(ParamType.CONTROL) && x.getMembershipType().equals(MembershipType.GROUP)))
@@ -96,6 +97,20 @@ public class MBUnitSlave {
 
         } catch (ModbusIOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void setInitValue() {
+        for (MBParameter p : parameters) {
+            if (p.getDataType().equals(DataType.BOOL)) {
+                p.setValue(p.getBoolInitialValue());
+            }
+            if (p.getDataType().equals(DataType.INT32)) {
+                p.setValue(p.getInt32InitialValue());
+            }
+            if (p.getDataType().equals(DataType.FLOAT)) {
+                p.setValue(p.getFloatInitialValue());
+            }
         }
     }
 

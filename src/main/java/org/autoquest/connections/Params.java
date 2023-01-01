@@ -10,46 +10,29 @@ import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE2;
 
 public class Params {
 
-    public static final MBParameter TEST9 = new MBParameter("TEST7_GR", WS_MB_UNIT_SLAVE2, 20.21f, ParamType.READ, MembershipType.GROUP);
-    public static final MBParameter TEST10 = new MBParameter("TEST8_GR", WS_MB_UNIT_SLAVE2, 10.65f, ParamType.CONTROL, MembershipType.GROUP);
-
-    public static final MBParameter TEST11 = new MBParameter("TEST6_GR", WS_MB_UNIT_SLAVE2, 20.32f, ParamType.READ, MembershipType.SINGLE);
-    public static final MBParameter TEST12 = new MBParameter("TEST5_GR", WS_MB_UNIT_SLAVE2, 10.54f, ParamType.CONTROL, MembershipType.SINGLE);
-
-    public static final MBParameter TEST7 = new MBParameter("TEST7_GR", WS_MB_UNIT_SLAVE2, 20, ParamType.READ, MembershipType.GROUP);
-    public static final MBParameter TEST8 = new MBParameter("TEST8_GR", WS_MB_UNIT_SLAVE2, 10, ParamType.CONTROL, MembershipType.GROUP);
-
-    public static final MBParameter TEST6 = new MBParameter("TEST6_GR", WS_MB_UNIT_SLAVE2, 20, ParamType.READ, MembershipType.SINGLE);
-    public static final MBParameter TEST5 = new MBParameter("TEST5_GR", WS_MB_UNIT_SLAVE2, 10, ParamType.CONTROL, MembershipType.SINGLE);
-
-    public static final MBParameter TEST3 = new MBParameter("TEST3_GR", WS_MB_UNIT_SLAVE2, true, ParamType.READ, MembershipType.GROUP);
-    public static final MBParameter TEST4 = new MBParameter("TEST3_GR", WS_MB_UNIT_SLAVE2, true, ParamType.READ, MembershipType.GROUP);
-
-    public static final MBParameter TEST1 = new MBParameter("TEST1 _GC", WS_MB_UNIT_SLAVE2, true, ParamType.CONTROL, MembershipType.GROUP);
-    public static final MBParameter TEST2 = new MBParameter("TEST2_GC", WS_MB_UNIT_SLAVE2, true, ParamType.CONTROL, MembershipType.GROUP);
 
     public static final MBParameter START2 = new MBParameter("START_SEQ", WS_MB_UNIT_SLAVE2, false, ParamType.CONTROL, MembershipType.SINGLE);
     public static final MBParameter ABORT2 = new MBParameter("ABORT_SEQ", WS_MB_UNIT_SLAVE2, true, ParamType.CONTROL, MembershipType.SINGLE);
-    public static final MBParameter ACTION12 = new MBParameter("ACTION1", WS_MB_UNIT_SLAVE2, false, ParamType.CONTROL, MembershipType.SINGLE);
-    public static final MBParameter ACTION22 = new MBParameter("ACTION2", WS_MB_UNIT_SLAVE2, false, ParamType.CONTROL, MembershipType.SINGLE);
+    public static final MBParameter ACTION1 = new MBParameter("ACTION1", WS_MB_UNIT_SLAVE2, false, ParamType.CONTROL, MembershipType.SINGLE);
+    public static final MBParameter ACTION2 = new MBParameter("ACTION2", WS_MB_UNIT_SLAVE2, false, ParamType.CONTROL, MembershipType.SINGLE);
 
 
 
-    public static final MBParameter KEY12 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE2, false, ParamType.READ, MembershipType.SINGLE);
-    public static final MBParameter KEY22 = new MBParameter("KEY2", WS_MB_UNIT_SLAVE2, false, ParamType.READ, MembershipType.SINGLE);
+    public static final MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE2, false, ParamType.READ, MembershipType.SINGLE);
+    public static final MBParameter KEY2 = new MBParameter("KEY2", WS_MB_UNIT_SLAVE2, false, ParamType.READ, MembershipType.SINGLE);
 
-    public static final MBParameter BYPASS_KEY12 = new MBParameter("BYPASS_KEY1", WS_MB_UNIT_SLAVE2, false, ParamType.READ, MembershipType.SINGLE);
+    public static final MBParameter BYPASS_KEY1 = new MBParameter("BYPASS_KEY1", WS_MB_UNIT_SLAVE2, false, ParamType.READ, MembershipType.SINGLE);
 
-    public static final MBParameter BYPASS_KEY22 = new MBParameter("BYPASS_KEY2", WS_MB_UNIT_SLAVE2, false, ParamType.READ, MembershipType.SINGLE);
+    public static final MBParameter BYPASS_KEY2 = new MBParameter("BYPASS_KEY2", WS_MB_UNIT_SLAVE2, false, ParamType.READ, MembershipType.SINGLE);
 
-    public static final MBParameter ACTION1_TEST_START2 = new MBParameter("ACTION1_TEST_START", WS_MB_UNIT_SLAVE2, false, ParamType.READ, MembershipType.SINGLE);
+    public static final MBParameter ACTION1_TEST_START = new MBParameter("ACTION1_TEST_START", WS_MB_UNIT_SLAVE2, false, ParamType.READ, MembershipType.SINGLE);
 
-    public static final MBParameter ACTION1_TEST_STOP2 = new MBParameter("ACTION1_TEST_STOP", WS_MB_UNIT_SLAVE2, false, ParamType.READ, MembershipType.SINGLE);
-    public static final MBParameter ACTION1_ENABLED2 = new MBParameter("ACTION1_ENABLED", WS_MB_UNIT_SLAVE2, true, ParamType.READ, MembershipType.SINGLE);
-    public static final MBParameter ACTION2_ENABLED2 = new MBParameter("ACTION2_ENABLED", WS_MB_UNIT_SLAVE2, true, ParamType.READ, MembershipType.SINGLE);
+    public static final MBParameter ACTION1_TEST_STOP = new MBParameter("ACTION1_TEST_STOP", WS_MB_UNIT_SLAVE2, false, ParamType.READ, MembershipType.SINGLE);
+    public static final MBParameter ACTION1_ENABLED = new MBParameter("ACTION1_ENABLED", WS_MB_UNIT_SLAVE2, true, ParamType.READ, MembershipType.GROUP);
+    public static final MBParameter ACTION2_ENABLED = new MBParameter("ACTION2_ENABLED", WS_MB_UNIT_SLAVE2, true, ParamType.READ, MembershipType.GROUP);
 
-    public static final MBParameter ACTION1_ENABLED_CFM2 = new MBParameter("ACTION1_ENABLED_CFM", WS_MB_UNIT_SLAVE2, true, ParamType.CONTROL, MembershipType.SINGLE);
-    public static final MBParameter ACTION2_ENABLED_CFM2 = new MBParameter("ACTION1_ENABLED_CFM", WS_MB_UNIT_SLAVE2, true, ParamType.CONTROL, MembershipType.SINGLE);
+    public static final MBParameter ACTION1_ENABLED_CFM = new MBParameter("ACTION1_ENABLED_CFM", WS_MB_UNIT_SLAVE2, true, ParamType.CONTROL, MembershipType.GROUP);
+    public static final MBParameter ACTION2_ENABLED_CFM = new MBParameter("ACTION1_ENABLED_CFM", WS_MB_UNIT_SLAVE2, true, ParamType.CONTROL, MembershipType.GROUP);
 
 
 

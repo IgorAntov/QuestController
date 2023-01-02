@@ -47,11 +47,10 @@ public class MBParameter {
         this.modBusUnitSlave.addParameter(this);
     }
 
-
     public void setValue(boolean value) {
-            if (membershipType.equals(MembershipType.SINGLE)) {
-                modBusUnitSlave.setCoilValue(this.index, value);
-            } else this.valueBool = value;
+        if (membershipType.equals(MembershipType.SINGLE)) {
+            modBusUnitSlave.setCoilValue(this.index, value);
+        } else this.valueBool = value;
     }
 
     public void setValue(int value) {
@@ -65,8 +64,17 @@ public class MBParameter {
             modBusUnitSlave.setFloatValue(this.index, value);
         } else this.valueFloat = value;
     }
+    public void setInitValue(boolean value) {
+        modBusUnitSlave.setCoilValue(this.index, value);
+    }
 
+    public void setInitValue(int value) {
+        modBusUnitSlave.setInt32Value(this.index, value);
+    }
 
+    public void setInitValue(float value) {
+        modBusUnitSlave.setFloatValue(this.index, value);
+    }
 
     public boolean getBoolValue() {
             if (membershipType.equals(MembershipType.SINGLE)) {

@@ -32,7 +32,7 @@ public class CoilGroupWrite2 extends Thread {
                     }
                     modbusCoils.setRange(parameterCoils.get(0).getIndex(), values);
                 }
-                sleep(1000);
+                sleep(500);
             } while (true);
         } catch (IllegalDataAddressException | IllegalDataValueException | InterruptedException e) {
             throw new RuntimeException(e);

@@ -27,7 +27,7 @@ public class Adapter {
                             ab.getOut().setValue(ab.getIn().getBoolValue());
                         } else throw new IllegalArgumentException();
                     }
-                    sleep(1000);
+                    sleep(100);
                 } while (true);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

@@ -11,8 +11,8 @@ import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 public class Action extends Thread {
 
     private final int scanRate = 300;
-    private boolean stored;
     private boolean stopAction;
+    boolean stored;
     private int delay = 0;
     private int afterActionDelay = 0;
     private MBParameter statusParam;
@@ -30,6 +30,7 @@ public class Action extends Thread {
         this.actionName = actionName;
         if (actionType.equals(ActionType.STORED))
             StoredActions.addAction(actionName, this);
+        this.stored = true;
         initAction();
     }
 
@@ -43,8 +44,11 @@ public class Action extends Thread {
         MBParameter actionStatus = new MBParameter(String.format("ActStatus%s", actionName), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         setStatusParam(actionStatus);
         MBParameter actionTestStart = new MBParameter(String.format("ActTestStart%s", actionName), WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
-        MBParameter actionTestStop = new MBParameter(String.format("ActTestStop%s", actionName), WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
-        setTestParams(actionTestStart, actionTestStop);
+        setTestStart(actionTestStart);
+        if (actionType.equals(ActionType.STORED)) {
+            MBParameter actionTestStop = new MBParameter(String.format("ActTestStop%s", actionName), WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
+            setTestStop(actionTestStop);
+        }
         MBParameter action1Enabled = new MBParameter(String.format("ActEnabled%s", actionName), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
         MBParameter actionEnabledConfirm = new MBParameter(String.format("ActEnabledCFM%s", actionName), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
         setEnabled(action1Enabled);
@@ -76,6 +80,7 @@ public class Action extends Thread {
                     throw new RuntimeException(e);
                 }
             } while (stored);
+            statusParam.setValue(false);
         }
     }
 
@@ -152,11 +157,15 @@ public class Action extends Thread {
         this.afterActionDelay = afterActionDelay;
     }
 
-    public void setTestParams(MBParameter startParam, MBParameter stopParam) {
+    public void setTestStart(MBParameter startParam) {
         TestActionList.addAction(startParam, this);
         this.testStart = startParam;
+    }
+
+    public void setTestStop(MBParameter stopParam) {
         TestActionList.addAction(stopParam, this);
         this.testStop = stopParam;
+
     }
 
     public void setTestParams(MBParameter startParam) {

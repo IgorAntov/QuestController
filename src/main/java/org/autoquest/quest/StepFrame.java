@@ -1,26 +1,22 @@
 package org.autoquest.quest;
 
-import org.autoquest.connections.Params;
 import org.autoquest.quest.view.*;
 
 import java.util.ArrayList;
 
-public class StepTemplate {
+public class StepFrame {
 
-    protected static final Step step = new Step();
+    protected final Step step;
 
-    public StepTemplate() {
+    public StepFrame(Step step) {
+        this.step = step;
     }
 
-    public static void start() {
+    public void start() {
         step.start();
     }
 
-    public static Step getPointer() {
-        return step;
-    }
-
-    public static ArrayList<IGraphic> getStepFrame(int x, int y) {
+    public ArrayList<IGraphic> getStepFrame(int x, int y) {
         int topSetOff = 10;
         int lineLeft = 15;
         int vSpacing = 33;
@@ -29,10 +25,9 @@ public class StepTemplate {
         StaticTextFrame staticTextFrame = new StaticTextFrame();
         staticTextFrame.setPosition(x, y);
         staticTextFrame.setDesc(step.getStepName());
-        int height = (step.getActions().size() + step.getTransitions().size()) * vSpacing + topSetOff + 20;
+        int height = (step.getActions().size() + step.getTransitions().size()) * vSpacing + topSetOff + 40;
         staticTextFrame.setSize(height, 310);
         frameCollector.add(staticTextFrame);
-
         int spacingIndex = 1;
         for (Action action : step.getActions()) {
 
@@ -68,6 +63,23 @@ public class StepTemplate {
             frameCollector.add(staticText);
             spacingIndex++;
         }
+
+        for (Transition transition : step.getTransitions()) {
+            Switch switch1 = new Switch();
+            switch1.setPosition(staticTextFrame.getX() + lineLeft, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 10);
+            switch1.setParameterControl(transition.getBypass());
+            switch1.setParameterStatus(transition.getBypassCFM());
+            switch1.setHint("Вкл/Выкл");
+            frameCollector.add(switch1);
+
+            StaticText staticText = new StaticText();
+            staticText.setPosition(staticTextFrame.getX() + lineLeft + switch1.getWidth() + 10, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 5);
+            staticText.setDesc(transition.getDesc());
+            frameCollector.add(staticText);
+
+            spacingIndex++;
+        }
+
         return frameCollector;
     }
 }

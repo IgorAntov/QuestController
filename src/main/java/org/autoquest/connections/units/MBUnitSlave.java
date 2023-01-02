@@ -70,7 +70,6 @@ public class MBUnitSlave {
         for (MBParameter p : parameters) {
             System.out.println(p);
         }
-
     }
 
     public void startListen() {
@@ -83,9 +82,6 @@ public class MBUnitSlave {
             ArrayList<MBParameter> mbParametersWrite = (ArrayList<MBParameter>) parameters.stream()
                     .filter(x -> (x.getParamType().equals(ParamType.CONTROL) && x.getMembershipType().equals(MembershipType.GROUP)))
                     .collect(Collectors.toList());
-
-            System.out.println("WriteSize: " + mbParametersWrite.size());
-
             GroupWrite groupWrite = new GroupWrite(modbusCoils, modbusHoldingRegisters, mbParametersWrite);
             groupWrite.startWriting();
 
@@ -103,13 +99,13 @@ public class MBUnitSlave {
     private void setInitValue() {
         for (MBParameter p : parameters) {
             if (p.getDataType().equals(DataType.BOOL)) {
-                p.setValue(p.getBoolInitialValue());
+                p.setInitValue(p.getBoolInitialValue());
             }
             if (p.getDataType().equals(DataType.INT32)) {
-                p.setValue(p.getInt32InitialValue());
+                p.setInitValue(p.getInt32InitialValue());
             }
             if (p.getDataType().equals(DataType.FLOAT)) {
-                p.setValue(p.getFloatInitialValue());
+                p.setInitValue(p.getFloatInitialValue());
             }
         }
     }

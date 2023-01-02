@@ -17,12 +17,12 @@ public class Params {
 
 
 
-    public static final MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
-    public static final MBParameter KEY2 = new MBParameter("KEY2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
-
-    public static final MBParameter BYPASS_KEY1 = new MBParameter("BYPASS_KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
-
-    public static final MBParameter BYPASS_KEY2 = new MBParameter("BYPASS_KEY2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
+//    public static final MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
+//    public static final MBParameter KEY2 = new MBParameter("KEY2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
+//
+//    public static final MBParameter BYPASS_KEY1 = new MBParameter("BYPASS_KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
+//
+//    public static final MBParameter BYPASS_KEY2 = new MBParameter("BYPASS_KEY2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
 
 //    public static final MBParameter ACTION1_TEST_START = new MBParameter("ACTION1_TEST_START", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
 

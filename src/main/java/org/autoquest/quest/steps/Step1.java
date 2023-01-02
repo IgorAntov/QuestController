@@ -3,42 +3,46 @@ package org.autoquest.quest.steps;
 import org.autoquest.connections.MBParameter;
 import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
-import org.autoquest.connections.Params;
-import org.autoquest.quest.Action;
-import org.autoquest.quest.StepTemplate;
-import org.autoquest.quest.Transition;
+import org.autoquest.quest.*;
 
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
-public class Step1 extends StepTemplate {
+public class Step1 extends Step {
+    private static final Step1 step1 = new Step1();
 
-    public static void init() {
-        step.setStepName("Шаг 1");
-        Action action1 = new Action("Action1");
-        action1.setDesc("Подробное описание действия 1");
+    public static Step1 getInstance() { return step1; }
+    private Step1() {
+
+        setStepName("Шаг 1");
+        Action action1 = new Action("Action1", ActionType.STORED);
+        action1.setDesc("Действия 1");
 
         MBParameter ACTION1 = new MBParameter("ACTION1", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         action1.defineAction(() -> ACTION1.setValue(true));
 
-//        action1.setEnabled(Params.ACTION1_ENABLED);
-//        action1.setEnabledConfirm(Params.ACTION1_ENABLED_CFM);
-
         Action action2 = new Action("Action2");
-        action2.setDesc("Подробное описание действия 2");
+        action2.setDesc("Действие 2 название");
 
         MBParameter ACTION2 = new MBParameter("ACTION2", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         action2.defineAction(() -> ACTION2.setValue(true));
 
-//        action2.setEnabled(Params.ACTION2_ENABLED);
-//        action2.setEnabledConfirm(Params.ACTION2_ENABLED_CFM);
+        MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
         Transition transition1 = new Transition("Transition1");
-        transition1.condition(Params.KEY1::getBoolValue);
-        transition1.setBypassParam(Params.BYPASS_KEY1);
+        transition1.setDesc("Переход 1");
+        transition1.condition(KEY1::getBoolValue);
 
-        step.setNextStep(Step2.getPointer());
-        step.addAction(action1);
-        step.addAction(action2);
-        step.addTransition(transition1);
+        MBParameter KEY2 = new MBParameter("KEY2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
+
+        Transition transition2 = new Transition("Transition2");
+        transition2.setDesc("Переход 2");
+        transition2.condition(KEY2::getBoolValue);
+
+        setNextStep(Step2.getInstance());
+        addAction(action1);
+        addAction(action2);
+        addTransition(transition1);
+        addTransition(transition2);
     }
+
 }

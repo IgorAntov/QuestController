@@ -1,8 +1,5 @@
 package org.autoquest.quest.view;
 
-import org.autoquest.quest.Step;
-import org.autoquest.quest.StepTemplate;
-
 import java.util.ArrayList;
 
 public class Screen {

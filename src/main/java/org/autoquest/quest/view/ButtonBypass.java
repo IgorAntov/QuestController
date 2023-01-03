@@ -1,6 +1,8 @@
 package org.autoquest.quest.view;
 
-import org.autoquest.connections.units.IParameter;
+
+
+import org.autoquest.connections.MBParameter;
 
 import java.util.ArrayList;
 
@@ -10,8 +12,8 @@ public class ButtonBypass implements IGraphic {
     private int y;
     private String name;
     private String desc = "";
-    private IParameter parameterControl;
-    private IParameter parameterStatus;
+    private MBParameter parameterControl;
+    private MBParameter  parameterStatus;
     private String hint;
     private int height = 35;
     private int width = 88;
@@ -43,7 +45,8 @@ public class ButtonBypass implements IGraphic {
                 "      <Text>Обход</Text>\n" +
                 "      <Action>SendCommand</Action>\n" +
                 "      <BoundProperty>Visible</BoundProperty>\n" +
-                "      <InCnlNum>" + parameterStatus.getChannelNumber() + "</InCnlNum>\n" +
+//                "      <InCnlNum>" + parameterStatus.getChannelNumber() + "</InCnlNum>\n" +
+                "      <InCnlNum>0</InCnlNum>\n" +
                 "      <CtrlCnlNum>" + parameterControl.getChannelNumber() + "</CtrlCnlNum>\n" +
                 "    </basic:Button>\n");
     }
@@ -62,11 +65,11 @@ public class ButtonBypass implements IGraphic {
         this.name = name;
     }
 
-    public void setParameterControl(IParameter parameter) {
+    public void setParameterControl(MBParameter  parameter) {
         this.parameterControl = parameter;
     }
 
-    public void setParameterStatus(IParameter parameter) {
+    public void setParameterStatus(MBParameter  parameter) {
         this.parameterStatus = parameter;
     }
 

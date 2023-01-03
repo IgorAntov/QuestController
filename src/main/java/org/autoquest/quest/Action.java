@@ -64,6 +64,7 @@ public class Action extends Thread {
     private void execute() {
         if (enabled.getBoolValue()) {
             statusParam.setValue(true);
+            stopAction = false;
             do {
                 try {
                     if ((delay + scanRate) > 0) {
@@ -124,6 +125,10 @@ public class Action extends Thread {
         this.enabledConfirm = enabledConfirm;
     }
 
+    public void setStored(boolean stored) {
+        this.stored = stored;
+    }
+
     @FunctionalInterface
     public interface act {
         void apply();
@@ -137,8 +142,8 @@ public class Action extends Thread {
         return stopAction;
     }
 
-    public void setStopAction(boolean stopAction) {
-        this.stopAction = stopAction;
+    public void stopAction() {
+        this.stopAction = true;
     }
 
     public int getDelay() {

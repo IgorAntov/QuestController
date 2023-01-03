@@ -12,21 +12,31 @@ public class StepFrame {
         this.step = step;
     }
 
-    public void start() {
-        step.start();
-    }
-
     public ArrayList<IGraphic> getStepFrame(int x, int y) {
         int topSetOff = 10;
         int lineLeft = 15;
         int vSpacing = 33;
+        int width = 310;
         ArrayList<IGraphic> frameCollector = new ArrayList<>();
+
+        DynamicPicture dynamicPicture = new DynamicPicture();
+        dynamicPicture.setPosition(x + ((width - dynamicPicture.getWidth())/2), y - 25);
+        dynamicPicture.setImageName("StepActive.svg");
+        dynamicPicture.setParameter(step.getStatusActive());
+        frameCollector.add(dynamicPicture);
+
+        DynamicPicture dynamicPicture2 = new DynamicPicture();
+        dynamicPicture2.setSize(40,40);
+        dynamicPicture2.setPosition(x + (width/2 - dynamicPicture2.getWidth()/2) , y - 40);
+        dynamicPicture2.setImageName("StepDone.svg");
+        dynamicPicture2.setParameter(step.getStatusDone());
+        frameCollector.add(dynamicPicture2);
 
         StaticTextFrame staticTextFrame = new StaticTextFrame();
         staticTextFrame.setPosition(x, y);
         staticTextFrame.setDesc(step.getStepName());
         int height = (step.getActions().size() + step.getTransitions().size()) * vSpacing + topSetOff + 40;
-        staticTextFrame.setSize(height, 310);
+        staticTextFrame.setSize(height, width);
         frameCollector.add(staticTextFrame);
         int spacingIndex = 1;
         for (Action action : step.getActions()) {

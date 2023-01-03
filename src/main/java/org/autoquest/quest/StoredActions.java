@@ -12,7 +12,7 @@ public class StoredActions {
         storedActions.put(name, action);
     }
 
-    public static void getAction(String name) {
-        storedActions.get(name);
+    public static Action getAction(String name) {
+        return storedActions.get(name);
     }
 }

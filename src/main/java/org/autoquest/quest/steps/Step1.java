@@ -9,7 +9,6 @@ import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Step1 extends Step {
     private static final Step1 step1 = new Step1();
-
     public static Step1 getInstance() { return step1; }
     private Step1() {
 
@@ -30,12 +29,14 @@ public class Step1 extends Step {
 
         Transition transition1 = new Transition("Transition1");
         transition1.setDesc("Переход 1");
+        transition1.setBypassButtonXY(50, 50);
         transition1.condition(KEY1::getBoolValue);
 
         MBParameter KEY2 = new MBParameter("KEY2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
         Transition transition2 = new Transition("Transition2");
         transition2.setDesc("Переход 2");
+        transition1.setBypassButtonXY(50, 100);
         transition2.condition(KEY2::getBoolValue);
 
         setNextStep(Step2.getInstance());

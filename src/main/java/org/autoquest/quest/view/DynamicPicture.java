@@ -1,6 +1,6 @@
 package org.autoquest.quest.view;
 
-import org.autoquest.connections.units.IParameter;
+import org.autoquest.connections.MBParameter;
 
 import java.util.ArrayList;
 
@@ -10,11 +10,11 @@ public class DynamicPicture implements IGraphic {
     private int y;
     private String name="";
     private String desc="";
-    private IParameter parameter;
+    private MBParameter parameter;
     private String hint = "";
-    private String image = "";
-    private int height = 43;
-    private int width = 43;
+    private String imageName = "";
+    private int height = 20;
+    private int width = 200;
     private String action = "NotEqual";
 
     @Override
@@ -24,7 +24,7 @@ public class DynamicPicture implements IGraphic {
                 "      <BorderColor>Gray</BorderColor>\n" +
                 "      <BorderWidth>0</BorderWidth>\n" +
                 "      <ToolTip>" + hint + "</ToolTip>\n" +
-                "      <ID>24</ID>\n" +
+                "      <ID>" + index + "</ID>\n" +
                 "      <Name>" + name + "</Name>\n" +
                 "      <Location>\n" +
                 "        <X>" + x + "</X>\n" +
@@ -35,7 +35,7 @@ public class DynamicPicture implements IGraphic {
                 "        <Height>" + height + "</Height>\n" +
                 "      </Size>\n" +
                 "      <ZIndex>1</ZIndex>\n" +
-                "      <ImageName>" + image + "</ImageName>\n" +
+                "      <ImageName>" + imageName + "</ImageName>\n" +
                 "      <ImageStretch>None</ImageStretch>\n" +
                 "      <BackColorOnHover />\n" +
                 "      <BorderColorOnHover />\n" +
@@ -70,7 +70,7 @@ public class DynamicPicture implements IGraphic {
         this.name = name;
     }
 
-    public void setParameter(IParameter parameter) {
+    public void setParameter(MBParameter  parameter) {
         this.parameter = parameter;
     }
 
@@ -97,11 +97,15 @@ public class DynamicPicture implements IGraphic {
         this.desc = desc;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 
     public void setVisibleOnFalse() {
         this.action = "Equal";
+    }
+
+    public int getWidth() {
+        return width;
     }
 }

@@ -67,7 +67,6 @@ public class Screen {
         this.desc = desc;
         return this;
     }
-
     public ArrayList<String> getImages() {
         return images;
     }
@@ -76,7 +75,7 @@ public class Screen {
         images.add(name);
     }
 
-    public void addFrame(ArrayList<IGraphic> frameContent) {
+    public void addCollection(ArrayList<IGraphic> frameContent) {
       elements.addAll(frameContent);
     }
 }

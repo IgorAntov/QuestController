@@ -16,6 +16,8 @@ public class Transition extends Thread {
     private MBParameter status;
     private String name;
     private String desc = "";
+    private int bypassButtonX = 10;
+    private int bypassButtonY = 10;
 
     public Transition(String name) {
         this.name = name;
@@ -72,6 +74,19 @@ public class Transition extends Thread {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public int getBypassButtonX() {
+        return bypassButtonX;
+    }
+
+    public int getBypassButtonY() {
+        return bypassButtonY;
+    }
+
+    public void setBypassButtonXY(int bypassButtonX, int bypassButtonY) {
+        this.bypassButtonX = bypassButtonX;
+        this.bypassButtonY = bypassButtonY;
     }
 
     @FunctionalInterface

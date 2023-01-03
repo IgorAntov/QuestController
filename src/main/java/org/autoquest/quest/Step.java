@@ -1,19 +1,33 @@
 package org.autoquest.quest;
 
 import org.autoquest.connections.MBParameter;
+import org.autoquest.connections.MembershipType;
+import org.autoquest.connections.ParamType;
 import org.autoquest.service.Global;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Step extends Thread {
     private boolean stepDone;
     private int stepDelay = 0;
     private ArrayList<Action> actions = new ArrayList<>();
     private ArrayList<Transition> transitions = new ArrayList<>();
-    private MBParameter statusParam;
+    private MBParameter statusActive;
+    private MBParameter statusDone;
     protected Step nextStep;
     private String stepName = "";
+    private boolean continuous;
+    private boolean runOnInit;
+
+    public Step() {
+        MBParameter actionStatus = new MBParameter(String.format("StepStatus%s", stepName), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
+        setStatusActive(actionStatus);
+        MBParameter doneStatus = new MBParameter(String.format("StepDoneStatus%s", stepName), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
+        setStatusDone(doneStatus);
+    }
 
     @Override
     public void run() {
@@ -21,7 +35,7 @@ public class Step extends Thread {
     }
 
     public void execute() {
-        statusParam.setValue(true);
+        statusActive.setValue(true);
         stepDone = false;
         if (stepDelay > 0) {
             try {
@@ -49,11 +63,13 @@ public class Step extends Thread {
             if (isDone && nextStep != null) {
                 goToNextStep();
                 stepDone = true;
-                statusParam.setValue(false);
+                statusActive.setValue(false);
+                statusDone.setValue(false);
                 break;
             }
             if (isDone) {
-                statusParam.setValue(true);
+                statusActive.setValue(false);
+                statusDone.setValue(false);
                 stepDone = true;
                 break;
             }
@@ -91,8 +107,8 @@ public class Step extends Thread {
         }
     }
 
-    public void setStatusParam(MBParameter statusParam) {
-        this.statusParam = statusParam;
+    public void setStatusActive(MBParameter statusActive) {
+        this.statusActive = statusActive;
     }
 
     private void goToNextStep() {
@@ -119,4 +135,32 @@ public class Step extends Thread {
         this.stepName = stepName;
     }
 
+    public MBParameter getStatusActive() {
+        return statusActive;
+    }
+
+    public boolean isContinuous() {
+        return continuous;
+    }
+
+    public void setContinuous() {
+        ContinuousStepStore.addStep(this);
+        this.continuous = true;
+    }
+
+    public boolean isRunOnInit() {
+        return runOnInit;
+    }
+
+    public void setRunOnInit() {
+        this.runOnInit = true;
+    }
+
+    public MBParameter getStatusDone() {
+        return statusDone;
+    }
+
+    public void setStatusDone(MBParameter statusDone) {
+        this.statusDone = statusDone;
+    }
 }

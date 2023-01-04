@@ -13,7 +13,13 @@ public class ContinuousStepStore {
     public static void init() {
         for (Step s : continuousSteps) {
             if (s.isRunOnInit()) {
-                s.start();
+                if (s.getState().equals(Thread.State.NEW)) {
+                    s.start();
+                } else {
+                    synchronized (s.getLock()) {
+                        s.getLock().notify();
+                    }
+                }
             }
         }
     }

@@ -8,7 +8,7 @@ import org.autoquest.connections.adapters.Adapter;
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Transition extends Thread {
-    private final int scanRate = 1000;
+    private final int scanRate = 300;
     private boolean passed = false;
     private cnd checkCND;
     private MBParameter bypass;
@@ -18,8 +18,10 @@ public class Transition extends Thread {
     private String desc = "";
     private int bypassButtonX = 10;
     private int bypassButtonY = 10;
+    private final Object lock = new Object();
 
     public Transition(String name) {
+        setName(name);
         this.name = name;
         initTransition();
     }
@@ -38,15 +40,19 @@ public class Transition extends Thread {
     public void run() {
         do {
 //            System.out.println("check transition " + Thread.currentThread());
+            passed = false;
             try {
                 sleep(scanRate);
+                if (checkCND.apply() || !bypass.getBoolValue()) {
+                    passed = true;
+                    System.out.println("transition done " + getTransitionName());
+                    synchronized (lock) {
+                        lock.wait();
+                    }
+//                break;
+                }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
-            }
-            if (checkCND.apply() || !bypass.getBoolValue()) {
-                passed = true;
-                System.out.println("transition done " + getTransitionName());
-                break;
             }
         } while (true);
     }
@@ -92,6 +98,10 @@ public class Transition extends Thread {
         this.bypassButtonY = bypassButtonY;
     }
 
+    public Object getLock() {
+        return lock;
+    }
+
     @FunctionalInterface
     public interface cnd<R> {
         boolean apply();
@@ -108,6 +118,5 @@ public class Transition extends Thread {
     public void setStatusParam(MBParameter status) {
         this.status = status;
     }
-
 
 }

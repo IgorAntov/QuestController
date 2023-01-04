@@ -10,7 +10,7 @@ import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Action extends Thread {
 
-    private final int scanRate = 2000;
+    private final int scanRate = 300;
     private boolean stopAction;
     boolean stored;
     private int delay = 0;
@@ -24,6 +24,7 @@ public class Action extends Thread {
     private MBParameter enabled;
     private MBParameter enabledConfirm;
     private String desc = "";
+    private final Object lock = new Object();
 
     public Action(String actionName, ActionType actionType) {
         this.actionType = actionType;
@@ -35,6 +36,7 @@ public class Action extends Thread {
     }
 
     public Action(String actionName) {
+        setName(actionName);
         this.actionType = ActionType.NON_STORED;
         this.actionName = actionName;
         initAction();
@@ -62,29 +64,38 @@ public class Action extends Thread {
     }
 
     private void execute() {
-        if (enabled.getBoolValue()) {
-            statusParam.setValue(true);
-            stopAction = false;
+        try {
             do {
-                System.out.println("Tick");
-                try {
-                    if ((delay + scanRate) > 0) {
-                        sleep(delay + scanRate);
-                    }
-                    doAction.apply();
-                    if (afterActionDelay > 0) {
-                        sleep(afterActionDelay);
-                    }
-                    if (stopAction) {
-                        break;
-                    }
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            } while (stored);
+                if (enabled.getBoolValue()) {
+                    statusParam.setValue(true);
+                    stopAction = false;
+                    do {
+                        System.out.println("doing " + getActionName());
+//                    try {
+                        if ((delay + scanRate) > 0) {
+                            sleep(delay + scanRate);
+                        }
+                        doAction.apply();
+                        if (afterActionDelay > 0) {
+                            sleep(afterActionDelay);
+                        }
+                        if (stopAction) {
+                            break;
+                        }
+//                    } catch (InterruptedException e) {
+//                        throw new RuntimeException(e);
+//                    }
+                    } while (stored);
 //            statusParam.setValue(false);
+                }
+                System.out.println("done " + getActionName());
+                synchronized (lock) {
+                    lock.wait();
+                }
+            } while (true);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-        System.out.println("done");
     }
 
     public void defineAction(act act) {
@@ -131,9 +142,14 @@ public class Action extends Thread {
         this.stored = stored;
     }
 
+    public Object getLock() {
+        return lock;
+    }
+
     @FunctionalInterface
     public interface act {
         void apply();
+
     }
 
     public boolean isStored() {
@@ -191,4 +207,5 @@ public class Action extends Thread {
     public MBParameter getStatusParam() {
         return statusParam;
     }
+
 }

@@ -24,8 +24,11 @@ public class Step extends Thread {
     private boolean continuous;
     private boolean runOnInit;
 
+    private final Object lock = new Object();
+
     public Step(String stepName) {
         this.stepName = stepName;
+        setName(stepName);
         MBParameter actionStatus = new MBParameter(String.format("StepStatus%s", stepName), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         setStatusActive(actionStatus);
         MBParameter doneStatus = new MBParameter(String.format("StepDoneStatus%s", stepName), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
@@ -39,68 +42,96 @@ public class Step extends Thread {
     }
 
     public void execute() {
-        statusActive.setValue(true);
-        stepDone = false;
-        if (stepDelay > 0) {
-            try {
-                sleep(stepDelay);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            Iterator<Action> iteratorAction = actions.iterator();
-            while(iteratorAction.hasNext()) {
-                iteratorAction.next().start();
-            }
-            Iterator<Transition> iteratorTransition = transitions.iterator();
-            while(iteratorTransition.hasNext()) {
-                Transition transition = iteratorTransition.next();
-                    transition.start();
-            }
-        }
-        boolean isDone;
-        statusDone.setValue(false);
-        do {
-            isDone = true;
-            for (Transition t: transitions) {
-                isDone = isDone && t.isPassed();
-            }
-            if (isDone && nextStep != null) {
-                goToNextStep();
-                stepDone = true;
-                statusActive.setValue(false);
-                statusDone.setValue(true);
-                Thread.currentThread().interrupt();
-                if (isInterrupted()) {
-                    System.out.println("Stop1 T:" + Thread.currentThread().getName());
-                    Thread.currentThread().interrupt();
-                    System.out.println("Stop2 T:" + Thread.currentThread().getName());
+            Action action;
+            Transition transition;
+            do {
+                statusActive.setValue(true);
+                stepDone = false;
+                if (stepDelay > 0) {
+                    try {
+                        sleep(stepDelay);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    Iterator<Action> iteratorAction = actions.iterator();
+                    while (iteratorAction.hasNext()) {
+//                iteratorAction.next().start();
+                        action = iteratorAction.next();
+//                        if (action.getState() != State.TIMED_WAITING && action.getState() != State.WAITING && action.getState() != State.RUNNABLE) {
+                        if (action.getState().equals(State.NEW)) {
+                            System.out.println(action.getState());
+                            action.start();
+                        } else {
+                            synchronized (action.getLock()) {
+                                System.out.println(action.getState());
+                                action.getLock().notify();
+                            }
+                        }
+                    }
+                    Iterator<Transition> iteratorTransition = transitions.iterator();
+                    while (iteratorTransition.hasNext()) {
+                        transition = iteratorTransition.next();
+//                transition.start();
+//                        if (transition.getState() != Thread.State.WAITING && transition.getState() != State.TIMED_WAITING) {
+                        if (transition.getState().equals(State.NEW)) {
+                            transition.start();
+                        } else {
+                            synchronized (transition.getLock()) {
+                                transition.getLock().notify();
+                            }
+                        }
+                    }
                 }
+                boolean isDone;
+                statusDone.setValue(false);
+                do {
+                    try {
+                        isDone = true;
+                        for (Transition t : transitions) {
+                            isDone = isDone && t.isPassed() && t.getState().equals(State.WAITING);
+                        }
+                        for (Action a : actions) {
+                            isDone = isDone && a.getState().equals(State.WAITING);
+                        }
+                        if (isDone && nextStep != null && (nextStep.getState().equals(State.NEW) || nextStep.getState().equals(State.WAITING))) {
+                            goToNextStep();
+                            stepDone = true;
+                            statusActive.setValue(false);
+                            statusDone.setValue(true);
+                            System.out.println("Wait Thread: " + getName());
+                            synchronized (lock) {
+                                lock.wait();
+                            }
+                            break;
 //                break;
-            }
-            if (isDone) {
-                statusActive.setValue(false);
-                statusDone.setValue(true);
-                stepDone = true;
-                Thread.currentThread().interrupt();
-                if (isInterrupted()) {
-                    System.out.println("Stop11 T:" + Thread.currentThread().getName());
-                    Thread.currentThread().interrupt();
-                    System.out.println("Stop12 T:" + Thread.currentThread().getName());
-                }
+                        }
+                        if (isDone) {
+                            statusActive.setValue(false);
+                            statusDone.setValue(true);
+                            stepDone = true;
+                            System.out.println("Wait Thread: " + getName());
+                            synchronized (lock) {
+                               lock.wait();
+                            }
+                            break;
 //                break;
-            }
-            if (Global.ABORT) {
-                break;
-            }
-            try {
-                sleep(scanRate);
-            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-                Thread.currentThread().interrupt();
-            }
-        } while (true);
-        System.out.println("stepDoneFromWhile");
+                        }
+                        if (Global.ABORT) {
+                            System.out.println("Wait Thread: " + getName());
+                            synchronized (lock) {
+                                lock.wait();
+                            }
+                            break;
+//                break;
+                        }
+
+                        sleep(scanRate);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                } while (true);
+            } while (true);
     }
 
     public void addAction(Action action) {
@@ -126,7 +157,7 @@ public class Step extends Thread {
     }
 
     public void setStepDone(boolean stepDone) {
-        synchronized (this){
+        synchronized (this) {
             this.stepDone = stepDone;
         }
     }
@@ -136,8 +167,16 @@ public class Step extends Thread {
     }
 
     private void goToNextStep() {
-        System.out.println("Go to Thread: " + nextStep.getName());
-        nextStep.start();
+        System.out.println("Go to Thread: (wake up) " + nextStep.getName() + "status: " + nextStep.getState());
+//        nextStep.start();
+//        if (nextStep.getState() != Thread.State.WAITING && nextStep.getState() != State.TIMED_WAITING) {
+        if (nextStep.getState().equals(State.NEW)) {
+            nextStep.start();
+        } else {
+            synchronized (nextStep.getLock()) {
+                nextStep.getLock().notify();
+            }
+        }
     }
 
     public void setNextStep(Step step) {
@@ -187,5 +226,15 @@ public class Step extends Thread {
 
     public void setStatusDone(MBParameter statusDone) {
         this.statusDone = statusDone;
+    }
+
+    public void launch () {
+        if (getState() != Thread.State.WAITING) {
+            start();
+        };
+    }
+
+    public Object getLock() {
+        return lock;
     }
 }

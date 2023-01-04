@@ -8,7 +8,7 @@ import org.autoquest.connections.adapters.Adapter;
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Transition extends Thread {
-    private final int scanRate = 300;
+    private final int scanRate = 1000;
     private boolean passed = false;
     private cnd checkCND;
     private MBParameter bypass;
@@ -37,6 +37,7 @@ public class Transition extends Thread {
     @Override
     public void run() {
         do {
+//            System.out.println("check transition " + Thread.currentThread());
             try {
                 sleep(scanRate);
             } catch (InterruptedException e) {
@@ -44,6 +45,8 @@ public class Transition extends Thread {
             }
             if (checkCND.apply() || !bypass.getBoolValue()) {
                 passed = true;
+                System.out.println("transition done " + getTransitionName());
+                break;
             }
         } while (true);
     }

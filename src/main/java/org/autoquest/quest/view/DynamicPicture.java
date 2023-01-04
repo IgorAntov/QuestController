@@ -44,7 +44,7 @@ public class DynamicPicture implements IGraphic {
                 "      <Conditions>\n" +
                 "        <Condition>\n" +
                 "          <CompareOperator1>" + action + "</CompareOperator1>\n" +
-                "          <CompareArgument1>0</CompareArgument1>\n" +
+                "          <CompareArgument1>1</CompareArgument1>\n" +
                 "          <CompareOperator2>LessThan</CompareOperator2>\n" +
                 "          <CompareArgument2>0</CompareArgument2>\n" +
                 "          <LogicalOperator>None</LogicalOperator>\n" +

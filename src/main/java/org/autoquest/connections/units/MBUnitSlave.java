@@ -30,7 +30,7 @@ public class MBUnitSlave {
     private ModbusHoldingRegisters modbusHoldingRegisters;
 
     public MBUnitSlave() {
-        Modbus.setLogLevel(Modbus.LogLevel.LEVEL_DEBUG);
+//        Modbus.setLogLevel(Modbus.LogLevel.LEVEL_DEBUG);
     }
 
     private void sortParameters(ArrayList<MBParameter> mbParameters) {

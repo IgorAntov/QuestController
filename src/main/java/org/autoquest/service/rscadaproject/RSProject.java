@@ -1,6 +1,6 @@
 package org.autoquest.service.rscadaproject;
 
-import org.autoquest.quest.view.GraphicConfig;
+import org.autoquest.quest.view.graphics.GraphicConfig;
 
 //import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 

@@ -14,6 +14,7 @@ public class QuestName {
 
     public static void main(String[] args) {
         try {
+            System.out.println("Thread current Main: " + Thread.currentThread().getName());
             MBUnitList.init();
             Params.init();
             SimulatorParams.init();
@@ -21,8 +22,8 @@ public class QuestName {
             Configuration.inti();
             MBUnitList.runListener();
             CommandLineP.parseCL(args);
-            StepsExecuter.start();
             ContinuousStepStore.init();
+            StepsExecuter.start();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }

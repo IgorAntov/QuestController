@@ -15,7 +15,6 @@ public class StepBypassButtons {
 
     public ArrayList<IGraphic> getButtons() {
         ArrayList<IGraphic> bypassButtonCollector = new ArrayList<>();
-        System.out.println("Tr: " + step.getTransitions());
         for (Transition transition : step.getTransitions()) {
             ButtonBypass buttonBypass = new ButtonBypass();
             buttonBypass.setHint(transition.getDesc());

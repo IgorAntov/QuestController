@@ -11,6 +11,8 @@ import java.util.Iterator;
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Step extends Thread {
+
+    private int scanRate = 300;
     private boolean stepDone;
     private int stepDelay = 0;
     private ArrayList<Action> actions = new ArrayList<>();
@@ -22,7 +24,8 @@ public class Step extends Thread {
     private boolean continuous;
     private boolean runOnInit;
 
-    public Step() {
+    public Step(String stepName) {
+        this.stepName = stepName;
         MBParameter actionStatus = new MBParameter(String.format("StepStatus%s", stepName), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         setStatusActive(actionStatus);
         MBParameter doneStatus = new MBParameter(String.format("StepDoneStatus%s", stepName), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
@@ -31,6 +34,7 @@ public class Step extends Thread {
 
     @Override
     public void run() {
+        System.out.println("Run Thread current: " + getName());
         execute();
     }
 
@@ -55,6 +59,7 @@ public class Step extends Thread {
             }
         }
         boolean isDone;
+        statusDone.setValue(false);
         do {
             isDone = true;
             for (Transition t: transitions) {
@@ -64,19 +69,38 @@ public class Step extends Thread {
                 goToNextStep();
                 stepDone = true;
                 statusActive.setValue(false);
-                statusDone.setValue(false);
-                break;
+                statusDone.setValue(true);
+                Thread.currentThread().interrupt();
+                if (isInterrupted()) {
+                    System.out.println("Stop1 T:" + Thread.currentThread().getName());
+                    Thread.currentThread().interrupt();
+                    System.out.println("Stop2 T:" + Thread.currentThread().getName());
+                }
+//                break;
             }
             if (isDone) {
                 statusActive.setValue(false);
-                statusDone.setValue(false);
+                statusDone.setValue(true);
                 stepDone = true;
-                break;
+                Thread.currentThread().interrupt();
+                if (isInterrupted()) {
+                    System.out.println("Stop11 T:" + Thread.currentThread().getName());
+                    Thread.currentThread().interrupt();
+                    System.out.println("Stop12 T:" + Thread.currentThread().getName());
+                }
+//                break;
             }
             if (Global.ABORT) {
                 break;
             }
+            try {
+                sleep(scanRate);
+            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
+            }
         } while (true);
+        System.out.println("stepDoneFromWhile");
     }
 
     public void addAction(Action action) {
@@ -112,6 +136,7 @@ public class Step extends Thread {
     }
 
     private void goToNextStep() {
+        System.out.println("Go to Thread: " + nextStep.getName());
         nextStep.start();
     }
 

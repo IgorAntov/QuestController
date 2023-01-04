@@ -18,24 +18,23 @@ public class Step3 extends Step {
     }
 
     private Step3() {
-        setStepName("Шаг 3");
-//        setContinuous();
-//        setRunOnInit();
-//        setNextStep(xxx);
-        Action action1 = new Action("Action1");
-        action1.setDesc("Действия 1");
+        super("Выкл свет");
+        setContinuous();
+        setRunOnInit();
+        Action action1 = new Action("Action1S3");
+        action1.setDesc("Действия 1 S3");
 
-        MBParameter ACTION1 = new MBParameter("ACTION1", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
+        MBParameter ACTION1 = new MBParameter("ACTION1S3", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         action1.defineAction(() -> {
             ACTION1.setValue(true);
-            StoredActions.getAction("Action1").stopAction();
+            System.out.println("Step 3 Action 1 Done");
+//            StoredActions.getAction("Action1").stopAction();
         });
 
-        MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
+        MBParameter KEY1 = new MBParameter("KEY1S3", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
-        Transition transition1 = new Transition("Transition1");
-        transition1.setDesc("Переход 1");
-        transition1.setBypassButtonXY(150, 50);
+        Transition transition1 = new Transition("Transition1S3");
+        transition1.setDesc("Переход 1 S3");
         transition1.condition(KEY1::getBoolValue);
 
         addAction(action1);

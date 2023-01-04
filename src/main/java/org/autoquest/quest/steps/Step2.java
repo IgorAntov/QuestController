@@ -16,8 +16,7 @@ public class Step2 extends Step {
         return step2;
     }
     private Step2() {
-
-        setStepName("Шаг 2");
+        super("Шаг 2");
         Action action1 = new Action("Action1");
         action1.setDesc("Действия 1");
 

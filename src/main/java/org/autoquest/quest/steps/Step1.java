@@ -9,10 +9,13 @@ import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Step1 extends Step {
     private static final Step1 step1 = new Step1();
-    public static Step1 getInstance() { return step1; }
-    private Step1() {
 
-        setStepName("Шаг 1");
+    public static Step1 getInstance() {
+        return step1;
+    }
+
+    private Step1() {
+        super("Шаг 1");
         Action action1 = new Action("Action1", ActionType.STORED);
         action1.setDesc("Действия 1");
 

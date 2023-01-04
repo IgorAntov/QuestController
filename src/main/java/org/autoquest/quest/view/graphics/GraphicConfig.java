@@ -1,6 +1,8 @@
-package org.autoquest.quest.view;
+package org.autoquest.quest.view.graphics;
 
 import org.autoquest.QuestName;
+import org.autoquest.quest.view.Graphic;
+import org.autoquest.quest.view.Group;
 import org.autoquest.quest.view.graphics.Screen1;
 import org.autoquest.quest.view.graphics.Screen2;
 
@@ -13,5 +15,6 @@ public class GraphicConfig {
         graphic.addGroup(group1);
         group1.addScreen(Screen1.getScreen());
         group1.addScreen(Screen2.getScreen());
+        group1.addScreen(Screen3.getScreen());
     }
 }

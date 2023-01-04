@@ -10,7 +10,7 @@ import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Action extends Thread {
 
-    private final int scanRate = 300;
+    private final int scanRate = 2000;
     private boolean stopAction;
     boolean stored;
     private int delay = 0;
@@ -66,9 +66,10 @@ public class Action extends Thread {
             statusParam.setValue(true);
             stopAction = false;
             do {
+                System.out.println("Tick");
                 try {
                     if ((delay + scanRate) > 0) {
-                        sleep(delay);
+                        sleep(delay + scanRate);
                     }
                     doAction.apply();
                     if (afterActionDelay > 0) {
@@ -81,8 +82,9 @@ public class Action extends Thread {
                     throw new RuntimeException(e);
                 }
             } while (stored);
-            statusParam.setValue(false);
+//            statusParam.setValue(false);
         }
+        System.out.println("done");
     }
 
     public void defineAction(act act) {

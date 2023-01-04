@@ -56,9 +56,7 @@ public class Step extends Thread {
                 } else {
                     Iterator<Action> iteratorAction = actions.iterator();
                     while (iteratorAction.hasNext()) {
-//                iteratorAction.next().start();
                         action = iteratorAction.next();
-//                        if (action.getState() != State.TIMED_WAITING && action.getState() != State.WAITING && action.getState() != State.RUNNABLE) {
                         if (action.getState().equals(State.NEW)) {
                             System.out.println(action.getState());
                             action.start();
@@ -72,8 +70,6 @@ public class Step extends Thread {
                     Iterator<Transition> iteratorTransition = transitions.iterator();
                     while (iteratorTransition.hasNext()) {
                         transition = iteratorTransition.next();
-//                transition.start();
-//                        if (transition.getState() != Thread.State.WAITING && transition.getState() != State.TIMED_WAITING) {
                         if (transition.getState().equals(State.NEW)) {
                             transition.start();
                         } else {

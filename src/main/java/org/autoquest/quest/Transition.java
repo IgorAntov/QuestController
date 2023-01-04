@@ -27,7 +27,7 @@ public class Transition extends Thread {
     }
 
     private void initTransition() {
-        MBParameter status = new MBParameter(String.format("TransitStatus%s", name), WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
+        MBParameter status = new MBParameter(String.format("TransitStatus%s", name), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         MBParameter bypass = new MBParameter(String.format("Bypass%s", name), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
         MBParameter bypassCFM = new MBParameter(String.format("BypassCFM%s", name), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
         setStatusParam(status);
@@ -39,17 +39,17 @@ public class Transition extends Thread {
     @Override
     public void run() {
         do {
-//            System.out.println("check transition " + Thread.currentThread());
             passed = false;
+            status.setValue(false);
             try {
                 sleep(scanRate);
                 if (checkCND.apply() || !bypass.getBoolValue()) {
                     passed = true;
                     System.out.println("transition done " + getTransitionName());
+                    status.setValue(true);
                     synchronized (lock) {
                         lock.wait();
                     }
-//                break;
                 }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -100,6 +100,14 @@ public class Transition extends Thread {
 
     public Object getLock() {
         return lock;
+    }
+
+    public MBParameter getStatus() {
+        return status;
+    }
+
+    public void setStatus(MBParameter status) {
+        this.status = status;
     }
 
     @FunctionalInterface

@@ -71,7 +71,6 @@ public class Action extends Thread {
                     stopAction = false;
                     do {
                         System.out.println("doing " + getActionName());
-//                    try {
                         if ((delay + scanRate) > 0) {
                             sleep(delay + scanRate);
                         }
@@ -82,11 +81,7 @@ public class Action extends Thread {
                         if (stopAction) {
                             break;
                         }
-//                    } catch (InterruptedException e) {
-//                        throw new RuntimeException(e);
-//                    }
                     } while (stored);
-//            statusParam.setValue(false);
                 }
                 System.out.println("done " + getActionName());
                 synchronized (lock) {

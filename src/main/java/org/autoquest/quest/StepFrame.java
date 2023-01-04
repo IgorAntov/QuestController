@@ -82,8 +82,14 @@ public class StepFrame {
             switch1.setHint("Вкл/Выкл");
             frameCollector.add(switch1);
 
+            Led led1 = new Led();
+            led1.setPosition(staticTextFrame.getX() + lineLeft + switch1.getWidth() + 8, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 10);
+            led1.setParameter(transition.getStatus());
+            led1.setHint(transition.getDesc());
+            frameCollector.add(led1);
+
             StaticText staticText = new StaticText();
-            staticText.setPosition(staticTextFrame.getX() + lineLeft + switch1.getWidth() + 10, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 5);
+            staticText.setPosition(staticTextFrame.getX() + lineLeft + switch1.getWidth() + led1.getWidth() + 15, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 5);
             staticText.setDesc(transition.getDesc());
             frameCollector.add(staticText);
 

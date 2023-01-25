@@ -25,13 +25,13 @@ public class ButtonTest  implements IGraphic {
         String boundProperty = "None";
         if (parameterStatus != null) {
             statusChannelNumber = parameterStatus.getChannelNumber();
-            boundProperty = "Visibile";
+            boundProperty = "Visible";
         }
         sb.append("<basic:Button>\n" +
                 "      <BackColor></BackColor>\n" +
                 "      <BorderColor />\n" +
                 "      <BorderWidth>1</BorderWidth>\n" +
-                "      <ToolTip>" + hint + "</ToolTip>\\n\n" +
+                "      <ToolTip>" + hint + "</ToolTip>\n" +
                 "      <ID>" + index + "</ID>\n" +
                 "      <Name>" + name + index + "</Name>\n" +
                 "      <Location>\n" +

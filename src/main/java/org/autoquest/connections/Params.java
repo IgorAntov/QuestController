@@ -11,26 +11,11 @@ import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 public class Params {
 
 
-    public static final MBParameter START2 = new MBParameter("START_SEQ", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
-    public static final MBParameter ABORT2 = new MBParameter("ABORT_SEQ", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.SINGLE);
-//    public static final MBParameter ACTION2 = new MBParameter("ACTION2", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
+    public static final MBParameter START = new MBParameter("START_SEQ", WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.SINGLE);
+    public static final MBParameter START_FB = new MBParameter("START_SEQ_FB", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.SINGLE);
+    public static final MBParameter ABORT = new MBParameter("ABORT_SEQ", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
+    public static final MBParameter ABORT_FB = new MBParameter("ABORT_SEQ_FB", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.GROUP);
 
-
-//    public static final MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
-//    public static final MBParameter KEY2 = new MBParameter("KEY2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
-//
-//    public static final MBParameter BYPASS_KEY1 = new MBParameter("BYPASS_KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
-//
-//    public static final MBParameter BYPASS_KEY2 = new MBParameter("BYPASS_KEY2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
-
-//    public static final MBParameter ACTION1_TEST_START = new MBParameter("ACTION1_TEST_START", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
-
-//    public static final MBParameter ACTION1_TEST_STOP = new MBParameter("ACTION1_TEST_STOP", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.SINGLE);
-//    public static final MBParameter ACTION1_ENABLED = new MBParameter("ACTION1_ENABLED", WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
-//    public static final MBParameter ACTION2_ENABLED = new MBParameter("ACTION2_ENABLED", WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
-
-//    public static final MBParameter ACTION1_ENABLED_CFM = new MBParameter("ACTION1_ENABLED_CFM", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
-//    public static final MBParameter ACTION2_ENABLED_CFM = new MBParameter("ACTION1_ENABLED_CFM", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
 
 
 

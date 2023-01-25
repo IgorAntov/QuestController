@@ -1,10 +1,7 @@
 package org.autoquest.quest.view.graphics;
 
-import org.autoquest.QuestName;
 import org.autoquest.quest.view.Graphic;
 import org.autoquest.quest.view.Group;
-import org.autoquest.quest.view.graphics.Screen1;
-import org.autoquest.quest.view.graphics.Screen2;
 
 public class GraphicConfig {
 

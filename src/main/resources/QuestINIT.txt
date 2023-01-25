@@ -1,0 +1,27 @@
+1. Define Steps sequence in step folder "quest/steps"
+    Step1, Step2 ..
+    1.1 Assign step name
+
+    Step configuration:
+        1.2 Define Actions (Output bits)
+        1.3 Choose Action Type (STORED or NO STORED)
+        1.4 Set action description
+        1.5 Choose action Parameter-Type and Membership-Type and set output value;
+
+        1.6 Define Keys (Input bits)
+        1.7 Choose key Parameter-Type and Membership-Type
+
+        1.8 Define Transition
+        1.10 Set action description
+        1.11 Set BypassButton (BB) and BB position
+        1.12 Define transit condition based on Keys composition
+
+        1.13 Assign next step to-do
+        1.14 Add actions and transitions to step action and transition List
+
+2. Add steps to config initialisation - CLASS "Configuration"
+3. Create Screen for Rapid Scada
+    3.1 Set screen name, description, graphic size
+    3.2 Add stepFrame to screen collection with specific positions
+    3.3 Add needed images to imageStore
+4. Config RapidScada Graphics  - CLASS "GraphicConfig"

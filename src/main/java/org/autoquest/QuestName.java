@@ -6,7 +6,7 @@ import org.autoquest.connections.adapters.SimulatorParams;
 import org.autoquest.connections.units.MBUnitList;
 import org.autoquest.quest.Configuration;
 import org.autoquest.quest.ContinuousStepStore;
-import org.autoquest.quest.StepsExecuter;
+import org.autoquest.quest.StepsExecutor;
 import org.autoquest.service.CommandLineP;
 import java.net.UnknownHostException;
 
@@ -23,7 +23,7 @@ public class QuestName {
             MBUnitList.runListener();
             CommandLineP.parseCL(args);
             ContinuousStepStore.init();
-            StepsExecuter.start();
+            StepsExecutor.start();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }

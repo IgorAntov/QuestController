@@ -1,28 +1,24 @@
 package org.autoquest.quest.view.graphics;
 
-import org.autoquest.quest.StepBypassButtons;
+import org.autoquest.quest.StepFrame;
 import org.autoquest.quest.steps.Step1;
 import org.autoquest.quest.steps.Step2;
-import org.autoquest.quest.steps.Step3;
 import org.autoquest.quest.view.Screen;
-import org.autoquest.quest.view.StatisImage;
 
 public class Screen2 {
 
     private static final Screen screen = new Screen()
             .setName("Screen2")
-            .setDesc("Комната 2")
+            .setDesc("Шаги квеста")
             .setScreenSize(800, 1200);
     public static Screen getScreen() {
-        StatisImage statisImage = new StatisImage("QuestScreenWB.jpg");
-        statisImage.setImageSize(800, 1000);
-        screen.addElement(statisImage);
-        screen.addCollection(new StepBypassButtons(Step1.getInstance()).getButtons());
-        screen.addCollection(new StepBypassButtons(Step2.getInstance()).getButtons());
-        screen.addCollection(new StepBypassButtons(Step3.getInstance()).getButtons());
+        screen.addCollection(new StepFrame(Step1.getInstance()).getStepFrame(100,100));
+        screen.addCollection(new StepFrame(Step2.getInstance()).getStepFrame(450,100));
+//        screen.addCollection(new StepFrame(Step3.getInstance()).getStepFrame(800,100));
 
-        screen.addImage("key.svg");
-        screen.addImage("QuestScreenWB.jpg");
+        screen.addImage("StepActive.svg");
+        screen.addImage("StepDone.svg");
+
         return screen;
     }
 }

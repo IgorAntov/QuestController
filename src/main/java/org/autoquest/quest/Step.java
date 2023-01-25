@@ -87,9 +87,9 @@ public class Step extends Thread {
                         for (Transition t : transitions) {
                             isDone = isDone && t.isPassed() && t.getState().equals(State.WAITING);
                         }
-                        for (Action a : actions) {
-                            isDone = isDone && a.getState().equals(State.WAITING);
-                        }
+//                        for (Action a : actions) {
+//                            isDone = isDone && a.getState().equals(State.WAITING);
+//                        }
                         if (isDone && nextStep != null && (nextStep.getState().equals(State.NEW) || nextStep.getState().equals(State.WAITING))) {
                             goToNextStep();
                             stepDone = true;

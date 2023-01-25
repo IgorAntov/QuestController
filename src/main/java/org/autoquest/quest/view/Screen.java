@@ -20,7 +20,7 @@ public class Screen {
                 "      <Width>" + width + "</Width>\n" +
                 "      <Height>" + height + "</Height>\n" +
                 "    </Size>\n" +
-                "    <BackColor>White</BackColor>\n" +
+                "    <BackColor>Gray</BackColor>\n" +
                 "    <BackImageName />\n" +
                 "    <Font>\n" +
                 "      <Name>Arial</Name>\n" +

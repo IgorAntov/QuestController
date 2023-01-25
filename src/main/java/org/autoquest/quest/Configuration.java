@@ -8,8 +8,8 @@ import org.autoquest.quest.steps.Step4;
 public class Configuration {
 
     public static void inti() {
-//        Step1.getInstance();
-//        Step2.getInstance();
+        Step1.getInstance();
+        Step2.getInstance();
         Step3.getInstance();
         Step4.getInstance();
 

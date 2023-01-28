@@ -14,10 +14,13 @@ public class Transition extends Thread {
     private MBParameter bypass;
     private MBParameter bypassCFM;
     private MBParameter status;
+    private MBParameter bypassVisible;
     private String name;
     private String desc = "";
     private int bypassButtonX = 10;
     private int bypassButtonY = 10;
+    private MBParameter enabled;
+    private MBParameter enabledConfirm;
     private final Object lock = new Object();
 
     public Transition(String name) {
@@ -30,23 +33,34 @@ public class Transition extends Thread {
         MBParameter status = new MBParameter(String.format("TransitStatus%s", name), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         MBParameter bypass = new MBParameter(String.format("Bypass%s", name), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
         MBParameter bypassCFM = new MBParameter(String.format("BypassCFM%s", name), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
+        MBParameter bypassVisible = new MBParameter(String.format("BypassVisible%s", name), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.GROUP);
         setStatusParam(status);
         setBypassParam(bypass);
         setBypassCFM(bypassCFM);
+        setBypassVisible(bypassVisible);
         Adapter.setAdapter(bypass, bypassCFM);
+        MBParameter transition1Enabled = new MBParameter(String.format("ActEnabled%s", name), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
+        MBParameter transitionEnabledConfirm = new MBParameter(String.format("ActEnabledCFM%s", name), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
+        setEnabled(transition1Enabled);
+        setEnabledConfirm(transitionEnabledConfirm);
+        Adapter.setAdapter(transition1Enabled, transitionEnabledConfirm);
     }
 
     @Override
     public void run() {
         do {
-            passed = false;
-            status.setValue(false);
             try {
+                passed = false;
+                status.setValue(false);
+                if (!bypassVisible.getBoolValue() && enabled.getBoolValue()) {
+                    bypassVisible.setValue(true);
+                }
                 sleep(scanRate);
-                if (checkCND.apply() || !bypass.getBoolValue()) {
+                if (checkCND.apply() || !bypass.getBoolValue() || !enabled.getBoolValue()) {
                     passed = true;
                     System.out.println("transition done " + getTransitionName());
                     status.setValue(true);
+                    bypassVisible.setValue(false);
                     synchronized (lock) {
                         lock.wait();
                     }
@@ -69,10 +83,17 @@ public class Transition extends Thread {
         return bypassCFM;
     }
 
+    public MBParameter getBypassVisible() {
+        return bypassVisible;
+    }
+
     public void setBypassCFM(MBParameter bypassCFM) {
         this.bypassCFM = bypassCFM;
     }
 
+    public void setBypassVisible(MBParameter bypassVisible) {
+        this.bypassVisible = bypassVisible;
+    }
     public MBParameter getBypass() {
         return bypass;
     }
@@ -127,4 +148,19 @@ public class Transition extends Thread {
         this.status = status;
     }
 
+    public void setEnabled(MBParameter enabled) {
+        this.enabled = enabled;
+    }
+
+    public MBParameter getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabledConfirm(MBParameter enabledConfirm) {
+        this.enabledConfirm = enabledConfirm;
+    }
+
+    public MBParameter getEnabledConfirm() {
+        return enabledConfirm;
+    }
 }

@@ -20,7 +20,7 @@ public class StepBypassButtons {
             buttonBypass.setHint(transition.getDesc());
             buttonBypass.setDesc(transition.getName());
             buttonBypass.setPosition(transition.getBypassButtonX(), transition.getBypassButtonY());
-            buttonBypass.setParameterStatus(step.getStatusActive());
+            buttonBypass.setParameterStatus(transition.getBypassVisible());
             buttonBypass.setParameterControl(transition.getBypass());
             bypassButtonCollector.add(buttonBypass);
         }

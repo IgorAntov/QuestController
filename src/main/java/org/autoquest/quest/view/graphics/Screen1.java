@@ -21,8 +21,6 @@ public class Screen1 {
         screen.addElement(statisImage);
         screen.addCollection(new StepBypassButtons(Step1.getInstance()).getButtons());
         screen.addCollection(new StepBypassButtons(Step2.getInstance()).getButtons());
-//        screen.addCollection(new StepBypassButtons(Step3.getInstance()).getButtons());
-
 
         ButtonTest startButton = new ButtonTest();
         startButton.setName("Старт");

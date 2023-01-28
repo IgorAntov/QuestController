@@ -77,8 +77,11 @@ public class StepFrame {
         for (Transition transition : step.getTransitions()) {
             Switch switch1 = new Switch();
             switch1.setPosition(staticTextFrame.getX() + lineLeft, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 10);
-            switch1.setParameterControl(transition.getBypass());
-            switch1.setParameterStatus(transition.getBypassCFM());
+//            switch1.setParameterControl(transition.getBypass());
+//            switch1.setParameterStatus(transition.getBypassCFM());
+            switch1.setParameterControl(transition.getEnabled());
+            switch1.setParameterStatus(transition.getEnabledConfirm());
+
             switch1.setHint("Вкл/Выкл");
             frameCollector.add(switch1);
 

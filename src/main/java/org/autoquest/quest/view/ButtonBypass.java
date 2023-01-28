@@ -45,7 +45,7 @@ public class ButtonBypass implements IGraphic {
                 "      <Text>Обход</Text>\n" +
                 "      <Action>SendCommand</Action>\n" +
                 "      <BoundProperty>Visible</BoundProperty>\n" +
-//                "      <InCnlNum>" + parameterStatus.getChannelNumber() + "</InCnlNum>\n" +
+                "      <InCnlNum>" + parameterStatus.getChannelNumber() + "</InCnlNum>\n" +
                 "      <InCnlNum>0</InCnlNum>\n" +
                 "      <CtrlCnlNum>" + parameterControl.getChannelNumber() + "</CtrlCnlNum>\n" +
                 "    </basic:Button>\n");

@@ -39,7 +39,7 @@ public class Step1 extends Step {
 
         Transition transition2 = new Transition("Transition2S2");
         transition2.setDesc("Переход 2");
-        transition1.setBypassButtonXY(715, 280);
+        transition2.setBypassButtonXY(715, 280);
         transition2.condition(KEY2::getBoolValue);
 
         setNextStep(Step2.getInstance());

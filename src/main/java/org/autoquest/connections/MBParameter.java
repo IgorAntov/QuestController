@@ -53,6 +53,10 @@ public class MBParameter {
         } else this.valueBool = value;
     }
 
+    public void farceValue(boolean value) {
+            modBusUnitSlave.setCoilValue(this.index, value);
+    }
+
     public void setValue(int value) {
         if (membershipType.equals(MembershipType.SINGLE)) {
             modBusUnitSlave.setInt32Value(this.index, value);

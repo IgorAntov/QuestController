@@ -6,6 +6,8 @@ import org.autoquest.connections.ParamType;
 import org.autoquest.connections.Params;
 import org.autoquest.connections.adapters.Adapter;
 
+import java.util.Objects;
+
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Action extends Thread {
@@ -52,7 +54,9 @@ public class Action extends Thread {
             setTestStop(actionTestStop);
         }
         MBParameter action1Enabled = new MBParameter(String.format("ActEnabled%s", actionName), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
+        StateStore.addParameter(action1Enabled);
         MBParameter actionEnabledConfirm = new MBParameter(String.format("ActEnabledCFM%s", actionName), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
+        StateStore.addParameter(actionEnabledConfirm);
         setEnabled(action1Enabled);
         setEnabledConfirm(actionEnabledConfirm);
         Adapter.setAdapter(action1Enabled, actionEnabledConfirm);
@@ -202,5 +206,7 @@ public class Action extends Thread {
     public MBParameter getStatusParam() {
         return statusParam;
     }
+
+
 
 }

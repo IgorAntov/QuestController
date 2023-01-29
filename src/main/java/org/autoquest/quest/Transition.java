@@ -42,7 +42,9 @@ public class Transition extends Thread {
         MBParameter transition1Enabled = new MBParameter(String.format("ActEnabled%s", name), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
         MBParameter transitionEnabledConfirm = new MBParameter(String.format("ActEnabledCFM%s", name), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
         setEnabled(transition1Enabled);
+        StateStore.addParameter(transition1Enabled);
         setEnabledConfirm(transitionEnabledConfirm);
+        StateStore.addParameter(transitionEnabledConfirm);
         Adapter.setAdapter(transition1Enabled, transitionEnabledConfirm);
     }
 

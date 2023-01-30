@@ -1,5 +1,8 @@
-package org.autoquest.quest;
+package org.autoquest.quest.view;
 
+import org.autoquest.quest.Action;
+import org.autoquest.quest.Step;
+import org.autoquest.quest.Transition;
 import org.autoquest.quest.view.*;
 
 import java.util.ArrayList;

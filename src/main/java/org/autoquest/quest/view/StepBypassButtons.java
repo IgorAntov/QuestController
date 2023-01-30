@@ -1,5 +1,7 @@
-package org.autoquest.quest;
+package org.autoquest.quest.view;
 
+import org.autoquest.quest.Step;
+import org.autoquest.quest.Transition;
 import org.autoquest.quest.view.ButtonBypass;
 import org.autoquest.quest.view.IGraphic;
 

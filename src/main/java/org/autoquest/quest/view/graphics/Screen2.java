@@ -1,6 +1,6 @@
 package org.autoquest.quest.view.graphics;
 
-import org.autoquest.quest.StepFrame;
+import org.autoquest.quest.view.StepFrame;
 import org.autoquest.quest.steps.Step1;
 import org.autoquest.quest.steps.Step2;
 import org.autoquest.quest.view.Screen;

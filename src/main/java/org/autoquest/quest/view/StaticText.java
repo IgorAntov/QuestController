@@ -6,7 +6,7 @@ public class StaticText implements IGraphic {
 
     private int x;
     private int y;
-    private String name = "";
+    private String name = "StaticText";
     private String desc = "";
     private String hint = "";
     private int height = 25;

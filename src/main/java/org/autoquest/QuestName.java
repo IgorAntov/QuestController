@@ -6,6 +6,7 @@ import org.autoquest.connections.adapters.SimulatorParams;
 import org.autoquest.connections.units.MBUnitList;
 import org.autoquest.quest.Configuration;
 import org.autoquest.quest.ContinuousStepStore;
+import org.autoquest.quest.QuestTimer;
 import org.autoquest.quest.StepsExecutor;
 import org.autoquest.service.CommandLineP;
 import org.autoquest.service.state.SaveStateService;

@@ -1,13 +1,9 @@
 package org.autoquest.quest.view.graphics;
 
 import org.autoquest.connections.Params;
-import org.autoquest.quest.StepBypassButtons;
+import org.autoquest.quest.view.*;
 import org.autoquest.quest.steps.Step1;
 import org.autoquest.quest.steps.Step2;
-import org.autoquest.quest.steps.Step3;
-import org.autoquest.quest.view.ButtonTest;
-import org.autoquest.quest.view.Screen;
-import org.autoquest.quest.view.StatisImage;
 
 public class Screen1 {
 
@@ -41,6 +37,8 @@ public class Screen1 {
         stopButton.setParameterStatus(Params.ABORT_FB);
         stopButton.setPosition(1042, 30);
         screen.addElement(stopButton);
+
+        screen.addCollection(new TimerLabel().getTimerLabel(1037, 70));
 
         screen.addImage("key.svg");
         screen.addImage("QuestScreenWB.jpg");

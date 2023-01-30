@@ -22,10 +22,9 @@ import java.io.OutputStream;
 public class WriteXML {
 
     public static void writeParametersToXML() {
-    DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder docBuilder;
-    String stateXMLFileName = "qstate.xml";
-
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder;
+        String stateXMLFileName = "/qstate.xml";
         try {
             docBuilder = docFactory.newDocumentBuilder();
             Document doc = docBuilder.newDocument();
@@ -43,19 +42,10 @@ public class WriteXML {
                 }
                 index++;
             }
-
             String dir = WriteXML.class.getResource("/").getFile();
-            try (FileOutputStream output = new FileOutputStream(dir + "/" + stateXMLFileName)) {
-                try {
-                    writeXml(doc, output);
-                } catch (TransformerException e) {
-                    throw new RuntimeException(e);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        } catch (ParserConfigurationException e) {
+            FileOutputStream output = new FileOutputStream(dir + stateXMLFileName);
+            writeXml(doc, output);
+        } catch (ParserConfigurationException | TransformerException | IOException e) {
             throw new RuntimeException(e);
         }
     }

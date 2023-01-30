@@ -10,6 +10,9 @@ public class StepsExecutor {
         try {
             while (true) {
                 if (!Params.START.getBoolValue() && questSeqStatus.equals(QuestSeqStatus.STOPPED)) {
+                    if (QuestTimer.getTime() == 0) {
+                        QuestTimer.runTimer();
+                    }
                     System.out.println("Start Seq");
                     Params.START.setValue(true);
                     Params.START_FB.setValue(false);

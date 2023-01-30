@@ -1,13 +1,9 @@
 package org.autoquest.quest.view.graphics;
 
-import org.autoquest.quest.StepBypassButtons;
-import org.autoquest.quest.StepFrame;
-import org.autoquest.quest.steps.Step1;
-import org.autoquest.quest.steps.Step2;
+import org.autoquest.quest.view.StepFrame;
 import org.autoquest.quest.steps.Step3;
 import org.autoquest.quest.steps.Step4;
 import org.autoquest.quest.view.Screen;
-import org.autoquest.quest.view.StatisImage;
 
 public class Screen3 {
 

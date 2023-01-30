@@ -87,7 +87,7 @@ public class InCnlXML {
                                 "<Formula/>\n" +
                                 "<Averaging>false</Averaging>\n" +
                                 "<ParamID xsi:nil=\"true\"/>\n" +
-                                "<FormatID>3</FormatID>\n" +
+                                "<FormatID>0</FormatID>\n" +
                                 "<UnitID xsi:nil=\"true\"/>\n" +
                                 "<CtrlCnlNum xsi:nil=\"true\"/>\n" +
                                 "<EvEnabled>false</EvEnabled>\n" +

@@ -96,7 +96,8 @@ public class MBUnitSlave {
         }
     }
 
-    private void setInitValue() {
+    public void setInitValue() {
+        System.out.println("setInit");
         for (MBParameter p : parameters) {
             if (p.getDataType().equals(DataType.BOOL)) {
                 p.setInitValue(p.getBoolInitialValue());
@@ -108,6 +109,7 @@ public class MBUnitSlave {
                 p.setInitValue(p.getFloatInitialValue());
             }
         }
+        System.out.println("end setInit");
     }
 
     public ArrayList<MBParameter> getCoilsList() {

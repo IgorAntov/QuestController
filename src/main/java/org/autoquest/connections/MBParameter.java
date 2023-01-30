@@ -55,6 +55,7 @@ public class MBParameter {
 
     public void farceValue(boolean value) {
             modBusUnitSlave.setCoilValue(this.index, value);
+            valueBool = value;
     }
 
     public void setValue(int value) {
@@ -70,14 +71,17 @@ public class MBParameter {
     }
     public void setInitValue(boolean value) {
         modBusUnitSlave.setCoilValue(this.index, value);
+        valueBool = value;
     }
 
     public void setInitValue(int value) {
         modBusUnitSlave.setInt32Value(this.index, value);
+        valueInt32 = value;
     }
 
     public void setInitValue(float value) {
         modBusUnitSlave.setFloatValue(this.index, value);
+        valueFloat = value;
     }
 
     public boolean getBoolValue() {

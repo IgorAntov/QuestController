@@ -1,13 +1,10 @@
 package org.autoquest.quest.view;
 
 import org.autoquest.connections.Params;
-import org.autoquest.quest.Step;
-import org.autoquest.quest.Transition;
 
 import java.util.ArrayList;
 
 public class TimerLabel {
-
     public ArrayList<IGraphic> getTimerLabel(int x, int y) {
         ArrayList<IGraphic> timerElementContainer = new ArrayList<>();
         //Hours
@@ -43,7 +40,6 @@ public class TimerLabel {
         secs.setPosition(x + 60, y);
         secs.setParameter(Params.TIME_SEC);
         timerElementContainer.add(secs);
-
         return timerElementContainer;
     }
 }

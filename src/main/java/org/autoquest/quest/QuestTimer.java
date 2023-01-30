@@ -18,16 +18,12 @@ public class QuestTimer {
         timer.schedule(new TimerTask(){
             @Override
             public void run() {
-                time++;
+                if (StepsExecutor.isQuestRunning()) {
+                    time++;
+                }
                 hour = time / 3600;
                 min = (time - hour * 3600) / 60;
                 sec = time - hour * 3600 - min * 60;
-
-                System.out.println("Timer, s: " + time);
-                System.out.println("Hour: " + hour);
-                System.out.println("Min: " + min);
-                System.out.println("Sec: " + sec);
-
                 Params.TIME_HOUR.setValue(hour);
                 Params.TIME_MIN.setValue(min);
                 Params.TIME_SEC.setValue(sec);
@@ -50,5 +46,9 @@ public class QuestTimer {
 
     public static int getSec() {
         return sec;
+    }
+
+    public static void resetTimer() {
+        time = 0;
     }
 }

@@ -85,7 +85,7 @@ public class Action extends Thread {
                         if (stopAction) {
                             break;
                         }
-                    } while (stored);
+                    } while (stored && StepsExecutor.isQuestRunning());
                 }
                 System.out.println("done " + getActionName());
                 synchronized (lock) {

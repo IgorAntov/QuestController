@@ -58,7 +58,7 @@ public class Transition extends Thread {
                     bypassVisible.setValue(true);
                 }
                 sleep(scanRate);
-                if (checkCND.apply() || !bypass.getBoolValue() || !enabled.getBoolValue()) {
+                if (checkCND.apply() || !bypass.getBoolValue() || !enabled.getBoolValue() || !StepsExecutor.isQuestRunning()) {
                     passed = true;
                     System.out.println("transition done " + getTransitionName());
                     status.setValue(true);

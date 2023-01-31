@@ -16,6 +16,11 @@ public class Params {
     public static final MBParameter ABORT = new MBParameter("ABORT_SEQ", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
     public static final MBParameter ABORT_FB = new MBParameter("ABORT_SEQ_FB", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.GROUP);
 
+    public static final MBParameter PAUSE = new MBParameter("PAUSE_SEQ", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
+    public static final MBParameter PAUSE_FB = new MBParameter("PAUSE_SEQ_FB", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.GROUP);
+    public static final MBParameter RERUN = new MBParameter("RERUN_SEQ", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
+    public static final MBParameter RERUN_FB = new MBParameter("RERUN_SEQ_FB", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.GROUP);
+
     public static final MBParameter TIME_HOUR = new MBParameter("TIME_HOUR", WS_MB_UNIT_SLAVE, 0, ParamType.CONTROL, MembershipType.GROUP);
     public static final MBParameter TIME_MIN = new MBParameter("TIME_MIN", WS_MB_UNIT_SLAVE, 0, ParamType.CONTROL, MembershipType.GROUP);
     public static final MBParameter TIME_SEC = new MBParameter("TIME_SEC", WS_MB_UNIT_SLAVE, 0, ParamType.CONTROL, MembershipType.GROUP);

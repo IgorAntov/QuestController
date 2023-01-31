@@ -11,6 +11,8 @@ public class MBParameter {
     private final DataType dataType;
     private final MembershipType membershipType;
     private boolean valueBool;
+    private boolean initvalueBool;
+
     private int valueInt32;
     private float valueFloat;
     private int channelNumber;
@@ -21,6 +23,7 @@ public class MBParameter {
         this.name = name;
         this.modBusUnitSlave = modBusUnitSlave;
         this.valueBool = initialValue;
+        this.initvalueBool = initialValue;
         this.paramType = paramType;
         this.membershipType = membershipType;
         this.dataType = DataType.BOOL;
@@ -152,7 +155,7 @@ public class MBParameter {
     }
 
     public boolean getBoolInitialValue() {
-        return valueBool;
+        return initvalueBool;
     }
 
     public int getInt32InitialValue() {

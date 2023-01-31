@@ -8,18 +8,22 @@ import java.util.TimerTask;
 
 public class QuestTimer {
 
+    private static boolean pause = false;
     private static int time = 0;
     private static int hour = 0;
     private static int min = 0;
     private static int sec = 0;
 
     public static void runTimer() {
+        pause = false;
         Timer timer = new Timer();
         timer.schedule(new TimerTask(){
             @Override
             public void run() {
                 if (StepsExecutor.isQuestRunning()) {
-                    time++;
+                    if (!pause) {
+                        time++;
+                    }
                 }
                 hour = time / 3600;
                 min = (time - hour * 3600) / 60;
@@ -51,4 +55,13 @@ public class QuestTimer {
     public static void resetTimer() {
         time = 0;
     }
+
+    public static void pause() {
+        pause = true;
+    }
+
+    public static void reRun() {
+        pause = false;
+    }
+
 }

@@ -31,7 +31,7 @@ public class Step2 extends Step {
 
         MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
-        Transition transition1 = new Transition("Transition1S1");
+        Transition transition1 = new Transition("Transition1S2");
         transition1.setDesc("Переход 1");
         transition1.setBypassButtonXY(690, 555);
         transition1.condition(KEY1::getBoolValue);

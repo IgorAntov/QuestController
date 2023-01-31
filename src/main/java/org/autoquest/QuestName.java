@@ -27,6 +27,8 @@ public class QuestName {
             CommandLineP.parseCL(args);
             ContinuousStepStore.init();
             new SaveStateService();
+            QuestTimer.runTimer();
+            QuestTimer.pause();
             StepsExecutor.start();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);

@@ -15,11 +15,13 @@ public class Led implements IGraphic {
     private String hint;
     private int height = 15;
     private int width = 15;
+    private String bgColor = "Silver";
+    private String color = "Green";
 
     @Override
     public void getContent(StringBuilder sb, int index) {
         sb.append(" <basic:Led>\n" +
-                "      <BackColor>Silver</BackColor>\n" +
+                "      <BackColor>" + bgColor + "</BackColor>\n" +
                 "      <BorderColor>Black</BorderColor>\n" +
                 "      <BorderWidth>1</BorderWidth>\n" +
                 "      <ToolTip>" + hint + "</ToolTip>\n" +
@@ -43,7 +45,7 @@ public class Led implements IGraphic {
                 "          <CompareOperator2>LessThan</CompareOperator2>\n" +
                 "          <CompareArgument2>0</CompareArgument2>\n" +
                 "          <LogicalOperator>None</LogicalOperator>\n" +
-                "          <Color>Green</Color>\n" +
+                "          <Color>" + color + "</Color>\n" +
                 "        </Condition>\n" +
                 "      </Conditions>\n" +
                 "      <InCnlNum>" + parameter.getChannelNumber() + "</InCnlNum>\n" +
@@ -106,5 +108,13 @@ public class Led implements IGraphic {
 
     public void setWidth(int width) {
         this.width = width;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setBgColor(String bgColor) {
+        this.bgColor = bgColor;
     }
 }

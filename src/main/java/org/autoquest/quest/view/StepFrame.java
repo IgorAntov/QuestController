@@ -79,16 +79,24 @@ public class StepFrame {
 
         for (Transition transition : step.getTransitions()) {
             Switch switch1 = new Switch();
-            switch1.setPosition(staticTextFrame.getX() + lineLeft, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 10);
+            if (!transition.isWithoutKeys()) {
+                switch1.setPosition(staticTextFrame.getX() + lineLeft, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 10);
 //            switch1.setParameterControl(transition.getBypass());
 //            switch1.setParameterStatus(transition.getBypassCFM());
-            switch1.setParameterControl(transition.getEnabled());
-            switch1.setParameterStatus(transition.getEnabledConfirm());
+                switch1.setParameterControl(transition.getEnabled());
+                switch1.setParameterStatus(transition.getEnabledConfirm());
 
-            switch1.setHint("Вкл/Выкл");
-            frameCollector.add(switch1);
+                switch1.setHint("Вкл/Выкл");
+                frameCollector.add(switch1);
+            } else {
+                switch1.setWidth(-8);
+            }
 
             Led led1 = new Led();
+            if (transition.isWithoutKeys()) {
+                led1.setBgColor("PaleTurquoise");
+                led1.setColor("Blue");
+            }
             led1.setPosition(staticTextFrame.getX() + lineLeft + switch1.getWidth() + 8, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 10);
             led1.setParameter(transition.getStatus());
             led1.setHint(transition.getDesc());

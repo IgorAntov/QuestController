@@ -42,11 +42,17 @@ public class Step1 extends Step {
         transition2.setBypassButtonXY(715, 280);
         transition2.condition(KEY2::getBoolValue);
 
+        Transition transition3 = new Transition("Transition3S1");
+        transition3.setDesc("Переход 3 без ключа");
+        transition3.setWithoutKeys(true);
+        transition3.condition(() -> true);
+
         setNextStep(Step2.getInstance());
         addAction(action1);
         addAction(action2);
         addTransition(transition1);
         addTransition(transition2);
+        addTransition(transition3);
     }
 
 }

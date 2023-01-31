@@ -21,6 +21,7 @@ public class Transition extends Thread {
     private int bypassButtonY = 10;
     private MBParameter enabled;
     private MBParameter enabledConfirm;
+    private boolean withoutKeys;
     private final Object lock = new Object();
 
     public Transition(String name) {
@@ -164,5 +165,13 @@ public class Transition extends Thread {
 
     public MBParameter getEnabledConfirm() {
         return enabledConfirm;
+    }
+
+    public boolean isWithoutKeys() {
+        return withoutKeys;
+    }
+
+    public void setWithoutKeys(boolean withoutKeys) {
+        this.withoutKeys = withoutKeys;
     }
 }

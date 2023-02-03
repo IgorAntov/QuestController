@@ -25,6 +25,7 @@ public class Params {
     public static final MBParameter TIME_MIN = new MBParameter("TIME_MIN", WS_MB_UNIT_SLAVE, 0, ParamType.CONTROL, MembershipType.GROUP);
     public static final MBParameter TIME_SEC = new MBParameter("TIME_SEC", WS_MB_UNIT_SLAVE, 0, ParamType.CONTROL, MembershipType.GROUP);
 
+    public static final MBParameter STEPNUMBER = new MBParameter("STEPNUMBER", WS_MB_UNIT_SLAVE, 0, ParamType.CONTROL, MembershipType.SINGLE);
 
     // Test
     

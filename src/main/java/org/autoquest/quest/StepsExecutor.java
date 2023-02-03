@@ -3,6 +3,8 @@ package org.autoquest.quest;
 import org.autoquest.connections.Params;
 import org.autoquest.connections.units.MBUnitSlave;
 import org.autoquest.quest.steps.Step1;
+import org.autoquest.service.Global;
+import org.autoquest.service.state.ReadXML;
 
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
@@ -22,6 +24,7 @@ public class StepsExecutor {
                     Params.ABORT.farceValue(true);
                     Params.PAUSE_FB.setValue(true);
                     Params.PAUSE.farceValue(true);
+                    ContinuousStepStore.init();
                     Step s = Step1.getInstance();
                     if (s.getState().equals(Thread.State.NEW)) {
                         s.start();
@@ -41,8 +44,10 @@ public class StepsExecutor {
                     Params.START.farceValue(true);
                     Params.START_FB.setValue(true);
                     QuestTimer.resetTimer();
+                    Global.resetStepNumber();
                     Thread.sleep(3000);
                     WS_MB_UNIT_SLAVE.setInitValue();
+                    ReadXML.readParametersFromXML(StateStore.getParameterStore());
                 }
                 if (!Params.PAUSE.getBoolValue() && questSeqStatus.equals(QuestSeqStatus.RUNNING)) {
                     System.out.println("Pause");

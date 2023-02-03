@@ -20,10 +20,11 @@ public class ControlBar {
         questIcon.setPosition(x, y);
         elements.add(questIcon);
 
-        StaticText staticText = new StaticText();
-        staticText.setDesc("Name");
-        staticText.setPosition(x + 50, y + 10);
-        elements.add(staticText);
+        StaticText nameLabel = new StaticText();
+        nameLabel.setFontSize(18);
+        nameLabel.setDesc("Name");
+        nameLabel.setPosition(x + 50, y + 10);
+        elements.add(nameLabel);
 
         ButtonTest startButton = new ButtonTest();
         startButton.setName("Старт");
@@ -65,6 +66,19 @@ public class ControlBar {
         rerunButton.setPosition(x + 80, y + 60 );
         elements.add(rerunButton);
 
+        StaticText stepLabel = new StaticText();
+        stepLabel.setFontSize(18);
+        stepLabel.setDesc("ШАГ: ");
+        stepLabel.setPosition(x + 50, y + 140);
+        elements.add(stepLabel);
+
+        DynamicText stepNumber = new DynamicText();
+        stepNumber.setHint("StepNumber");
+        stepNumber.setDesc("StepNumber");
+        stepNumber.setPosition(x + 100, y + 143); //1120 160
+        stepNumber.setParameter(Params.STEPNUMBER);
+        elements.add(stepNumber);
+        
         return elements;
     }
 }

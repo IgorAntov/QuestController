@@ -11,6 +11,7 @@ public class StaticText implements IGraphic {
     private String hint = "";
     private int height = 25;
     private int width = 200;
+    private int fontSize = 12;
 
     @Override
     public void getContent(StringBuilder sb, int index) {
@@ -31,6 +32,13 @@ public class StaticText implements IGraphic {
                 "      </Size>\n" +
                 "      <ZIndex>1</ZIndex>\n" +
                 "      <ForeColor />\n" +
+                "      <Font>\n" +
+                "        <Name>Arial</Name>\n" +
+                "        <Size>" + fontSize + "</Size>\n" +
+                "        <Bold>false</Bold>\n" +
+                "        <Italic>false</Italic>\n" +
+                "        <Underline>false</Underline>\n" +
+                "      </Font>\n" +
                 "      <Text>" + desc + "</Text>\n" +
                 "      <HAlign>Left</HAlign>\n" +
                 "      <VAlign>Center</VAlign>\n" +
@@ -74,5 +82,9 @@ public class StaticText implements IGraphic {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public void setFontSize(int fontSize) {
+        this.fontSize = fontSize;
     }
 }

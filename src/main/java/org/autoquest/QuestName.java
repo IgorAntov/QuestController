@@ -25,7 +25,6 @@ public class QuestName {
             Configuration.inti();
             MBUnitList.runListener();
             CommandLineP.parseCL(args);
-            ContinuousStepStore.init();
             new SaveStateService();
             QuestTimer.runTimer();
             QuestTimer.pause();

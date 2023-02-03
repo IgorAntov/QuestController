@@ -18,13 +18,15 @@ public class StepBypassButtons {
     public ArrayList<IGraphic> getButtons() {
         ArrayList<IGraphic> bypassButtonCollector = new ArrayList<>();
         for (Transition transition : step.getTransitions()) {
-            ButtonBypass buttonBypass = new ButtonBypass();
-            buttonBypass.setHint(transition.getDesc());
-            buttonBypass.setDesc(transition.getName());
-            buttonBypass.setPosition(transition.getBypassButtonX(), transition.getBypassButtonY());
-            buttonBypass.setParameterStatus(transition.getBypassVisible());
-            buttonBypass.setParameterControl(transition.getBypass());
-            bypassButtonCollector.add(buttonBypass);
+            if (!transition.isWithoutKeys()) {
+                ButtonBypass buttonBypass = new ButtonBypass();
+                buttonBypass.setHint(transition.getDesc());
+                buttonBypass.setDesc(transition.getName());
+                buttonBypass.setPosition(transition.getBypassButtonX(), transition.getBypassButtonY());
+                buttonBypass.setParameterStatus(transition.getBypassVisible());
+                buttonBypass.setParameterControl(transition.getBypass());
+                bypassButtonCollector.add(buttonBypass);
+            }
         }
         return bypassButtonCollector;
     }

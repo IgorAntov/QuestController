@@ -4,6 +4,8 @@ import org.autoquest.connections.MBParameter;
 import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
 import org.autoquest.quest.*;
+import org.autoquest.service.SoundPlayer.MixerDeviceStore;
+import org.autoquest.service.SoundPlayer.Player;
 
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
@@ -26,19 +28,22 @@ public class Step1 extends Step {
         action2.setDesc("Действие 2 название");
 
         MBParameter ACTION2 = new MBParameter("ACTION2", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
-        action2.defineAction(() -> ACTION2.setValue(true));
+//        action2.defineAction(() -> ACTION2.setValue(true));
+
+        action2.defineAction(() -> Player.playSound("sound1.mp3", MixerDeviceStore.DEVICES[1]));
+
 
         MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
         Transition transition1 = new Transition("Transition1S1");
-        transition1.setDesc("Переход 1");
+        transition1.setDesc("Переход 1 \n Переход 1");
         transition1.setBypassButtonXY(95, 495);
         transition1.condition(KEY1::getBoolValue);
 
         MBParameter KEY2 = new MBParameter("KEY2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
         Transition transition2 = new Transition("Transition2S1");
-        transition2.setDesc("Переход 2");
+        transition2.setDesc("Переход 2 \n Переход 2");
         transition2.setBypassButtonXY(715, 280);
         transition2.condition(KEY2::getBoolValue);
 

@@ -94,6 +94,9 @@ public class Step extends Thread {
                             stepDone = true;
                             statusActive.setValue(false);
                             statusDone.setValue(true);
+                            if (!continuous) {
+                                Global.increaseStepNumber();
+                            }
                             System.out.println("Wait Thread: " + getName());
                             synchronized (lock) {
                                 lock.wait();
@@ -103,6 +106,9 @@ public class Step extends Thread {
                         if (isDone) {
                             statusActive.setValue(false);
                             statusDone.setValue(true);
+                            if (!continuous) {
+                                Global.increaseStepNumber();
+                            }
                             stepDone = true;
                             System.out.println("Wait Thread: " + getName());
                             synchronized (lock) {

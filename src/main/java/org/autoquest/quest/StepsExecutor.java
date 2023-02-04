@@ -37,21 +37,22 @@ public class StepsExecutor {
                     }
                 }
                 if (Params.ABORT.getBoolValue() && (questSeqStatus.equals(QuestSeqStatus.RUNNING) || questSeqStatus.equals(QuestSeqStatus.PAUSED))) {
-                    System.out.println("Stopping");
-                    questSeqStatus = QuestSeqStatus.STOPPED;
-                    Params.ABORT.setValue(false);
-                    Params.ABORT_FB.setValue(false);
-                    Params.PAUSE_FB.setValue(false);
-                    Params.PAUSE.farceValue(false);
-                    Params.START.farceValue(false);
-                    Params.START_FB.setValue(true);
-                    QuestTimer.resetTimer();
-                    Global.resetStepNumber();
-                    ClipStore.stopAllClips();
-                    ClipStore.clearClipStore();
-                    Thread.sleep(3000);
-                    WS_MB_UNIT_SLAVE.setInitValue();
-                    ReadXML.readParametersFromXML(StateStore.getParameterStore());
+                    stopQuest();
+//                    System.out.println("Stopping");
+//                    questSeqStatus = QuestSeqStatus.STOPPED;
+//                    Params.ABORT.setValue(false);
+//                    Params.ABORT_FB.setValue(false);
+//                    Params.PAUSE_FB.setValue(false);
+//                    Params.PAUSE.farceValue(false);
+//                    Params.START.farceValue(false);
+//                    Params.START_FB.setValue(true);
+//                    QuestTimer.resetTimer();
+//                    Global.resetStepNumber();
+//                    ClipStore.stopAllClips();
+//                    ClipStore.clearClipStore();
+//                    Thread.sleep(3000);
+//                    WS_MB_UNIT_SLAVE.setInitValue();
+//                    ReadXML.readParametersFromXML(StateStore.getParameterStore());
                 }
                 if (Params.PAUSE.getBoolValue() && questSeqStatus.equals(QuestSeqStatus.RUNNING)) {
                     System.out.println("Pause");
@@ -80,6 +81,28 @@ public class StepsExecutor {
 
     public static boolean isQuestRunning() {
         return questSeqStatus.equals(QuestSeqStatus.RUNNING) || questSeqStatus.equals(QuestSeqStatus.PAUSED);
+    }
+
+    public static void stopQuest() {
+        try {
+        System.out.println("Stopping");
+        questSeqStatus = QuestSeqStatus.STOPPED;
+        Params.ABORT.setValue(false);
+        Params.ABORT_FB.setValue(false);
+        Params.PAUSE_FB.setValue(false);
+        Params.PAUSE.farceValue(false);
+        Params.START.farceValue(false);
+        Params.START_FB.setValue(true);
+        QuestTimer.resetTimer();
+        Global.resetStepNumber();
+        ClipStore.stopAllClips();
+        ClipStore.clearClipStore();
+        Thread.sleep(3000);
+        WS_MB_UNIT_SLAVE.setInitValue();
+        ReadXML.readParametersFromXML(StateStore.getParameterStore());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

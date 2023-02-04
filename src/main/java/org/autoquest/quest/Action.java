@@ -5,6 +5,9 @@ import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
 import org.autoquest.connections.adapters.Adapter;
 
+import javax.sound.sampled.Clip;
+import java.util.ArrayList;
+
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Action extends Thread {
@@ -22,6 +25,7 @@ public class Action extends Thread {
     private MBParameter testStop;
     private MBParameter enabled;
     private MBParameter enabledConfirm;
+    private boolean testMode;
     private String desc = "";
     private final Object lock = new Object();
 
@@ -46,10 +50,8 @@ public class Action extends Thread {
         setStatusParam(actionStatus);
         MBParameter actionTestStart = new MBParameter(String.format("ActTestStart%s", actionName), WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
         setTestStart(actionTestStart);
-        if (actionType.equals(ActionType.STORED)) {
-            MBParameter actionTestStop = new MBParameter(String.format("ActTestStop%s", actionName), WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
-            setTestStop(actionTestStop);
-        }
+        MBParameter actionTestStop = new MBParameter(String.format("ActTestStop%s", actionName), WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
+        setTestStop(actionTestStop);
         MBParameter action1Enabled = new MBParameter(String.format("ActEnabled%s", actionName), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
         StateStore.addParameter(action1Enabled);
         MBParameter actionEnabledConfirm = new MBParameter(String.format("ActEnabledCFM%s", actionName), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
@@ -82,7 +84,7 @@ public class Action extends Thread {
                         if (stopAction) {
                             break;
                         }
-                    } while (stored && StepsExecutor.isQuestRunning());
+                    } while (stored && (StepsExecutor.isQuestRunning() || testMode));
                 }
                 System.out.println("done " + getActionName());
                 synchronized (lock) {
@@ -158,6 +160,7 @@ public class Action extends Thread {
 
     public void stopAction() {
         this.stopAction = true;
+        StepsExecutor.stopQuest();
     }
 
     public int getDelay() {
@@ -204,6 +207,12 @@ public class Action extends Thread {
         return statusParam;
     }
 
+    public boolean isTestMode() {
+        return testMode;
+    }
 
+    public void setTestMode(boolean testMode) {
+        this.testMode = testMode;
+    }
 
 }

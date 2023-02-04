@@ -20,17 +20,17 @@ public class TimerAction1 extends Step {
         super("Звук. подсказка.");
         setContinuous();
 
-        Action action1 = new Action("ActionTimer1A1", ActionType.STORED);
+        Action action1 = new Action("ActionTimer1A1");
         action1.setDesc("Звук Подсказка");
         action1.defineAction(() -> {
             Player.playSound("sound2.wav", MixerDeviceStore.DEVICES[1], true);
             System.out.println("ActionTimer1 Done");
         });
 
-        Action action2 = new Action("ActionTimer1A2");
+        Action action2 = new Action("ActionTimer1A2", ActionType.STORED);
         action2.setDesc("Пропустить шаг 1");
         action2.defineAction(() -> {
-            Step1.getInstance().skeep();
+//            Step1.getInstance().skeep();
             System.out.println("ActionTimer1 Done");
         });
 

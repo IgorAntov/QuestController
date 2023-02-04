@@ -23,14 +23,24 @@ public class TestActionStore {
             try {
                 do {
                     for (MBParameter p : actions.keySet()) {
+//                        System.out.println("Yes test " + p.getBoolValue());
+
                         if (p.getBoolValue()) {
-                            if (actions.get(p).getStatusParam().getBoolValue()) {
-                                actions.get(p).start();
+//                            System.out.println("Yes test" );
+                            if (!actions.get(p).getStatusParam().getBoolValue()) {
+                                if (actions.get(p).getState().equals(Thread.State.NEW)) {
+                                    actions.get(p).start();
+                                } else {
+                                    synchronized (actions.get(p).getLock()) {
+                                        actions.get(p).getLock().notify();
+                                    }
+                                }
+//                                actions.get(p).start();
                             } else actions.get(p).stopAction();
                             p.setValue(false);
                         }
                     }
-                    sleep(100);
+                    sleep(2000);
                 } while (true);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

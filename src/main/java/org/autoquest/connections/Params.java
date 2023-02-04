@@ -11,7 +11,7 @@ import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 public class Params {
 
 
-    public static final MBParameter START = new MBParameter("START_SEQ", WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
+    public static final MBParameter START = new MBParameter("START_SEQ", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
     public static final MBParameter START_FB = new MBParameter("START_SEQ_FB", WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
     public static final MBParameter ABORT = new MBParameter("ABORT_SEQ", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
     public static final MBParameter ABORT_FB = new MBParameter("ABORT_SEQ_FB", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.GROUP);

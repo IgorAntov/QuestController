@@ -1,7 +1,6 @@
 package org.autoquest.quest;
 
 import org.autoquest.connections.Params;
-import org.autoquest.connections.units.MBUnitSlave;
 import org.autoquest.quest.steps.Step1;
 import org.autoquest.service.Global;
 import org.autoquest.service.SoundPlayer.ClipStore;
@@ -15,16 +14,16 @@ public class StepsExecutor {
     public static void start() {
         try {
             while (true) {
-                if (!Params.START.getBoolValue() && questSeqStatus.equals(QuestSeqStatus.STOPPED)) {
+                if (Params.START.getBoolValue() && questSeqStatus.equals(QuestSeqStatus.STOPPED)) {
                     QuestTimer.reRun();
                     System.out.println("Start Seq");
                     Params.START.farceValue(true);
                     Params.START_FB.setValue(false);
                     questSeqStatus = QuestSeqStatus.RUNNING;
                     Params.ABORT_FB.setValue(true);
-                    Params.ABORT.farceValue(true);
+                    Params.ABORT.farceValue(false);
                     Params.PAUSE_FB.setValue(true);
-                    Params.PAUSE.farceValue(true);
+                    Params.PAUSE.farceValue(false);
                     ContinuousStepStore.init();
                     Global.resetStepNumber();
                     Global.increaseStepNumber();
@@ -37,14 +36,14 @@ public class StepsExecutor {
                         }
                     }
                 }
-                if (!Params.ABORT.getBoolValue() && (questSeqStatus.equals(QuestSeqStatus.RUNNING) || questSeqStatus.equals(QuestSeqStatus.PAUSED))) {
+                if (Params.ABORT.getBoolValue() && (questSeqStatus.equals(QuestSeqStatus.RUNNING) || questSeqStatus.equals(QuestSeqStatus.PAUSED))) {
                     System.out.println("Stopping");
                     questSeqStatus = QuestSeqStatus.STOPPED;
                     Params.ABORT.setValue(false);
                     Params.ABORT_FB.setValue(false);
                     Params.PAUSE_FB.setValue(false);
                     Params.PAUSE.farceValue(false);
-                    Params.START.farceValue(true);
+                    Params.START.farceValue(false);
                     Params.START_FB.setValue(true);
                     QuestTimer.resetTimer();
                     Global.resetStepNumber();
@@ -54,20 +53,20 @@ public class StepsExecutor {
                     WS_MB_UNIT_SLAVE.setInitValue();
                     ReadXML.readParametersFromXML(StateStore.getParameterStore());
                 }
-                if (!Params.PAUSE.getBoolValue() && questSeqStatus.equals(QuestSeqStatus.RUNNING)) {
+                if (Params.PAUSE.getBoolValue() && questSeqStatus.equals(QuestSeqStatus.RUNNING)) {
                     System.out.println("Pause");
                     questSeqStatus = QuestSeqStatus.PAUSED;
                     Params.PAUSE_FB.setValue(false);
                     Params.PAUSE.farceValue(false);
-                    Params.RERUN.farceValue(true);
+                    Params.RERUN.farceValue(false);
                     Params.RERUN_FB.setValue(true);
                     QuestTimer.pause();
                 }
-                if (!Params.RERUN.getBoolValue() && questSeqStatus.equals(QuestSeqStatus.PAUSED)) {
+                if (Params.RERUN.getBoolValue() && questSeqStatus.equals(QuestSeqStatus.PAUSED)) {
                     System.out.println("Rerun");
                     questSeqStatus = QuestSeqStatus.RUNNING;
                     Params.PAUSE_FB.setValue(true);
-                    Params.PAUSE.farceValue(true);
+                    Params.PAUSE.farceValue(false);
                     Params.RERUN.farceValue(false);
                     Params.RERUN_FB.setValue(false);
                     QuestTimer.reRun();

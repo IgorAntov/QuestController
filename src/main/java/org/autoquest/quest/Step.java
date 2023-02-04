@@ -234,4 +234,10 @@ public class Step extends Thread {
     public Object getLock() {
         return lock;
     }
+
+    public void skeep() {
+        for (Transition t : transitions) {
+            t.getBypass().setValue(false);
+        }
+    }
 }

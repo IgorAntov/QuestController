@@ -12,7 +12,6 @@ public class MBParameter {
     private final MembershipType membershipType;
     private boolean valueBool;
     private boolean initvalueBool;
-
     private int valueInt32;
     private float valueFloat;
     private int channelNumber;
@@ -166,4 +165,7 @@ public class MBParameter {
         return valueFloat;
     }
 
+    public boolean isInitvalueBool() {
+        return initvalueBool;
+    }
 }

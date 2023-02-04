@@ -4,10 +4,7 @@ import org.autoquest.connections.Params;
 import org.autoquest.connections.adapters.ParamsAdapter;
 import org.autoquest.connections.adapters.SimulatorParams;
 import org.autoquest.connections.units.MBUnitList;
-import org.autoquest.quest.Configuration;
-import org.autoquest.quest.ContinuousStepStore;
-import org.autoquest.quest.QuestTimer;
-import org.autoquest.quest.StepsExecutor;
+import org.autoquest.quest.*;
 import org.autoquest.service.CommandLineP;
 import org.autoquest.service.state.SaveStateService;
 
@@ -28,6 +25,7 @@ public class QuestName {
             new SaveStateService();
             QuestTimer.runTimer();
             QuestTimer.pause();
+            TestActionStore.actionsStoreInit();
             StepsExecutor.start();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);

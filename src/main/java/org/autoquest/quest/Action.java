@@ -3,10 +3,7 @@ package org.autoquest.quest;
 import org.autoquest.connections.MBParameter;
 import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
-import org.autoquest.connections.Params;
 import org.autoquest.connections.adapters.Adapter;
-
-import java.util.Objects;
 
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
@@ -180,12 +177,12 @@ public class Action extends Thread {
     }
 
     public void setTestStart(MBParameter startParam) {
-        TestActionList.addAction(startParam, this);
+        TestActionStore.addAction(startParam, this);
         this.testStart = startParam;
     }
 
     public void setTestStop(MBParameter stopParam) {
-        TestActionList.addAction(stopParam, this);
+        TestActionStore.addAction(stopParam, this);
         this.testStop = stopParam;
 
     }

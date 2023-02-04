@@ -45,6 +45,10 @@ public class CtrlCnlXML {
             int paramIndex = 1;
             for (MBParameter p : ms.getCoilsList()) {
                 if (p.getParamType().equals(ParamType.READ)) {
+                    int commandValue = 2;
+                    if (p.isInitvalueBool()) {
+                        commandValue =1;
+                    }
                     int cnlNumber = step * index + paramIndex;
                     p.setChannelNumber(cnlNumber);
                     sb.append("<CtrlCnl>\n");
@@ -55,7 +59,7 @@ public class CtrlCnlXML {
                             "<ObjNum>1</ObjNum>\n" +
                             "<KPNum>" + index + "</KPNum>\n" +
                             "<CmdNum>" + paramIndex + "</CmdNum>\n" +
-                            "<CmdValID>1</CmdValID>\n" +
+                            "<CmdValID>" + commandValue + "</CmdValID>\n" +
                             "<FormulaUsed>false</FormulaUsed>\n" +
                             "<Formula/>\n" +
                             "<EvEnabled>false</EvEnabled>");

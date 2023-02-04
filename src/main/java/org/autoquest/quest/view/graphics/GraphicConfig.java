@@ -13,5 +13,6 @@ public class GraphicConfig {
         group1.addScreen(Screen1.getScreen());
         group1.addScreen(Screen2.getScreen());
         group1.addScreen(Screen3.getScreen());
+        group1.addScreen(Screen4.getScreen());
     }
 }

@@ -5,6 +5,8 @@ import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
 import org.autoquest.quest.*;
 import org.autoquest.quest.view.IGraphic;
+import org.autoquest.service.SoundPlayer.MixerDeviceStore;
+import org.autoquest.service.SoundPlayer.Player;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,7 @@ public class Step2 extends Step {
 
         MBParameter ACTION2 = new MBParameter("ACTION2", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         action2.defineAction(() -> ACTION2.setValue(true));
+//        action2.defineAction(() -> Player.playSound("sound2.wav", MixerDeviceStore.DEVICES[1], true, 100));
 
         MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
@@ -43,7 +46,6 @@ public class Step2 extends Step {
         transition2.setBypassButtonXY(490, 475);
         transition2.condition(KEY2::getBoolValue);
 
-//        setNextStep(Step2.getPointer());
         addAction(action1);
         addAction(action2);
         addTransition(transition1);

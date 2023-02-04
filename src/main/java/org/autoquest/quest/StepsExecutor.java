@@ -26,6 +26,8 @@ public class StepsExecutor {
                     Params.PAUSE_FB.setValue(true);
                     Params.PAUSE.farceValue(true);
                     ContinuousStepStore.init();
+                    Global.resetStepNumber();
+                    Global.increaseStepNumber();
                     Step s = Step1.getInstance();
                     if (s.getState().equals(Thread.State.NEW)) {
                         s.start();

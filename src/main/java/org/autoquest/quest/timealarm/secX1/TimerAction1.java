@@ -16,6 +16,7 @@ public class TimerAction1 extends Step {
 
     private TimerAction1() {
         super("Звук. подсказка.");
+        setContinuous();
 
         Action action1 = new Action("Action1S4");
         action1.setDesc("Действия 1 S4");

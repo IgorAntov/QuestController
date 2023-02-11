@@ -1,4 +1,4 @@
-package org.autoquest.service.SoundPlayer;
+package org.autoquest.service.sound;
 
 public class ConversionException extends RuntimeException {
     public ConversionException(Throwable cause) {

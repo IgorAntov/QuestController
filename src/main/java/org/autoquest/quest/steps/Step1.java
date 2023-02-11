@@ -4,6 +4,7 @@ import org.autoquest.connections.MBParameter;
 import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
 import org.autoquest.quest.*;
+import org.autoquest.service.video.VideoPlayer;
 
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
@@ -28,7 +29,18 @@ public class Step1 extends Step {
         MBParameter ACTION2 = new MBParameter("ACTION2", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         action2.defineAction(() -> ACTION2.setValue(true));
 
-//        action2.defineAction(() -> Player.playSound("sound1.mp3", MixerDeviceStore.DEVICES[1]));
+        //        action2.defineAction(() -> Player.playSound("sound1.mp3", MixerDeviceStore.DEVICES[1]));
+
+        Action action3 = new Action("Action3S1");
+        action3.setDesc("Video1Play");
+//        action3.setDelay(10);
+        action3.defineAction(() -> VideoPlayer.play("xxx"));
+
+        Action action4 = new Action("Action4S1");
+        action4.setDesc("Video1Stop");
+        action4.setDelay(5);
+        action4.defineAction(() -> VideoPlayer.stop("xxx"));
+
 
 
         MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
@@ -53,6 +65,9 @@ public class Step1 extends Step {
         setNextStep(Step2.getInstance());
         addAction(action1);
         addAction(action2);
+        addAction(action3);
+        addAction(action4);
+
         addTransition(transition1);
         addTransition(transition2);
         addTransition(transition3);

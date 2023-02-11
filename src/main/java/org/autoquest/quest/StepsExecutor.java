@@ -3,7 +3,7 @@ package org.autoquest.quest;
 import org.autoquest.connections.Params;
 import org.autoquest.quest.steps.Step1;
 import org.autoquest.service.Global;
-import org.autoquest.service.SoundPlayer.ClipStore;
+import org.autoquest.service.sound.ClipStore;
 import org.autoquest.service.state.ReadXML;
 
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;

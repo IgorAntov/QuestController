@@ -3,9 +3,8 @@ package org.autoquest.quest.timealarm.secX1;
 import org.autoquest.quest.Action;
 import org.autoquest.quest.ActionType;
 import org.autoquest.quest.Step;
-import org.autoquest.quest.steps.Step1;
-import org.autoquest.service.SoundPlayer.MixerDeviceStore;
-import org.autoquest.service.SoundPlayer.Player;
+import org.autoquest.service.sound.MixerDeviceStore;
+import org.autoquest.service.sound.Player;
 
 
 public class TimerAction1 extends Step {

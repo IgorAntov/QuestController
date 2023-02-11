@@ -73,9 +73,9 @@ public class Action extends Thread {
                     statusParam.setValue(true);
                     stopAction = false;
                     do {
-                        System.out.println("doing " + getActionName());
+                        System.out.println("doing " + getActionName() + "d " + delay);
                         if ((delay + scanRate) > 0) {
-                            sleep(delay + scanRate);
+                            sleep(delay * 1000L + scanRate);
                         }
                         doAction.apply();
                         if (afterActionDelay > 0) {

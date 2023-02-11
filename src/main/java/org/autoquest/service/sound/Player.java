@@ -1,7 +1,6 @@
-package org.autoquest.service.SoundPlayer;
+package org.autoquest.service.sound;
 
 import org.apache.commons.io.FilenameUtils;
-import org.autoquest.quest.Action;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
@@ -9,7 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Objects;
 
-import static org.autoquest.service.SoundPlayer.Converter.convertFrom;
+import static org.autoquest.service.sound.Converter.convertFrom;
 
 public class Player {
 

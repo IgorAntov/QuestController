@@ -1,4 +1,4 @@
-package org.autoquest.service.SoundPlayer;
+package org.autoquest.service.sound;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Mixer;

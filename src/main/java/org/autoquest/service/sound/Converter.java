@@ -1,4 +1,4 @@
-package org.autoquest.service.SoundPlayer;
+package org.autoquest.service.sound;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

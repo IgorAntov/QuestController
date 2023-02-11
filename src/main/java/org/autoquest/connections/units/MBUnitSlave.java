@@ -1,6 +1,5 @@
 package org.autoquest.connections.units;
 
-import com.intelligt.modbus.jlibmodbus.Modbus;
 import com.intelligt.modbus.jlibmodbus.data.ModbusCoils;
 import com.intelligt.modbus.jlibmodbus.data.ModbusHoldingRegisters;
 import com.intelligt.modbus.jlibmodbus.exception.IllegalDataAddressException;
@@ -16,6 +15,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class MBUnitSlave {
@@ -24,10 +24,10 @@ public class MBUnitSlave {
     private ModbusSlave slave;
     private final TcpParameters tcpParameters = new TcpParameters();
     private final ArrayList<MBParameter> parameters = new ArrayList<>();
-
     private final MBDataHolder dh = new MBDataHolder();
     private ModbusCoils modbusCoils;
     private ModbusHoldingRegisters modbusHoldingRegisters;
+    private boolean wsSlave = false;
 
     public MBUnitSlave() {
 //        Modbus.setLogLevel(Modbus.LogLevel.LEVEL_DEBUG);
@@ -236,15 +236,49 @@ public class MBUnitSlave {
     public void setInt32Value(int index, int value) {
         byte[] b = ByteBuffer.allocate(4).putInt(value).array();
         try {
+
+            String resultWithPadZero = String.format("%32s", Integer.toBinaryString(value))
+                    .replace(" ", "0");
+
+            System.out.println(resultWithPadZero);                                          // 00000000000000000000000011111110
+            System.out.println(printBinary(resultWithPadZero, 8, "|"));
+
+
             int r = b[0] & 0xFF;
             r = (r << 8) | (b[1] & 0xFF);
             modbusHoldingRegisters.set(index, r);
+
+            String resultWithPadZero1 = String.format("%32s", Integer.toBinaryString(r))
+                    .replace(" ", "0");
+
+            System.out.println("r1: " + r + " " + printBinary(resultWithPadZero1, 8, "|"));
+
             r = b[2] & 0xFF;
             r = (r << 8) | (b[3] & 0xFF);
+
+
+            String resultWithPadZero2 = String.format("%32s", Integer.toBinaryString(r))
+                    .replace(" ", "0");
+
+            System.out.println("r2: "  + r + "  " + printBinary(resultWithPadZero2, 8, "|"));
+
             modbusHoldingRegisters.set(index + 1, r);
         } catch (IllegalDataAddressException | IllegalDataValueException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String printBinary(String binary, int blockSize, String separator) {
+
+        // split by blockSize
+        List<String> result = new ArrayList<>();
+        int index = 0;
+        while (index < binary.length()) {
+            result.add(binary.substring(index, Math.min(index + blockSize, binary.length())));
+            index += blockSize;
+        }
+
+        return result.stream().collect(Collectors.joining(separator));
     }
 
     public int getInt32Value(int index) {
@@ -290,4 +324,17 @@ public class MBUnitSlave {
     public void addParameter(MBParameter parameter) {
         parameters.add(parameter);
     }
+
+    public void setMasterAddress(int address) {
+           slave.setServerAddress(address);
+    }
+
+    public boolean isWsSlave() {
+        return wsSlave;
+    }
+
+    public void setWsSlave(boolean wsSlave) {
+        this.wsSlave = wsSlave;
+    }
 }
+

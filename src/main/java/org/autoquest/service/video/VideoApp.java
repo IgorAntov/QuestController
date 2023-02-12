@@ -5,6 +5,7 @@
 
 package org.autoquest.service.video;
 
+import org.autoquest.service.Global;
 import uk.co.caprica.vlcj.player.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.component.MediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.fullscreen.adaptive.AdaptiveFullScreenStrategy;
@@ -15,17 +16,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.Serial;
+import java.net.URISyntaxException;
 
 public class VideoApp extends JFrame {
+    @Serial
     private static final long serialVersionUID = 1L;
-    private static final String TITLE = "My First Media Player";
-    private static final String VIDEO_PATH = "/home/igor/sketchbook/video.avi";
-    private static final String VIDEO_PATH2 = "/home/igor/sketchbook/XXX.mp4";
+    private final String VIDEO_PATH;
     private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
-    private JButton playButton;
 
     public VideoApp(String title) {
         super(title);
+        VIDEO_PATH = Global.VIDEO_PATH;
         mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
         mediaPlayerComponent.mediaPlayer().fullScreen().strategy(
                 new AdaptiveFullScreenStrategy(this));
@@ -46,7 +49,7 @@ public class VideoApp extends JFrame {
         contentPane.add(mediaPlayerComponent, BorderLayout.CENTER);
 
         JPanel controlsPane = new JPanel();
-        playButton = new JButton("Play");
+        JButton playButton = new JButton("Play");
         //        controlsPane.add(playButton);
         //       contentPane.add(controlsPane, BorderLayout.SOUTH);
         playButton.addActionListener(new ActionListener() {
@@ -70,13 +73,17 @@ public class VideoApp extends JFrame {
             System.out.println(e);
         }
 //        mediaPlayerComponent.mediaPlayer().fullScreen().toggle();
-        loadVideo(VIDEO_PATH);
+        File file = new File(getClass().getResource("/video/test.mp4").getPath());
+        if (VIDEO_PATH.isEmpty()) {
+            loadVideo(file.getPath());
+        } else {
+            loadVideo(VIDEO_PATH);
+        }
         setVisible(true);
         mediaPlayerComponent.mediaPlayer().controls().play();
     }
 
     public void stop() {
-        System.out.println("Want to stop");
         mediaPlayerComponent.mediaPlayer().controls().stop();
         setVisible(false); //you can't see me!
         dispose();

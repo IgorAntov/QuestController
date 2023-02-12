@@ -7,7 +7,8 @@ public class Global {
     public static boolean START;
     public static boolean ABORT;
     public static boolean RESET;
-
+    public static final String VIDEO_PATH = "";
+    public static final String SOUND_PATH = "";
     public static int currentStep;
 
     public static void increaseStepNumber() {

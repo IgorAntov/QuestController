@@ -1,17 +1,18 @@
 package org.autoquest.service.sound;
 
 import org.apache.commons.io.FilenameUtils;
+import org.autoquest.service.Global;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Objects;
 
 import static org.autoquest.service.sound.Converter.convertFrom;
 
 public class Player {
-
     public static synchronized void playSound(final String url, Mixer.Info info) {
         playSound(url, info, false);
     }
@@ -35,8 +36,14 @@ public class Player {
                 try {
                     Clip clip = AudioSystem.getClip(info);
                     ClipStore.addClip(clip);
-                    AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                            Objects.requireNonNull(getClass().getResourceAsStream("/sounds/" + url)));
+                    AudioInputStream inputStream = null;
+                    if (Global.SOUND_PATH.isEmpty()) {
+                        inputStream = AudioSystem.getAudioInputStream(
+                                Objects.requireNonNull(getClass().getResourceAsStream("/sounds/" + url)));
+                    } else {
+                       inputStream = AudioSystem.getAudioInputStream(
+                               new FileInputStream(Global.SOUND_PATH + url));
+                    }
                     clip.open(inputStream);
                     FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                     float volumeLevel = volume /100.0f;

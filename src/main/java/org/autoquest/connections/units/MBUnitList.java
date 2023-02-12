@@ -1,21 +1,29 @@
 package org.autoquest.connections.units;
 
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class MBUnitList {
-//    public static final ModBusUnitSlave WS_MB_UNIT_SLAVE = new ModBusUnitSlave();
     public static final MBUnitSlave WS_MB_UNIT_SLAVE = new MBUnitSlave();
     public static final MBUnitSlave WS_MB_UNIT_SLAVE_SIM = new MBUnitSlave();
-    public static final MBUnitSlave WS_MB_UNIT_SLAVE_UNO_R3 = new MBUnitSlave();
+    public static final MBUnitSlave UNOR3_1 = new MBUnitSlave();
+    public static final MBUnitSlave UNOR3_2 = new MBUnitSlave();
 
     public static void init() throws UnknownHostException {
-
-        // Slave Settings for UNO R3
+        // WorkStation or PC Node NIC IP Address
         InetAddress addressIp = InetAddress.getByName("192.168.1.5");
-        WS_MB_UNIT_SLAVE_UNO_R3.setName("Simulator");
-        WS_MB_UNIT_SLAVE_UNO_R3.
+
+        // Slave Settings for UNO R3 CARD 2
+        UNOR3_2.setName("UnoR3_Card2");
+        UNOR3_2.
+                setAddress(addressIp).
+                setIsKeepAlive(true).
+                setPort(1027).
+                setSlaveID(1);
+
+        // Slave Settings for UNO R3 CARD 1
+        UNOR3_1.setName("UnoR3_Card1");
+        UNOR3_1.
                 setAddress(addressIp).
                 setIsKeepAlive(true).
                 setPort(1026).
@@ -40,14 +48,20 @@ public class MBUnitList {
     }
 
     public static void runListener() {
-//        WS_MB_UNIT_SLAVE.evalMapSize();
+        /**
+           WS_MB_UNIT_SLAVE.evalMapSize();
+        */
         WS_MB_UNIT_SLAVE.evalMapSize();
         WS_MB_UNIT_SLAVE_SIM.evalMapSize();
-        WS_MB_UNIT_SLAVE_UNO_R3.evalMapSize();
+        UNOR3_1.evalMapSize();
+        UNOR3_2.evalMapSize();
 
-//        WS_MB_UNIT_SLAVE.startListen();
+        /**
+            WS_MB_UNIT_SLAVE.startListen();
+        */
         WS_MB_UNIT_SLAVE.startListen();
         WS_MB_UNIT_SLAVE_SIM.startListen();
-        WS_MB_UNIT_SLAVE_UNO_R3.startListen();
+        UNOR3_1.startListen();
+        UNOR3_2.startListen();
     }
 }

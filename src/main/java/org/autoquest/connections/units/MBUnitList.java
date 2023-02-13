@@ -35,7 +35,7 @@ public class MBUnitList {
                 setAddress(InetAddress.getLocalHost()).
                 setIsKeepAlive(true).
                 setPort(1025).
-                setSlaveID(1);
+                setSlaveID(2);
         WS_MB_UNIT_SLAVE_SIM.setWsSlave(true);
 
         WS_MB_UNIT_SLAVE.setName("WSModBusSlave");

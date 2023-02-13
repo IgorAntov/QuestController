@@ -1,0 +1,116 @@
+#include <Ethernet.h>
+#include <ModbusTCPMaster.h>
+
+// Ethernet configuration values
+uint8_t mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+IPAddress ip(192, 168, 1, 10);
+
+// Define the ModbusTCPMaster object
+ModbusTCPMaster modbusMaster1;
+ModbusTCPMaster modbusMaster2;
+
+enum MB_FC {
+  MB_FC_READ_COILS         = 1,
+  MB_FC_READ_REGISTERS     = 2,
+  MB_FC_WRITE_COILS        = 3,
+  MB_FC_WRITE_REGISTERS    = 4,
+  MB_FC_WRITE_COIL         = 5,
+  MB_FC_WRITE_REGISTER     = 6,
+};
+
+class Slave {
+  public:
+  IPAddress slaveIp;
+  uint16_t slavePort;
+  EthernetClient slave;
+  uint8_t slaveId;
+  uint16_t rate = 1000;
+  uint32_t lastSentTime1 = 0UL;
+  boolean gotReq;
+};
+
+Slave slave1;
+Slave slave2;
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void setup() {
+
+  Serial.begin(115200);
+
+  // Begin Ethernet
+  Ethernet.begin(mac, ip);
+  Serial.println(Ethernet.localIP());
+
+  slave1.slaveIp = {192, 168, 1, 5};
+  slave1.slavePort = 1027;
+  slave1.slaveId = 1;
+  slave1.rate = 3000;
+
+  slave2.slaveIp = {192, 168, 1, 5};
+  slave2.slavePort = 1026;
+  slave2.slaveId = 1;
+  slave2.rate = 3000;
+
+}
+
+ModbusResponse getData(ModbusTCPMaster& master, Slave& slave, MB_FC fc, uint16_t addr, uint16_t quantity) {
+  if (!slave.slave.connected()) {
+    slave.slave.stop();
+    slave.slave.connect(slave.slaveIp, slave.slavePort);
+  }
+
+  if (slave.slave.connected()) {
+    if (millis() - slave.lastSentTime1 > slave.rate) {
+      if (fc == MB_FC_READ_COILS) {
+         if (!master.readCoils(slave.slave, slave.slaveId, addr, quantity)) {
+            Serial.println("Request fail");
+         }
+      }
+      if (fc == MB_FC_READ_REGISTERS) {
+         if (!master.readHoldingRegisters(slave.slave, slave.slaveId, addr, quantity)) {
+            Serial.println("Request fail");
+         }
+      }
+      slave.lastSentTime1 = millis();
+    }
+
+    if (master.isWaitingResponse()) {
+      ModbusResponse response = master.available();
+      if (response) {
+        if (response.hasError()) {
+          // Response failure treatment. You can use response.getErrorCode()
+          Serial.print("Error "); Serial.println(response.getErrorCode());
+          slave.slave.stop();
+        } else {
+          slave.gotReq = true;
+          return response;
+        }
+      }
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+void loop() {
+ ModbusResponse response = getData(modbusMaster1, slave1, MB_FC_READ_COILS, 0, 3);
+
+   if (response && slave1.gotReq) {
+      for (int i = 0; i < 3; ++i) {
+           Serial.print(response.isCoilSet(i)); Serial.print(',');
+      }
+      Serial.println();
+      slave1.gotReq = false;
+   }
+
+ response = getData(modbusMaster2, slave2, MB_FC_READ_REGISTERS , 0, 20);
+
+   if (response && slave2.gotReq) {
+      for (int i = 0; i < 20; i = i + 2) {
+          long  i32 = (long)((long) response.getRegister(i)<<16 | (long) response.getRegister(i+1));
+          Serial.print(i32); Serial.print(',');
+      }
+      Serial.println();
+      slave2.gotReq = false;
+   }
+}

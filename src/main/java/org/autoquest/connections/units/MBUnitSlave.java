@@ -206,12 +206,33 @@ public class MBUnitSlave {
     public void setFloatValue(int index, float value) {
         byte[] b = ByteBuffer.allocate(4).putFloat(value).array();
         try {
+            System.out.println("Sent float");
+            String resultWithPadZero = String.format("%32s", Integer.toBinaryString(Float.floatToIntBits(value))
+                    .replace(" ", "0"));
+
+            System.out.println(resultWithPadZero);                                          // 00000000000000000000000011111110
+            System.out.println(printBinary(resultWithPadZero, 8, "|"));
+
             int r = b[0] & 0xFF;
             r = (r << 8) | (b[1] & 0xFF);
             modbusHoldingRegisters.set(index, r);
+
+            String resultWithPadZero1 = String.format("%16s", Integer.toBinaryString(r))
+                    .replace(" ", "0");
+
+            System.out.println("r1: " + r + " " + printBinary(resultWithPadZero1, 8, "|"));
+
+
             r = b[2] & 0xFF;
             r = (r << 8) | (b[3] & 0xFF);
             modbusHoldingRegisters.set(index + 1, r);
+
+            String resultWithPadZero2 = String.format("%16s", Integer.toBinaryString(r))
+                    .replace(" ", "0");
+
+            System.out.println("r2: "  + r + "  " + printBinary(resultWithPadZero2, 8, "|"));
+
+
         } catch (IllegalDataAddressException | IllegalDataValueException e) {
             throw new RuntimeException(e);
         }

@@ -4,6 +4,7 @@ import org.autoquest.quest.view.StepFrame;
 import org.autoquest.quest.steps.Step3;
 import org.autoquest.quest.steps.Step4;
 import org.autoquest.quest.view.Screen;
+import org.autoquest.quest.view.TimerLabel;
 
 public class Screen3 {
 
@@ -15,6 +16,7 @@ public class Screen3 {
 
         screen.addCollection(new StepFrame(Step3.getInstance()).getStepFrame(100,100));
         screen.addCollection(new StepFrame(Step4.getInstance()).getStepFrame(450,100));
+
 
         screen.addImage("StepActive.svg");
         screen.addImage("StepDone.svg");

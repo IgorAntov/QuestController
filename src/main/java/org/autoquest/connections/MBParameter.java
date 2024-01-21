@@ -92,13 +92,11 @@ public class MBParameter {
             } else return this.valueBool;
     }
 
-
     public int getInt32Value() {
         if (membershipType.equals(MembershipType.SINGLE)) {
             return modBusUnitSlave.getIntValue(this.index);
         } else return this.valueInt32;
     }
-
 
     public float getFloatValue() {
         if (membershipType.equals(MembershipType.SINGLE)) {

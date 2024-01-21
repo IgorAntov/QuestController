@@ -3,10 +3,7 @@ package org.autoquest.quest;
 import org.autoquest.connections.MBParameter;
 import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
-import org.autoquest.connections.adapters.Adapter;
-
-import javax.sound.sampled.Clip;
-import java.util.ArrayList;
+import org.autoquest.connections.adapters.Router;
 
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
@@ -58,7 +55,7 @@ public class Action extends Thread {
         StateStore.addParameter(actionEnabledConfirm);
         setEnabled(action1Enabled);
         setEnabledConfirm(actionEnabledConfirm);
-        Adapter.setAdapter(action1Enabled, actionEnabledConfirm);
+        Router.setRoute(action1Enabled, actionEnabledConfirm);
     }
 
     @Override

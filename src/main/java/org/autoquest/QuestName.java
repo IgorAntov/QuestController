@@ -1,7 +1,8 @@
 package org.autoquest;
 
 import org.autoquest.connections.Params;
-import org.autoquest.connections.adapters.ParamsAdapter;
+import org.autoquest.connections.adapters.Router;
+import org.autoquest.connections.adapters.RouterConfig;
 import org.autoquest.connections.adapters.SimulatorParams;
 import org.autoquest.connections.units.MBUnitList;
 import org.autoquest.quest.*;
@@ -18,7 +19,6 @@ public class QuestName {
             MBUnitList.init();
             Params.init();
             SimulatorParams.init();
-            ParamsAdapter.ParamsAdapterInit();
             Configuration.inti();
             MBUnitList.runListener();
             CommandLineP.parseCL(args);
@@ -26,6 +26,8 @@ public class QuestName {
             QuestTimer.runTimer();
             QuestTimer.pause();
             TestActionStore.actionsStoreInit();
+            RouterConfig.RouterConfigInit();
+            Router.routerStart();
             StepsExecutor.start();
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);

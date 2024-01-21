@@ -15,6 +15,7 @@ public class ClipStore {
         for (Clip clip: CLIP_STORE) {
             clip.stop();
             clip.drain();
+            System.out.println("all cleared");
         }
     }
 

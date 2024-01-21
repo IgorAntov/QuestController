@@ -74,6 +74,7 @@ public class VideoApp extends JFrame {
         }
 //        mediaPlayerComponent.mediaPlayer().fullScreen().toggle();
         File file = new File(getClass().getResource("/video/test.mp4").getPath());
+//        File file = new File(getClass().getResource("/sounds/sound1.mp3").getPath());
         if (VIDEO_PATH.isEmpty()) {
             loadVideo(file.getPath());
         } else {

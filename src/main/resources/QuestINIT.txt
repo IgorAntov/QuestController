@@ -19,7 +19,7 @@
         1.13 Assign next step to-do
         1.14 Add actions and transitions to step action and transition List
 
-2. Add steps to config initialisation - CLASS "Configuration"
+2. Add steps to config initialization - CLASS "Configuration"
 3. Create Screen for Rapid Scada
     3.1 Set screen name, description, graphic size
     3.2 Add stepFrame to screen collection with specific positions

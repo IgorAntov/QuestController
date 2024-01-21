@@ -3,7 +3,7 @@ package org.autoquest.quest;
 import org.autoquest.connections.MBParameter;
 import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
-import org.autoquest.connections.adapters.Adapter;
+import org.autoquest.connections.adapters.Router;
 
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
@@ -39,14 +39,14 @@ public class Transition extends Thread {
         setBypassParam(bypass);
         setBypassCFM(bypassCFM);
         setBypassVisible(bypassVisible);
-        Adapter.setAdapter(bypass, bypassCFM);
+        Router.setRoute(bypass, bypassCFM);
         MBParameter transition1Enabled = new MBParameter(String.format("ActEnabled%s", name), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
         MBParameter transitionEnabledConfirm = new MBParameter(String.format("ActEnabledCFM%s", name), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
         setEnabled(transition1Enabled);
         StateStore.addParameter(transition1Enabled);
         setEnabledConfirm(transitionEnabledConfirm);
         StateStore.addParameter(transitionEnabledConfirm);
-        Adapter.setAdapter(transition1Enabled, transitionEnabledConfirm);
+        Router.setRoute(transition1Enabled, transitionEnabledConfirm);
     }
 
     @Override

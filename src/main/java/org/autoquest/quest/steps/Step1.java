@@ -10,6 +10,7 @@ import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Step1 extends Step {
     private static final Step1 step1 = new Step1();
+    public static MBParameter ACTION1;
 
     public static Step1 getInstance() {
         return step1;
@@ -20,7 +21,7 @@ public class Step1 extends Step {
         Action action1 = new Action("Action1S1", ActionType.STORED);
         action1.setDesc("Действия 1");
 
-        MBParameter ACTION1 = new MBParameter("ACTION1", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
+        ACTION1 = new MBParameter("ACTION1", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         action1.defineAction(() -> ACTION1.setValue(true));
 
         Action action2 = new Action("Action2S1");

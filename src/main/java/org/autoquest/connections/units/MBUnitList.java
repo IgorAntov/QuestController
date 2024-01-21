@@ -7,6 +7,8 @@ public class MBUnitList {
     public static final MBUnitSlave WS_MB_UNIT_SLAVE = new MBUnitSlave();
     public static final MBUnitSlave WS_MB_UNIT_SLAVE_SIM = new MBUnitSlave();
     public static final MBUnitSlave UNOR3_1 = new MBUnitSlave();
+    public static final MBUnitSlave UNOR3_1_PACK2 = new MBUnitSlave();
+    public static final MBUnitSlave UNOR3_1_PACK3 = new MBUnitSlave();
     public static final MBUnitSlave UNOR3_2 = new MBUnitSlave();
 
     public static void init() throws UnknownHostException {
@@ -27,6 +29,20 @@ public class MBUnitList {
                 setAddress(addressIp).
                 setIsKeepAlive(true).
                 setPort(1026).
+                setSlaveID(1);
+
+        UNOR3_1_PACK2.setName("UnoR3_Card1_Pack2");
+        UNOR3_1_PACK2.
+                setAddress(addressIp).
+                setIsKeepAlive(true).
+                setPort(1028).
+                setSlaveID(1);
+
+        UNOR3_1_PACK3.setName("UnoR3_Card1_Pack3");
+        UNOR3_1_PACK3.
+                setAddress(addressIp).
+                setIsKeepAlive(true).
+                setPort(1029).
                 setSlaveID(1);
 
         // Slave Settings for local PC (WS Sim)
@@ -52,16 +68,20 @@ public class MBUnitList {
            WS_MB_UNIT_SLAVE.evalMapSize();
         */
         WS_MB_UNIT_SLAVE.evalMapSize();
-        WS_MB_UNIT_SLAVE_SIM.evalMapSize();
-        UNOR3_1.evalMapSize();
-        UNOR3_2.evalMapSize();
+//        WS_MB_UNIT_SLAVE_SIM.evalMapSize();
+//        UNOR3_1.evalMapSize();
+//        UNOR3_1_PACK2.evalMapSize();
+//        UNOR3_1_PACK3.evalMapSize();
+//        UNOR3_2.evalMapSize();
 
         /**
             WS_MB_UNIT_SLAVE.startListen();
         */
         WS_MB_UNIT_SLAVE.startListen();
-        WS_MB_UNIT_SLAVE_SIM.startListen();
-        UNOR3_1.startListen();
-        UNOR3_2.startListen();
+//        WS_MB_UNIT_SLAVE_SIM.startListen();
+//        UNOR3_1.startListen();
+//        UNOR3_1_PACK2.startListen();
+//        UNOR3_1_PACK3.startListen();
+//        UNOR3_2.startListen();
     }
 }

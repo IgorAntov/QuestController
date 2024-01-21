@@ -35,23 +35,59 @@ public class Player {
             public void run() {
                 try {
                     Clip clip = AudioSystem.getClip(info);
-                    ClipStore.addClip(clip);
+          //          ClipStore.addClip(clip);
                     AudioInputStream inputStream = null;
                     if (Global.SOUND_PATH.isEmpty()) {
                         inputStream = AudioSystem.getAudioInputStream(
                                 Objects.requireNonNull(getClass().getResourceAsStream("/sounds/" + url)));
+                        System.out.println("url: " + url);
                     } else {
                        inputStream = AudioSystem.getAudioInputStream(
                                new FileInputStream(Global.SOUND_PATH + url));
                     }
+                    if (inputStream != null) System.out.println("streamed!");
                     clip.open(inputStream);
+                    System.out.println("clip opened");
                     FloatControl volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
                     float volumeLevel = volume /100.0f;
                     volumeControl.setValue(volumeControl.getMaximum() - (volumeControl.getMaximum() - volumeControl.getMinimum()) * (1.0f - volumeLevel));
                     if (loop) {
                         clip.loop(1000);
                     }
+                    System.out.println("line info:" + clip.getLineInfo());
                     clip.start();
+//
+
+                    Thread.sleep(10000);
+                    clip.stop();
+                    clip.close();
+                    clip.flush();
+
+                    inputStream = null;
+                    if (Global.SOUND_PATH.isEmpty()) {
+                        inputStream = AudioSystem.getAudioInputStream(
+                                Objects.requireNonNull(getClass().getResourceAsStream("/sounds/" + url)));
+                        System.out.println("url: " + url);
+                    } else {
+                        inputStream = AudioSystem.getAudioInputStream(
+                                new FileInputStream(Global.SOUND_PATH + url));
+                    }
+                    if (inputStream != null) System.out.println("streamed!");
+                    clip.open(inputStream);
+                    System.out.println("clip opened");
+                    volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                    volumeLevel = volume /100.0f;
+                    volumeControl.setValue(volumeControl.getMaximum() - (volumeControl.getMaximum() - volumeControl.getMinimum()) * (1.0f - volumeLevel));
+                    if (loop) {
+                        clip.loop(1000);
+                    }
+                    System.out.println("line info:" + clip.getLineInfo());
+                    clip.start();
+
+
+//
+                    //inputStream.close();
+                    //clip.flush();
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
                 }
@@ -66,13 +102,16 @@ public class Player {
                     Clip clip = AudioSystem.getClip(info);
                     ClipStore.addClip(clip);
                     try (
-                            final InputStream inputStream = getClass().getResourceAsStream("/sounds/" + url);
-                            final ByteArrayOutputStream output = new ByteArrayOutputStream();
+//                            final InputStream inputStream = getClass().getResourceAsStream("/sounds/" + url);
+//                            final ByteArrayOutputStream output = new ByteArrayOutputStream();
+                            InputStream inputStream = getClass().getResourceAsStream("/sounds/" + url);
+                            ByteArrayOutputStream output = new ByteArrayOutputStream();
+
                     ) {
-                        final AudioFormat audioFormat = new AudioFormat(44100, 8, 1, false, false);
+                        AudioFormat audioFormat = new AudioFormat(44100, 8, 1, false, false);
                         System.out.println(inputStream == null);
                         convertFrom(inputStream).withTargetFormat(audioFormat).to(output);
-                        final byte[] wavContent = output.toByteArray();
+                        byte[] wavContent = output.toByteArray();
                         try {
 
                             AudioInputStream inputStream2 = AudioSystem.getAudioInputStream(

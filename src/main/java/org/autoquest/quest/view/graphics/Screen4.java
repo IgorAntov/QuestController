@@ -6,6 +6,7 @@ import org.autoquest.quest.timealarm.secX1.Timer1;
 import org.autoquest.quest.timealarm.secX1.TimerAction1;
 import org.autoquest.quest.view.Screen;
 import org.autoquest.quest.view.StepFrame;
+import org.autoquest.quest.view.TimerLabel;
 
 public class Screen4 {
 
@@ -17,6 +18,8 @@ public class Screen4 {
 
         screen.addCollection(new StepFrame(Timer1.getInstance()).getStepFrame(100,100));
         screen.addCollection(new StepFrame(TimerAction1.getInstance()).getStepFrame(450,100));
+
+        screen.addCollection(new TimerLabel().getTimerLabel(10, 50));
 
         screen.addImage("StepActive.svg");
         screen.addImage("StepDone.svg");

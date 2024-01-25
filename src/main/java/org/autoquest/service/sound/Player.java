@@ -34,7 +34,8 @@ public class Player {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    Clip clip = AudioSystem.getClip(info);
+                    Clip clip = AudioSystem. getClip(info);
+
           //          ClipStore.addClip(clip);
                     AudioInputStream inputStream = null;
                     if (Global.SOUND_PATH.isEmpty()) {
@@ -55,13 +56,16 @@ public class Player {
                         clip.loop(1000);
                     }
                     System.out.println("line info:" + clip.getLineInfo());
+
                     clip.start();
 //
-
-                    Thread.sleep(10000);
+                    System.out.println("New clip");
+                    Thread.sleep(7000);
                     clip.stop();
                     clip.close();
                     clip.flush();
+
+//                    inputStream.close();
 
                     inputStream = null;
                     if (Global.SOUND_PATH.isEmpty()) {

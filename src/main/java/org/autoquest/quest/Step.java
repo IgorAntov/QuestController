@@ -235,7 +235,7 @@ public class Step extends Thread {
         return lock;
     }
 
-    public void skeep() {
+    public void skip() {
         for (Transition t : transitions) {
             t.getBypass().setValue(false);
         }

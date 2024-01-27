@@ -36,17 +36,28 @@ public class Step1 extends Step {
         action3.setDesc("Video1Play");
 //        action3.setDelay(10);
         action3.defineAction(() -> {
+            System.out.println("play V");
             VideoPlayer.play("test.mp4");
-//              VideoPlayer.stop("video.mp3");
+//            action3.setDelay(3);
+           System.out.println("pause V");
+            VideoPlayer.pauseClip("test.mp4");
+
+            System.out.println("skip V");
+           VideoPlayer.skip("test.mp4", 5000);
+//            System.out.println("pause V");
+//            VideoPlayer.pauseClip("test.mp4");
+            System.out.println("Step1 !!!!");
         });
 
         Action action4 = new Action("Action4S1");
         action4.setDesc("Video1Stop");
         action4.setDelay(5);
 //        action4.defineAction(() -> VideoPlayer.stop("sound1.mp3"));
-//        action4.defineAction(() -> VideoPlayer.play("sound2.wav"));
+        action4.defineAction(() -> VideoPlayer.resume("test.mp4"));
 //        action4.setDelay(5);
-        action4.defineAction(() -> VideoPlayer.stop("test.mp4"));
+ //       action4.defineAction(() -> {
+ //           VideoPlayer.stop("test.mp4");
+ //       });
 
         MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 

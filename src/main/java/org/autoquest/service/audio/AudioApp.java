@@ -31,8 +31,9 @@ public class AudioApp extends JFrame {
     private final Equalizer equalizer;
     private final EmbeddedMediaPlayerComponent mediaPlayerComponent;
     private final AudioPlayerComponent audioPlayerComponent;
-//    private final AudioListPlayerComponent audioListPlayerComponent;
+    //    private final AudioListPlayerComponent audioListPlayerComponent;
 //    private final MediaListPlayer mediaListPlayer;
+    private boolean isLoop = false;
 
     MediaListPlayer mediaListPlayer;
     MediaPlayerFactory mediaPlayerFactory;
@@ -57,6 +58,7 @@ public class AudioApp extends JFrame {
         mediaListPlayer = mediaPlayerFactory.mediaPlayers().newMediaListPlayer();
         mediaPlayer = mediaPlayerFactory.mediaPlayers().newEmbeddedMediaPlayer();
         mediaListPlayer.mediaPlayer().setMediaPlayer(mediaPlayer);
+        audioPlayerComponent.mediaPlayer().audio().setOutput("alsa");
     }
 
     public void initialize() {
@@ -114,6 +116,7 @@ public class AudioApp extends JFrame {
 */
 
         if (loop) {
+            isLoop = true;
             String[] options = {};
             MediaListRef mediaListRef = mediaPlayerFactory.media().newMediaListRef();
             File file = new File(getClass().getResource("/sounds/" + fileName).getPath());
@@ -127,7 +130,7 @@ public class AudioApp extends JFrame {
             setVisible(true);
             mediaListPlayer.list().setMediaList(mediaListRef);
             mediaListPlayer.controls().setMode(LOOP);
-            mediaListPlayer.mediaPlayer().mediaPlayer().audio().setOutput("alsa");
+//            mediaListPlayer.mediaPlayer().mediaPlayer().audio().setOutput("alsa");
             mediaListPlayer.mediaPlayer().mediaPlayer().audio().setVolume(volume);
             mediaListPlayer.controls().play();
         }
@@ -141,25 +144,49 @@ public class AudioApp extends JFrame {
                 loadAudio(AUDIO_PATH + fileName);
             }
             setVisible(true);
-            audioPlayerComponent.mediaPlayer().audio().setOutput("alsa");
             audioPlayerComponent.mediaPlayer().audio().setVolume(volume);
             audioPlayerComponent.mediaPlayer().controls().play();
-            mediaListPlayer.controls().play();
+//            mediaListPlayer.controls().play();
         }
     }
 
     public void stop() {
-        audioPlayerComponent.mediaPlayer().controls().stop();
-        setVisible(false); //you can't see me!
-        dispose();
+        if (!isLoop) {
+            audioPlayerComponent.mediaPlayer().controls().stop();
+        }
+        if (isLoop) {
+            mediaListPlayer.controls().stop();
+        }
+ //       setVisible(false); //you can't see me!
+//        dispose();
     }
 
     public void pause() {
-        audioPlayerComponent.mediaPlayer().controls().pause();
+        if (!isLoop) {
+            audioPlayerComponent.mediaPlayer().controls().pause();
+        }
+        if (isLoop) {
+            mediaListPlayer.controls().pause();
+        }
     }
 
-    public void skip(int delta) {
-        audioPlayerComponent.mediaPlayer().controls().skipTime(delta);
+    public void skipTime(int delta) {
+        if (!isLoop) {
+            audioPlayerComponent.mediaPlayer().controls().skipTime(delta);
+        }
     }
 
+    public void resume() {
+        if (!isLoop) {
+            audioPlayerComponent.mediaPlayer().controls().play();
+        }
+        if (isLoop) {
+            mediaListPlayer.controls().play();
+        }
+    }
+
+    public void disposeApp() {
+        setVisible(false);
+        dispose();
+    }
 }

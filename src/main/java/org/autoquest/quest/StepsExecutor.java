@@ -3,8 +3,11 @@ package org.autoquest.quest;
 import org.autoquest.connections.Params;
 import org.autoquest.quest.steps.Step1;
 import org.autoquest.service.Global;
+import org.autoquest.service.audio.AudioApp;
+import org.autoquest.service.audio.AudioPlayer;
 import org.autoquest.service.sound.ClipStore;
 import org.autoquest.service.state.ReadXML;
+import org.autoquest.service.video.VideoPlayer;
 
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
@@ -95,8 +98,12 @@ public class StepsExecutor {
         Params.START_FB.setValue(true);
         QuestTimer.resetTimer();
         Global.resetStepNumber();
-        ClipStore.stopAllClips();
-        ClipStore.clearClipStore();
+//        ClipStore.stopAllClips();
+//        ClipStore.clearClipStore();
+        AudioPlayer.stopAllClips();
+        AudioPlayer.disposeAllClips();
+        VideoPlayer.stopAllClips();
+        VideoPlayer.disposeAllClips();
         Thread.sleep(3000);
         WS_MB_UNIT_SLAVE.setInitValue();
         ReadXML.readParametersFromXML(StateStore.getParameterStore());

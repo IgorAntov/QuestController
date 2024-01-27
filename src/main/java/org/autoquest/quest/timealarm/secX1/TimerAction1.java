@@ -6,6 +6,7 @@ import org.autoquest.quest.Step;
 import org.autoquest.service.audio.AudioPlayer;
 import org.autoquest.service.sound.MixerDeviceStore;
 import org.autoquest.service.sound.Player;
+import org.autoquest.service.video.VideoPlayer;
 
 import javax.sound.sampled.AudioPermission;
 import javax.sound.sampled.AudioSystem;
@@ -38,7 +39,7 @@ public class TimerAction1 extends Step {
 //            System.out.println("ActionTimer1 Done");
 //        });
 
-        action2.setDelay(5);
+//        action2.setDelay(5);
         action2.defineAction(() -> {
 /*
             for (int i = 0; i < MixerDeviceStore.DEVICES.length; i++) {
@@ -49,8 +50,25 @@ public class TimerAction1 extends Step {
             }
 */
 //            Player.playSound("sound2.wav", MixerDeviceStore.DEVICES[2]);
-            AudioPlayer.play("sound2.wav", true, 50);
+            System.out.println("Action 2 start");
+            AudioPlayer.play("sound2.wav", false, 100);
 //            Player.playSound("sound1.mp3", MixerDeviceStore.DEVICES[2]);
+            try {
+                sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Pause audio");
+            AudioPlayer.pause("sound2.wav");
+            try {
+                sleep(5000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+ //           AudioPlayer.skipTime("sound2.wav", 1000);
+            System.out.println("Resume");
+            AudioPlayer.resume("sound2.wav");
+            VideoPlayer.play("test2.mp4");
         });
         addAction(action1);
         addAction(action2);

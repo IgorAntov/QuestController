@@ -43,6 +43,7 @@ public class VideoApp extends JFrame {
 
 
     public void initialize() {
+        mediaPlayerComponent.mediaPlayer().audio().setOutput("alsa");
         this.setBounds(100, 100, 600, 400);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.addWindowListener(new WindowAdapter() {
@@ -88,7 +89,7 @@ public class VideoApp extends JFrame {
         } else {
             loadVideo(VIDEO_PATH);
         }
-        setVisible(true);
+//        setVisible(true);
 
  //       for(AudioOutput out: outputs) {
  //           System.out.println("VLC AD: " + out);
@@ -108,25 +109,35 @@ public class VideoApp extends JFrame {
      //   mediaPlayerComponent.mediaPlayer().audio().setOutput("sndio");
      //   mediaPlayerComponent.mediaPlayer().audio().setOutputDevice("alsa", "usbstream:CARD=PCH");
      //   System.out.println("VLC AD2: "+ mediaPlayerComponent.mediaPlayer().audio().);
-        mediaPlayerComponent.mediaPlayer().audio().setOutput("alsa");
-        mediaPlayerComponent.mediaPlayer().audio().setVolume(100);
+//        mediaPlayerComponent.mediaPlayer().audio().setOutput("alsa");
+//        mediaPlayerComponent.mediaPlayer().audio().setVolume(100);
         mediaPlayerComponent.mediaPlayer().controls().play();
 
     }
 
-    public void pause() {
-        mediaPlayerComponent.mediaPlayer().controls().pause();
+    public void pauseClip() {
+        mediaPlayerComponent.mediaPlayer().controls().setPause(true);
     }
 
     public void skip(int delta) {
         mediaPlayerComponent.mediaPlayer().controls().skipTime(delta);
     }
 
+    public void resume() {
+        mediaPlayerComponent.mediaPlayer().controls().play();
+    }
+
+    public void setVolume(int volume) {
+        mediaPlayerComponent.mediaPlayer().audio().setVolume(volume);
+    }
 
     public void stop() {
+        mediaPlayerComponent.mediaPlayer().controls().stop();
+    }
+
+    public void disposeAll() {
         mediaPlayerComponent.mediaPlayer().controls().stop();
         setVisible(false); //you can't see me!
         dispose();
     }
-
 }

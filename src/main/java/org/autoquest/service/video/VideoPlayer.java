@@ -63,6 +63,7 @@ public class VideoPlayer {
         for (VideoApp app : videoPlayerStore.values()) {
             app.disposeAll();
         }
+        videoPlayerStore.clear();
         System.out.println("all video clips were stopped and disposed");
     }
 

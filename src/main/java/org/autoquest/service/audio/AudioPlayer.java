@@ -67,6 +67,7 @@ public class AudioPlayer {
         for (AudioApp app : audioPlayerStore.values()) {
             app.disposeApp();
         }
+        audioPlayerStore.clear();
         System.out.println("all audio clips were disposed");
     }
 }

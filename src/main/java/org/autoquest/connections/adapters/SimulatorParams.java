@@ -11,8 +11,8 @@ public class SimulatorParams {
 //      public static final MBParameter Pf1 = new MBParameter("P1_Int", UNOR3_1, 111111.1f, ParamType.CONTROL, MembershipType.GROUP);
 //          public static final MBParameter P2 = new MBParameter("P2_Int", UNOR3_1, 222222, ParamType.CONTROL, MembershipType.GROUP);
 
-    public static final MBParameter PF1 =  new MBParameter("PF1", UNOR3_1, 22.2f, ParamType.CONTROL, MembershipType.GROUP);
-    public static final MBParameter PF2 =  new MBParameter("PF2", UNOR3_1, 22.2f, ParamType.CONTROL, MembershipType.GROUP);
+    public static final MBParameter UNOR3_1_PF1 =  new MBParameter("PF1", UNOR3_1, 22.2f, ParamType.CONTROL, MembershipType.GROUP);
+    public static final MBParameter UNOR3_1_PF2 =  new MBParameter("PF2", UNOR3_1, 22.2f, ParamType.CONTROL, MembershipType.GROUP);
     public static final MBParameter PF3 =  new MBParameter("PF3", UNOR3_1, 22.2f, ParamType.CONTROL, MembershipType.GROUP);
     public static final MBParameter PF4 =  new MBParameter("PF4", UNOR3_1, 22.2f, ParamType.CONTROL, MembershipType.GROUP);
     public static final MBParameter PF5 =  new MBParameter("PF5", UNOR3_1, 22.2f, ParamType.CONTROL, MembershipType.GROUP);

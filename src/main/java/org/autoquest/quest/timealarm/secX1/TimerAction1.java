@@ -27,8 +27,9 @@ public class TimerAction1 extends Step {
         Action action1 = new Action("ActionTimer1A1");
         action1.setDesc("Звук Подсказка");
         action1.defineAction(() -> {
-//            Player.playSound("sound1.mp4", MixerDeviceStore.DEVICES[2]);
-            AudioPlayer.play("sound1.mp3");
+            //   Player.playSound("sound1.mp4", MixerDeviceStore.DEVICES[2]);
+   //!!         AudioPlayer.play("sound1.mp3");
+            VideoPlayer.resume("test.mp4");
             System.out.println("ActionTimer1 Done");
         });
 
@@ -51,7 +52,7 @@ public class TimerAction1 extends Step {
 */
 //            Player.playSound("sound2.wav", MixerDeviceStore.DEVICES[2]);
             System.out.println("Action 2 start");
-            AudioPlayer.play("sound2.wav", false, 100);
+//!!            AudioPlayer.play("sound2.wav", false, 100);
 //            Player.playSound("sound1.mp3", MixerDeviceStore.DEVICES[2]);
             try {
                 sleep(2000);
@@ -68,7 +69,8 @@ public class TimerAction1 extends Step {
  //           AudioPlayer.skipTime("sound2.wav", 1000);
             System.out.println("Resume");
             AudioPlayer.resume("sound2.wav");
-            VideoPlayer.play("test2.mp4");
+            VideoPlayer.disposeClip("test.mp4");
+            //VideoPlayer. resume("test.mp4");
         });
         addAction(action1);
         addAction(action2);

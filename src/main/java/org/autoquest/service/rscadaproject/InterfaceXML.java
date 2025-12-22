@@ -4,6 +4,8 @@ import org.apache.commons.io.FileUtils;
 import org.autoquest.quest.view.*;
 
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,7 +17,6 @@ import java.util.Collections;
 public class InterfaceXML {
 
     private final String path;
-    ;
 
     public InterfaceXML(String path) {
         this.path = path;
@@ -99,8 +100,32 @@ public class InterfaceXML {
     }
 
     public String convertFileToBase64(String filename) throws IOException {
-      File file = new File(getClass().getResource("/images/" + filename).getFile());
-        byte[] fileContent = FileUtils.readFileToByteArray(file);
+        System.out.println("fileGetResurse:" + filename);
+        File fileX =  new File(getClass().getResource("/images/" + filename).getPath());
+
+
+        //    File file = new File(getClass().getResource("/images/" + filename).getFile());
+
+
+//        ClassLoader classLoader = getClass().getClassLoader();
+//        URL resource = classLoader.getResource("/images/" + filename);
+//        System.out.println("Resours: " + resource);
+
+//        byte[] fileContent;
+//        if (resource == null) {
+//            throw new IllegalArgumentException("file not found! " + fileX);
+//        } else {
+
+            // failed if files have whitespaces or special characters
+            //return new File(resource.getFile());
+//            try {
+//                File file = new File(resource.toURI());
+        byte[] fileContent = FileUtils.readFileToByteArray(fileX);
+
+//            } catch (URISyntaxException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
         return Base64.getEncoder().encodeToString(fileContent);
     }
 }

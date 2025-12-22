@@ -6,6 +6,8 @@ import org.autoquest.connections.ParamType;
 import org.autoquest.quest.*;
 import org.autoquest.service.video.VideoPlayer;
 
+import static org.autoquest.connections.adapters.SimulatorParams.UNOR3_1_PF1;
+import static org.autoquest.connections.adapters.SimulatorParams.UNOR3_1_PF2;
 import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Step1 extends Step {
@@ -18,17 +20,19 @@ public class Step1 extends Step {
 
     private Step1() {
         super("Шаг 1");
-        Action action1 = new Action("Action1S1", ActionType.STORED);
-        action1.setDesc("Действия 1");
+        Action action1 = new Action("Включаем лампу", ActionType.STORED);
+        action1.setDesc("Действия 1. Подоробное описание действия. Некоторые замечания");
 
         ACTION1 = new MBParameter("ACTION1", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
-        action1.defineAction(() -> ACTION1.setValue(true));
+ //       action1.defineAction(() -> ACTION1.setValue(true));
+       action1.defineAction(() -> UNOR3_1_PF2.setValue(true));
 
         Action action2 = new Action("Action2S1");
         action2.setDesc("Действие 2 название");
 
         MBParameter ACTION2 = new MBParameter("ACTION2", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
-        action2.defineAction(() -> ACTION2.setValue(true));
+//        action2.defineAction(() -> ACTION2.setValue(true));
+        action2.defineAction(() -> UNOR3_1_PF2.setValue(true));
 
         //        action2.defineAction(() -> Player.playSound("sound1.mp3", MixerDeviceStore.DEVICES[1]));
 
@@ -43,7 +47,7 @@ public class Step1 extends Step {
             VideoPlayer.pauseClip("test.mp4");
 
             System.out.println("skip V");
-           VideoPlayer.skip("test.mp4", 5000);
+//           VideoPlayer.skip("test.mp4", 5000);
 //            System.out.println("pause V");
 //            VideoPlayer.pauseClip("test.mp4");
             System.out.println("Step1 !!!!");
@@ -53,10 +57,11 @@ public class Step1 extends Step {
         action4.setDesc("Video1Stop");
         action4.setDelay(5);
 //        action4.defineAction(() -> VideoPlayer.stop("sound1.mp3"));
-        action4.defineAction(() -> VideoPlayer.resume("test.mp4"));
+//        action4.defineAction(() -> VideoPlayer.resume("test.mp4"));
 //        action4.setDelay(5);
  //       action4.defineAction(() -> {
- //           VideoPlayer.stop("test.mp4");
+//            VideoPlayer.stop("test.mp4");
+
  //       });
 
         MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);

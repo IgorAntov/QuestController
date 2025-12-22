@@ -67,5 +67,11 @@ public class VideoPlayer {
         System.out.println("all video clips were stopped and disposed");
     }
 
+    public static void disposeClip(String fileName) {
+        if (videoPlayerStore.containsKey(fileName)) {
+            VideoApp application = videoPlayerStore.get(fileName);
+            application.dispose();
+        }
+    }
 
 }

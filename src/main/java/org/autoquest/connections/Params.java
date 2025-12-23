@@ -1,7 +1,7 @@
 package org.autoquest.connections;
 
-// import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
-import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
+// import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE;
+import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE;
 
 // Initialisation Order
 // 1. Coil => Single(Control, Read) -> Group(Control -> Read)

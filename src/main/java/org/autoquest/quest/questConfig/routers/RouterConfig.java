@@ -1,6 +1,8 @@
-package org.autoquest.connections.adapters;
+package org.autoquest.quest.questConfig.routers;
 
-import org.autoquest.quest.steps.Step1;
+import org.autoquest.connections.adapters.Router;
+import org.autoquest.quest.questConfig.params.SimulatorParams;
+import org.autoquest.quest.questConfig.steps.Step1;
 
 public class RouterConfig {
     public static void RouterConfigInit() {
@@ -9,6 +11,6 @@ public class RouterConfig {
 //        Adapter.setAdapter(Params.ACTION1_ENABLED, Params.ACTION1_ENABLED_CFM);
 //        Adapter.setAdapter(Params.ACTION2_ENABLED, Params.ACTION2_ENABLED_CFM);
 
-        Router.setRoute(Step1.ACTION1, SimulatorParams.START);
+ //       Router.setRoute(Step1.ACTION1, SimulatorParams.START);
     }
 }

@@ -1,9 +1,8 @@
-package org.autoquest.quest.view.graphics;
+package org.autoquest.quest.questConfig.graphics;
 
-import org.autoquest.connections.Params;
 import org.autoquest.quest.view.*;
-import org.autoquest.quest.steps.Step1;
-import org.autoquest.quest.steps.Step2;
+import org.autoquest.quest.questConfig.steps.Step1;
+import org.autoquest.quest.questConfig.steps.Step2;
 
 public class Screen1 {
 
@@ -16,7 +15,12 @@ public class Screen1 {
         statisImage.setImageSize(800, 1000);
         screen.addElement(statisImage);
 
+        Step1.getInstance().getTransitionByName("Transition1S1").setBypassButtonXY(95, 495);
+        Step1.getInstance().getTransitionByName("Transition2S1").setBypassButtonXY(715, 280);
         screen.addCollection(new StepBypassButtons(Step1.getInstance()).getButtons());
+
+        Step2.getInstance().getTransitionByName("Transition1S2").setBypassButtonXY(690, 555);
+        Step2.getInstance().getTransitionByName("Transition2S2").setBypassButtonXY(490, 475);
         screen.addCollection(new StepBypassButtons(Step2.getInstance()).getButtons());
 
         screen.addCollection(new ControlBar("Name", "qt_icon.svg").getElements(1020, 5));

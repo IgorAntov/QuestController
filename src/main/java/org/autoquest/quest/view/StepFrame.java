@@ -19,7 +19,7 @@ public class StepFrame {
         int topSetOff = 10;
         int lineLeft = 15;
         int vSpacing = 33;
-        int width = 310;
+        int width = 410; //310
         ArrayList<IGraphic> frameCollector = new ArrayList<>();
 
         DynamicPicture dynamicPicture = new DynamicPicture();

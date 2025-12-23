@@ -1,11 +1,11 @@
-package org.autoquest.quest.steps;
+package org.autoquest.quest.questConfig.steps;
 
 import org.autoquest.connections.MBParameter;
 import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
 import org.autoquest.quest.*;
 
-import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
+import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Step2 extends Step {
     private static final Step2 step2 = new Step2();
@@ -31,14 +31,14 @@ public class Step2 extends Step {
 
         Transition transition1 = new Transition("Transition1S2");
         transition1.setDesc("Переход 1");
-        transition1.setBypassButtonXY(690, 555);
+        //transition1.setBypassButtonXY(690, 555);
         transition1.condition(KEY1::getBoolValue);
 
         MBParameter KEY2 = new MBParameter("KEY2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
         Transition transition2 = new Transition("Transition2S2");
         transition2.setDesc("Переход 2");
-        transition2.setBypassButtonXY(490, 475);
+        //transition2.setBypassButtonXY(490, 475);
         transition2.condition(KEY2::getBoolValue);
 
         addAction(action1);

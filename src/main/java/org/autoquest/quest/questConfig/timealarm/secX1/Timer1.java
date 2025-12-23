@@ -1,4 +1,4 @@
-package org.autoquest.quest.timealarm.secX1;
+package org.autoquest.quest.questConfig.timealarm.secX1;
 
 import org.autoquest.quest.QuestTimer;
 import org.autoquest.quest.Step;
@@ -18,12 +18,12 @@ public class Timer1 extends Step {
         setContinuous();
         setRunOnInit();
 
-        Transition transition1 = new Transition("Transition1S3");
+        Transition transition1 = new Transition("Timer1");
         transition1.setDesc("Шаг 1 и время больше 10 сек");
         transition1.condition(() -> {
             System.out.println(QuestTimer.getTime());
             System.out.println(Global.currentStep);
-            return Global.currentStep == 1 && (QuestTimer.getTime() > 10);
+            return Global.currentStep == 1 && (QuestTimer.getTime() > 100);
                 }
         );
         addTransition(transition1);

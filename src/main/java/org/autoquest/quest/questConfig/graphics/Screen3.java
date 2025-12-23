@@ -1,10 +1,9 @@
-package org.autoquest.quest.view.graphics;
+package org.autoquest.quest.questConfig.graphics;
 
 import org.autoquest.quest.view.StepFrame;
-import org.autoquest.quest.steps.Step3;
-import org.autoquest.quest.steps.Step4;
+import org.autoquest.quest.questConfig.steps.Step3;
+import org.autoquest.quest.questConfig.steps.Step4;
 import org.autoquest.quest.view.Screen;
-import org.autoquest.quest.view.TimerLabel;
 
 public class Screen3 {
 

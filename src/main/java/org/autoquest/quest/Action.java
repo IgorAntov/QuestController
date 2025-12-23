@@ -5,7 +5,7 @@ import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
 import org.autoquest.connections.adapters.Router;
 
-import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
+import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Action extends Thread {
 
@@ -18,6 +18,7 @@ public class Action extends Thread {
     private act doAction;
     private ActionType actionType;
     private String actionName;
+    private String actionNick;
     private MBParameter testStart;
     private MBParameter testStop;
     private MBParameter enabled;
@@ -210,6 +211,14 @@ public class Action extends Thread {
 
     public void setTestMode(boolean testMode) {
         this.testMode = testMode;
+    }
+
+    public String getActionNick() {
+        return actionNick;
+    }
+
+    public void setActionNick(String actionNick) {
+        this.actionNick = actionNick;
     }
 
 }

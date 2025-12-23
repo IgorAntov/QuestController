@@ -1,12 +1,12 @@
 package org.autoquest.service.rscadaproject;
 
-import org.autoquest.quest.view.graphics.GraphicConfig;
+import org.autoquest.quest.questConfig.graphics.GraphicConfig;
 
-//import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
+//import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE;
 
-import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
+import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE;
 
-import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE_SIM;
+import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE_SIM;
 
 public class RSProject {
     public final String path;

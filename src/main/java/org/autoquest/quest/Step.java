@@ -8,7 +8,7 @@ import org.autoquest.service.Global;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
+import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Step extends Thread {
 
@@ -57,7 +57,7 @@ public class Step extends Thread {
                     Iterator<Action> iteratorAction = actions.iterator();
                     while (iteratorAction.hasNext()) {
                         action = iteratorAction.next();
-                        if (action.getState().equals(State.NEW)) {
+                        if (action.getState().equals(State.NEW) && StepsExecutor.isQuestRunning()) {
                             System.out.println(action.getState());
                             action.start();
                         } else {
@@ -70,7 +70,7 @@ public class Step extends Thread {
                     Iterator<Transition> iteratorTransition = transitions.iterator();
                     while (iteratorTransition.hasNext()) {
                         transition = iteratorTransition.next();
-                        if (transition.getState().equals(State.NEW)) {
+                        if (transition.getState().equals(State.NEW) && StepsExecutor.isQuestRunning()) {
                             transition.start();
                         } else {
                             synchronized (transition.getLock()) {
@@ -94,10 +94,11 @@ public class Step extends Thread {
                             stepDone = true;
                             statusActive.setValue(false);
                             statusDone.setValue(true);
-                            if (!continuous) {
+                            if (!continuous && StepsExecutor.isQuestRunning()) {
+                                System.out.println("StepIncrease 1");
                                 Global.increaseStepNumber();
                             }
-                            System.out.println("Wait Thread: " + getName());
+                            System.out.println("Wait Thread 1: " + getName());
                             synchronized (lock) {
                                 lock.wait();
                             }
@@ -107,17 +108,18 @@ public class Step extends Thread {
                             statusActive.setValue(false);
                             statusDone.setValue(true);
                             if (!continuous) {
+                                System.out.println("StepIncrease 2");
                                 Global.increaseStepNumber();
                             }
                             stepDone = true;
-                            System.out.println("Wait Thread: " + getName());
+                            System.out.println("Wait Thread (isDone): " + getName());
                             synchronized (lock) {
                                lock.wait();
                             }
                             break;
                         }
                         if (Global.ABORT) {
-                            System.out.println("Wait Thread: " + getName());
+                            System.out.println("Wait Thread (ABORT): " + getName());
                             synchronized (lock) {
                                 lock.wait();
                             }
@@ -239,5 +241,15 @@ public class Step extends Thread {
         for (Transition t : transitions) {
             t.getBypass().setValue(false);
         }
+    }
+
+    public Transition getTransitionByName(String transitionName) {
+        Transition t_ = null;
+        for (Transition t : transitions) {
+            if(t.getName().equals(transitionName)) {
+                t_ = t;
+            }
+        }
+        return t_;
     }
 }

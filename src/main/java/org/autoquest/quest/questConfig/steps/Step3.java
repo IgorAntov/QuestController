@@ -1,4 +1,4 @@
-package org.autoquest.quest.steps;
+package org.autoquest.quest.questConfig.steps;
 
 import org.autoquest.connections.MBParameter;
 import org.autoquest.connections.MembershipType;
@@ -7,7 +7,7 @@ import org.autoquest.quest.Action;
 import org.autoquest.quest.Step;
 import org.autoquest.quest.Transition;
 
-import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
+import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Step3 extends Step {
     private static final Step3 step3 = new Step3();
@@ -20,7 +20,7 @@ public class Step3 extends Step {
         super("Выкл свет");
         setContinuous();
         setRunOnInit();
-        Action action1 = new Action("Action1S3");
+        Action action1 = new Action("Action1S3 Continuous");
         action1.setDesc("Действия 1 S3");
 
         MBParameter ACTION1 = new MBParameter("ACTION1S3", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);

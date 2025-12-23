@@ -1,15 +1,13 @@
 package org.autoquest.quest;
 
 import org.autoquest.connections.Params;
-import org.autoquest.quest.steps.Step1;
+import org.autoquest.quest.questConfig.steps.Step1;
 import org.autoquest.service.Global;
-import org.autoquest.service.audio.AudioApp;
 import org.autoquest.service.audio.AudioPlayer;
-import org.autoquest.service.sound.ClipStore;
 import org.autoquest.service.state.ReadXML;
 import org.autoquest.service.video.VideoPlayer;
 
-import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
+import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class StepsExecutor {
     private static QuestSeqStatus questSeqStatus = QuestSeqStatus.STOPPED;
@@ -17,7 +15,9 @@ public class StepsExecutor {
     public static void start() {
         try {
             while (true) {
-                if (Params.START.getBoolValue() && questSeqStatus.equals(QuestSeqStatus.STOPPED)) {
+               // System.out.println(questSeqStatus.name());
+                if (Params.START.getBoolValue() && questSeqStatus.equals(QuestSeqStatus.STOPPED)
+                ) {
                     QuestTimer.reRun();
                     System.out.println("Start Seq");
                     Params.START.farceValue(true);
@@ -27,6 +27,7 @@ public class StepsExecutor {
                     Params.ABORT.farceValue(false);
                     Params.PAUSE_FB.setValue(true);
                     Params.PAUSE.farceValue(false);
+
                     ContinuousStepStore.init();
                     Global.resetStepNumber();
                     Global.increaseStepNumber();
@@ -38,6 +39,7 @@ public class StepsExecutor {
                             s.getLock().notify();
                         }
                     }
+
                 }
                 if (Params.ABORT.getBoolValue() && (questSeqStatus.equals(QuestSeqStatus.RUNNING) || questSeqStatus.equals(QuestSeqStatus.PAUSED))) {
                     stopQuest();
@@ -89,27 +91,33 @@ public class StepsExecutor {
     public static void stopQuest() {
         try {
         System.out.println("Stopping");
-        questSeqStatus = QuestSeqStatus.STOPPED;
-        Params.ABORT.setValue(false);
-        Params.ABORT_FB.setValue(false);
+    //    questSeqStatus = QuestSeqStatus.STOPPING;
+     //   Params.ABORT.setValue(false);
+     //   Params.ABORT_FB.setValue(false);
         Params.PAUSE_FB.setValue(false);
         Params.PAUSE.farceValue(false);
         Params.START.farceValue(false);
         Params.START_FB.setValue(true);
+        QuestTimer.pause();
         QuestTimer.resetTimer();
         Global.resetStepNumber();
+//        Thread.sleep(1000);
 //        ClipStore.stopAllClips();
 //        ClipStore.clearClipStore();
         AudioPlayer.stopAllClips();
         AudioPlayer.disposeAllClips();
         VideoPlayer.stopAllClips();
-        VideoPlayer.disposeAllClips();
-        Thread.sleep(3000);
+        VideoPlayer.disposeAllClips();//       Thread.sleep(3000);
         WS_MB_UNIT_SLAVE.setInitValue();
         ReadXML.readParametersFromXML(StateStore.getParameterStore());
+    //        Thread.sleep(2000);
+        questSeqStatus = QuestSeqStatus.STOPPED;
+            ContinuousStepStore.init();
+        Thread.sleep(100);
+    //    Params.START_FB.setValue(true);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+       }
     }
 }
 

@@ -7,8 +7,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 
-//import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
-import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
+//import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE;
+import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class CreateXMLForRapidScada {
 

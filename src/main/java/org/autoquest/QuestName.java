@@ -2,10 +2,11 @@ package org.autoquest;
 
 import org.autoquest.connections.Params;
 import org.autoquest.connections.adapters.Router;
-import org.autoquest.connections.adapters.RouterConfig;
-import org.autoquest.connections.adapters.SimulatorParams;
-import org.autoquest.connections.units.MBUnitList;
+import org.autoquest.quest.questConfig.routers.RouterConfig;
+import org.autoquest.quest.questConfig.params.SimulatorParams;
+import org.autoquest.quest.questConfig.mbunits.MBUnitList;
 import org.autoquest.quest.*;
+import org.autoquest.quest.questConfig.steps.Configuration;
 import org.autoquest.service.CommandLineP;
 import org.autoquest.service.state.SaveStateService;
 

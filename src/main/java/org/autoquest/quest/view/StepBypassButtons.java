@@ -10,9 +10,11 @@ import java.util.ArrayList;
 public class StepBypassButtons {
 
     protected final Step step;
+   // private ArrayList<IGraphic> bypassButtonCollector_ = new ArrayList<>();
 
     public StepBypassButtons(Step step) {
         this.step = step;
+   //     bypassButtonCollector_ = getButtons();
     }
 
     public ArrayList<IGraphic> getButtons() {
@@ -24,11 +26,22 @@ public class StepBypassButtons {
                 buttonBypass.setDesc(transition.getName());
                 buttonBypass.setPosition(transition.getBypassButtonX(), transition.getBypassButtonY());
                 buttonBypass.setParameterStatus(transition.getBypassVisible());
-                buttonBypass.setParameterControl(transition.getBypass());
+            //    buttonBypass.setParameterControl(transition.getBypass());
+             //       buttonBypass.setParameterStatus(transition.getEnabledConfirm());
+                    buttonBypass.setParameterControl(transition.getEnabled());
+
                 bypassButtonCollector.add(buttonBypass);
             }
         }
         return bypassButtonCollector;
     }
 
+//    public void setPositionOnScreenForTranBypass(String transitionName, int X, int Y) {
+//        for (IGraphic b : bypassButtonCollector_) {
+//            if (b.getName().equals(transitionName)) {
+
+//                b. (transition.getBypassButtonX(), transition.getBypassButtonY());
+ //           }
+ //       }
+ //   }
 }

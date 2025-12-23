@@ -1,10 +1,10 @@
-package org.autoquest.connections.adapters;
+package org.autoquest.quest.questConfig.params;
 
 import org.autoquest.connections.MBParameter;
 import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
 
-import static org.autoquest.connections.units.MBUnitList.*;
+import static org.autoquest.quest.questConfig.mbunits.MBUnitList.*;
 
 public class SimulatorParams {
 

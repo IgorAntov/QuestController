@@ -1,20 +1,25 @@
-1. Define Steps sequence in step folder "quest/steps"
+1. Define Steps sequence in step folder "quest/questConfig/steps"
     Step1, Step2 ..
     1.1 Assign step name
 
     Step configuration:
+        Actions:
         1.2 Define Actions (Output bits)
         1.3 Choose Action Type (STORED or NO STORED)
-        1.4 Set action description
-        1.5 Choose action Parameter-Type and Membership-Type and set output value;
+        1.4 Set action nickname and description
+        1.5 Set action as Lambda
+        1.6 Set delay in sec as needed
+            - setContinuous(); - stored actions
+            - setRunOnInit(); - option for stored action
 
-        1.6 Define Keys (Input bits)
-        1.7 Choose key Parameter-Type and Membership-Type
+        Transitions:
+        1.7 Define Keys (Input bits)
+        1.8 Choose key Parameter-Type and Membership-Type
 
-        1.8 Define Transition
-        1.10 Set action description
-        1.11 Set BypassButton (BB) and BB position
-        1.12 Define transit condition based on Keys composition
+        1.9 Define Transition as Lambda
+        1.10 Set transition nickname and description
+        1.11 Define transit condition based on Keys composition
+        1.12 Set option "setWithoutKey" as needed
 
         1.13 Assign next step to-do
         1.14 Add actions and transitions to step action and transition List

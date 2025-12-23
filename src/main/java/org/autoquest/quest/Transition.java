@@ -5,7 +5,7 @@ import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
 import org.autoquest.connections.adapters.Router;
 
-import static org.autoquest.connections.units.MBUnitList.WS_MB_UNIT_SLAVE;
+import static org.autoquest.quest.questConfig.mbunits.MBUnitList.WS_MB_UNIT_SLAVE;
 
 public class Transition extends Thread {
     private final int scanRate = 300;
@@ -15,7 +15,8 @@ public class Transition extends Thread {
     private MBParameter bypassCFM;
     private MBParameter status;
     private MBParameter bypassVisible;
-    private String name;
+    private String transitionName;
+    private String transitionNick;
     private String desc = "";
     private int bypassButtonX = 10;
     private int bypassButtonY = 10;
@@ -26,22 +27,22 @@ public class Transition extends Thread {
 
     public Transition(String name) {
         setName(name);
-        this.name = name;
+        this.transitionName = name;
         initTransition();
     }
 
     private void initTransition() {
-        MBParameter status = new MBParameter(String.format("TransitStatus%s", name), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
-        MBParameter bypass = new MBParameter(String.format("Bypass%s", name), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
-        MBParameter bypassCFM = new MBParameter(String.format("BypassCFM%s", name), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
-        MBParameter bypassVisible = new MBParameter(String.format("BypassVisible%s", name), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.GROUP);
+        MBParameter status = new MBParameter(String.format("TransitStatus%s", transitionName), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
+        MBParameter bypass = new MBParameter(String.format("Bypass%s", transitionName), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
+        MBParameter bypassCFM = new MBParameter(String.format("BypassCFM%s", transitionName), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
+        MBParameter bypassVisible = new MBParameter(String.format("BypassVisible%s", transitionName), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.GROUP);
         setStatusParam(status);
         setBypassParam(bypass);
         setBypassCFM(bypassCFM);
         setBypassVisible(bypassVisible);
         Router.setRoute(bypass, bypassCFM);
-        MBParameter transition1Enabled = new MBParameter(String.format("ActEnabled%s", name), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
-        MBParameter transitionEnabledConfirm = new MBParameter(String.format("ActEnabledCFM%s", name), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
+        MBParameter transition1Enabled = new MBParameter(String.format("ActEnabled%s", transitionName), WS_MB_UNIT_SLAVE, true, ParamType.READ, MembershipType.GROUP);
+        MBParameter transitionEnabledConfirm = new MBParameter(String.format("ActEnabledCFM%s", transitionName), WS_MB_UNIT_SLAVE, true, ParamType.CONTROL, MembershipType.GROUP);
         setEnabled(transition1Enabled);
         StateStore.addParameter(transition1Enabled);
         setEnabledConfirm(transitionEnabledConfirm);
@@ -79,7 +80,7 @@ public class Transition extends Thread {
     }
 
     public String getTransitionName() {
-        return name;
+        return transitionName;
     }
 
     public MBParameter getBypassCFM() {
@@ -173,5 +174,14 @@ public class Transition extends Thread {
 
     public void setWithoutKeys(boolean withoutKeys) {
         this.withoutKeys = withoutKeys;
+        condition(() -> true);
+    }
+
+    public String getTransitionNick() {
+        return transitionNick;
+    }
+
+    public void setTransitionNick(String transitionNick) {
+        this.transitionNick = transitionNick;
     }
 }

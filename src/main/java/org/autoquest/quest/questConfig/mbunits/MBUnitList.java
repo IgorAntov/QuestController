@@ -1,4 +1,6 @@
-package org.autoquest.connections.units;
+package org.autoquest.quest.questConfig.mbunits;
+
+import org.autoquest.connections.units.MBUnitSlave;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

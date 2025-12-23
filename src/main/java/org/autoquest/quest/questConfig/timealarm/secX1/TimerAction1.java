@@ -1,15 +1,9 @@
-package org.autoquest.quest.timealarm.secX1;
+package org.autoquest.quest.questConfig.timealarm.secX1;
 
 import org.autoquest.quest.Action;
-import org.autoquest.quest.ActionType;
 import org.autoquest.quest.Step;
 import org.autoquest.service.audio.AudioPlayer;
-import org.autoquest.service.sound.MixerDeviceStore;
-import org.autoquest.service.sound.Player;
 import org.autoquest.service.video.VideoPlayer;
-
-import javax.sound.sampled.AudioPermission;
-import javax.sound.sampled.AudioSystem;
 
 
 public class TimerAction1 extends Step {

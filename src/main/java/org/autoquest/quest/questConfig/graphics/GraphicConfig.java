@@ -1,4 +1,4 @@
-package org.autoquest.quest.view.graphics;
+package org.autoquest.quest.questConfig.graphics;
 
 import org.autoquest.quest.view.Graphic;
 import org.autoquest.quest.view.Group;

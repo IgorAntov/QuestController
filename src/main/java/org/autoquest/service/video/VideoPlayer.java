@@ -52,16 +52,28 @@ public class VideoPlayer {
         }
     }
 
-    public static void stopAllClips() {
+    public synchronized static void stopAllClips() {
         for (VideoApp app : videoPlayerStore.values()) {
             app.stop();
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         System.out.println("all video clips were stopped and disposed");
     }
 
-    public static void disposeAllClips() {
+    public synchronized static void disposeAllClips() {
         for (VideoApp app : videoPlayerStore.values()) {
-            app.disposeAll();
+            if (app.isValid()) {
+                app.dispose();
+            }
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         videoPlayerStore.clear();
         System.out.println("all video clips were stopped and disposed");
@@ -70,7 +82,9 @@ public class VideoPlayer {
     public static void disposeClip(String fileName) {
         if (videoPlayerStore.containsKey(fileName)) {
             VideoApp application = videoPlayerStore.get(fileName);
-            application.dispose();
+            if (application.isValid()) {
+                application.dispose();
+            }
         }
     }
 

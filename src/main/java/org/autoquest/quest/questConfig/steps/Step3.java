@@ -21,7 +21,8 @@ public class Step3 extends Step {
         setContinuous();
         setRunOnInit();
         Action action1 = new Action("Action1S3 Continuous");
-        action1.setDesc("Действия 1 S3");
+        action1.setActionNick(" Действие 1 Шага 3");
+        action1.setDesc("Действия 1 Шага 3 описание");
 
         MBParameter ACTION1 = new MBParameter("ACTION1S3", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         action1.defineAction(() -> {
@@ -33,7 +34,8 @@ public class Step3 extends Step {
         MBParameter KEY1 = new MBParameter("KEY1S3", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
         Transition transition1 = new Transition("Transition1S3");
-        transition1.setDesc("Переход 1 S3");
+        transition1.setTransitionNick("Переход 1 Шага 3");
+        transition1.setDesc("Переход 1 Шага 3 описание");
         transition1.condition(KEY1::getBoolValue);
 
         addAction(action1);

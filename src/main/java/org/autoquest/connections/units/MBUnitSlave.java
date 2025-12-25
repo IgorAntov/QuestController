@@ -96,7 +96,7 @@ public class MBUnitSlave {
         }
     }
 
-    public void setInitValue() {
+    public synchronized void setInitValue() {
         System.out.println("setInit");
         for (MBParameter p : parameters) {
             if (p.getDataType().equals(DataType.BOOL)) {

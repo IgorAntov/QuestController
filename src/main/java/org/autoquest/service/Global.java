@@ -11,12 +11,12 @@ public class Global {
     public static final String SOUND_PATH = "";
     public static int currentStep;
 
-    public static void increaseStepNumber() {
+    public synchronized static void increaseStepNumber() {
         currentStep++;
         Params.STEPNUMBER.setValue(currentStep);
     }
 
-    public static void resetStepNumber() {
+    public synchronized static void resetStepNumber() {
         currentStep = 0;
         Params.STEPNUMBER.setValue(currentStep);
     }

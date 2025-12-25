@@ -22,7 +22,8 @@ public class Step4 extends Step {
         setContinuous();
         setNextStep(Step3.getInstance());
         Action action1 = new Action("Action1S4");
-        action1.setDesc("Действия 1 S4");
+        action1.setActionNick("Действие 1 Шага 4");
+        action1.setDesc("Действия 1 Шага 4 описание");
 
         MBParameter ACTION1 = new MBParameter("ACTION1 S4", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         action1.defineAction(() -> {
@@ -34,7 +35,8 @@ public class Step4 extends Step {
         MBParameter KEY1 = new MBParameter("KEY1S4", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
         Transition transition1 = new Transition("Transition1S4");
-        transition1.setDesc("Переход 1 S4");
+        transition1.setTransitionNick("Переход 1 Шага 4");
+        transition1.setDesc("Переход 1 Шага 4 описание");
         transition1.condition(KEY1::getBoolValue);
 
         addAction(action1);

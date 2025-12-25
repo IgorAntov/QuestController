@@ -78,7 +78,16 @@ public class ControlBar {
         stepNumber.setPosition(x + 100, y + 143); //1120 160
         stepNumber.setParameter(Params.STEPNUMBER);
         elements.add(stepNumber);
-        
+
+        ButtonQEnd endQuestText = new ButtonQEnd();
+        endQuestText.setName("КВЕСТ ЗАВЕРШЕН");
+        endQuestText.setDesc(" ");
+        endQuestText.setHint(" ");
+        endQuestText.setSize(50, 150);
+        endQuestText.setParameterStatus(Params.QUEST_FINISHED);
+        endQuestText.setPosition(x + 5, y + 200);
+        elements.add(endQuestText);
+
         return elements;
     }
 }

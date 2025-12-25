@@ -56,16 +56,18 @@ public class AudioPlayer {
         }
     }
 
-    public static void stopAllClips() {
+    public synchronized static void stopAllClips() {
         for (AudioApp app : audioPlayerStore.values()) {
             app.stop();
         }
         System.out.println("all audio clips were stopped");
     }
 
-    public static void disposeAllClips() {
+    public synchronized static void disposeAllClips() {
         for (AudioApp app : audioPlayerStore.values()) {
-            app.disposeApp();
+            if (app.isValid()) {
+                app.dispose();
+            }
         }
         audioPlayerStore.clear();
         System.out.println("all audio clips were disposed");

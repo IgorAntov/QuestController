@@ -1,5 +1,6 @@
 package org.autoquest.quest.questConfig.graphics;
 
+import org.autoquest.quest.questConfig.steps.Step5;
 import org.autoquest.quest.view.*;
 import org.autoquest.quest.questConfig.steps.Step1;
 import org.autoquest.quest.questConfig.steps.Step2;
@@ -22,6 +23,10 @@ public class Screen1 {
         Step2.getInstance().getTransitionByName("Transition1S2").setBypassButtonXY(690, 555);
         Step2.getInstance().getTransitionByName("Transition2S2").setBypassButtonXY(490, 475);
         screen.addCollection(new StepBypassButtons(Step2.getInstance()).getButtons());
+
+        Step5.getInstance().getTransitionByName("Transition1S3").setBypassButtonXY(150, 350);
+        Step5.getInstance().getTransitionByName("Transition2S3").setBypassButtonXY(200, 250);
+        screen.addCollection(new StepBypassButtons(Step5.getInstance()).getButtons());
 
         screen.addCollection(new ControlBar("Name", "qt_icon.svg").getElements(1020, 5));
         screen.addCollection(new TimerLabel().getTimerLabel(1060, 110));

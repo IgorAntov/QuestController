@@ -3,6 +3,7 @@ package org.autoquest.quest;
 import org.autoquest.connections.MBParameter;
 import org.autoquest.connections.MembershipType;
 import org.autoquest.connections.ParamType;
+import org.autoquest.connections.Params;
 import org.autoquest.service.Global;
 
 import java.util.ArrayList;
@@ -23,6 +24,11 @@ public class Step extends Thread {
     private String stepName = "";
     private boolean continuous;
     private boolean runOnInit;
+    private boolean questStep;
+
+    private int startTime = 0;
+
+    private boolean finalStep;
 
     private final Object lock = new Object();
 
@@ -33,6 +39,7 @@ public class Step extends Thread {
         setStatusActive(actionStatus);
         MBParameter doneStatus = new MBParameter(String.format("StepDoneStatus%s", stepName), WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         setStatusDone(doneStatus);
+        ContinuousStepStore.addStepToStore(this);
     }
 
     @Override
@@ -46,6 +53,7 @@ public class Step extends Thread {
             Transition transition;
             do {
                 statusActive.setValue(true);
+                setStartTime(QuestTimer.getTime());
                 stepDone = false;
                 if (stepDelay > 0) {
                     try {
@@ -94,7 +102,7 @@ public class Step extends Thread {
                             stepDone = true;
                             statusActive.setValue(false);
                             statusDone.setValue(true);
-                            if (!continuous && StepsExecutor.isQuestRunning()) {
+                            if (!continuous && StepsExecutor.isQuestRunning() && questStep) {
                                 System.out.println("StepIncrease 1");
                                 Global.increaseStepNumber();
                             }
@@ -107,12 +115,16 @@ public class Step extends Thread {
                         if (isDone) {
                             statusActive.setValue(false);
                             statusDone.setValue(true);
-                            if (!continuous) {
+                            if (!continuous && StepsExecutor.isQuestRunning() && questStep) {
                                 System.out.println("StepIncrease 2");
                                 Global.increaseStepNumber();
                             }
                             stepDone = true;
                             System.out.println("Wait Thread (isDone): " + getName());
+                            if (isFinalStep()) {
+                                Params.QUEST_FINISHED.setValue(true);
+                                QuestTimer.pause();
+                            }
                             synchronized (lock) {
                                lock.wait();
                             }
@@ -251,5 +263,29 @@ public class Step extends Thread {
             }
         }
         return t_;
+    }
+
+    public boolean isFinalStep() {
+        return finalStep;
+    }
+
+    public void setFinalStep(boolean finalStep) {
+        this.finalStep = finalStep;
+    }
+
+    public int getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
+    }
+
+    public boolean isQuestStep() {
+        return questStep;
+    }
+
+    public void setAsQuestStep() {
+        this.questStep = true;
     }
 }

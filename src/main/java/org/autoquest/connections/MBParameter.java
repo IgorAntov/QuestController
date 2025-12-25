@@ -49,7 +49,7 @@ public class MBParameter {
         this.modBusUnitSlave.addParameter(this);
     }
 
-    public void setValue(boolean value) {
+    public synchronized void setValue(boolean value) {
         if (membershipType.equals(MembershipType.SINGLE)) {
             modBusUnitSlave.setCoilValue(this.index, value);
         } else this.valueBool = value;

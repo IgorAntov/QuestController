@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class ReadXML {
     private static String stateXMLFileName = "/qstate.xml";
-    public static void readParametersFromXML(ArrayList<MBParameter> mbParameters) {
+    public synchronized static void readParametersFromXML(ArrayList<MBParameter> mbParameters) {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
             dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);

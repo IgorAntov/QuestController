@@ -72,7 +72,7 @@ public class StepFrame {
 
             StaticText staticText = new StaticText();
             staticText.setPosition(staticTextFrame.getX() + lineLeft + buttonTest.getWidth() * 2 + switch1.getWidth() + led1.getWidth() + 28, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex);
-            staticText.setDesc(action.getActionName());
+            staticText.setDesc(action.getActionNick());
             frameCollector.add(staticText);
             spacingIndex++;
         }
@@ -104,7 +104,7 @@ public class StepFrame {
 
             StaticText staticText = new StaticText();
             staticText.setPosition(staticTextFrame.getX() + lineLeft + switch1.getWidth() + led1.getWidth() + 15, staticTextFrame.getY() + topSetOff + vSpacing * spacingIndex + 5);
-            staticText.setDesc(transition.getDesc());
+            staticText.setDesc(transition.getTransitionNick());
             frameCollector.add(staticText);
 
             spacingIndex++;

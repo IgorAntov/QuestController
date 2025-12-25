@@ -19,7 +19,9 @@ public class Step1 extends Step {
 
     private Step1() {
         super("Шаг 1");
-        Action action1 = new Action("ActionS1A1 ActionS1A1 ActionS1A1", ActionType.STORED);
+        setAsQuestStep();
+
+        Action action1 = new Action("ActionS1A1 XXXXXXX XXXXX", ActionType.STORED);
         action1.setActionNick("Действие 1 шага 1");
         action1.setDesc("Действия 1. Подоробное описание действия. Некоторые замечания");
 
@@ -29,7 +31,7 @@ public class Step1 extends Step {
 
         Action action2 = new Action("Action2S1");
         action2.setActionNick("Действие 2 шага 1");
-        action2.setDesc("Действие 2 название");
+        action2.setDesc("Действие 2 название описание");
 
 //        MBParameter ACTION2 = new MBParameter("ACTION2", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
 //        action2.defineAction(() -> ACTION2.setValue(true));
@@ -39,7 +41,7 @@ public class Step1 extends Step {
 
         Action action3 = new Action("Action3S1");
         action3.setActionNick("Действие 3 шага 1");
-        action3.setDesc("Video1Play");
+        action3.setDesc("Video1Play описание");
 //        action3.setDelay(10);
         action3.defineAction(() -> {
             System.out.println("play V");
@@ -57,7 +59,7 @@ public class Step1 extends Step {
 
         Action action4 = new Action("Action4S1");
         action4.setActionNick("Действие 4 шага 1");
-        action4.setDesc("Video1Stop");
+        action4.setDesc("Video1Stop описнаие");
         action4.setDelay(5);
 //        action4.defineAction(() -> VideoPlayer.stop("sound1.mp3"));
 //        action4.defineAction(() -> VideoPlayer.resume("test.mp4"));
@@ -71,18 +73,19 @@ public class Step1 extends Step {
 
         Transition transition1 = new Transition("Transition1S1");
         transition1.setTransitionNick("Переход 1 Шага 1");
-        transition1.setDesc("Переход 1 \n Переход 1");
+        transition1.setDesc("Переход 1 \n Переход 1 описание");
         transition1.condition(KEY1::getBoolValue);
 
         MBParameter KEY2 = new MBParameter("KEY2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
         Transition transition2 = new Transition("Transition2S1");
         transition2.setTransitionNick("Переход 2 Шага 1 ");
-        transition2.setDesc("Переход 2 \n Переход 2");
+        transition2.setDesc("Переход 2 \n Переход 2 описание");
         transition2.condition(KEY2::getBoolValue);
 
         Transition transition3 = new Transition("Transition3S1");
-        transition3.setDesc("Переход 3 без ключа");
+        transition3.setTransitionNick("Переход 3 без ключа Шага 1 ");
+        transition3.setDesc("Переход 3 без ключа описание");
         transition3.setWithoutKeys(true);
 
         setNextStep(Step2.getInstance());

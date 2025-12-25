@@ -19,11 +19,12 @@ public class Timer1 extends Step {
         setRunOnInit();
 
         Transition transition1 = new Transition("Timer1");
-        transition1.setDesc("Шаг 1 и время больше 10 сек");
+        transition1.setTransitionNick("Шаг 1 и время больше 10 сек");
+        transition1.setDesc("Шаг 1 и время больше 10 сек описание");
         transition1.condition(() -> {
             System.out.println(QuestTimer.getTime());
             System.out.println(Global.currentStep);
-            return Global.currentStep == 1 && (QuestTimer.getTime() > 100);
+            return Global.currentStep == 1 && (QuestTimer.getTime() > 10);
                 }
         );
         addTransition(transition1);

@@ -27,6 +27,8 @@ public class Params {
 
     public static final MBParameter STEPNUMBER = new MBParameter("STEPNUMBER", WS_MB_UNIT_SLAVE, 0, ParamType.CONTROL, MembershipType.SINGLE);
 
+    public static final MBParameter QUEST_FINISHED = new MBParameter("TEST_FINISHED", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
+
     // Test
     
 //    public static final SlaveParameterCoil START = new SlaveParameterCoil("START_SEQ", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);

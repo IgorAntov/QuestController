@@ -15,12 +15,14 @@ public class Step2 extends Step {
     private Step2() {
         super("Шаг 2");
         Action action1 = new Action("Action1S2");
+        action1.setActionNick("Действие 1 Шаг 2");
         action1.setDesc("Действия 1");
 
         MBParameter ACTION1 = new MBParameter("ACTION1", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
         action1.defineAction(() -> ACTION1.setValue(true));
 
         Action action2 = new Action("Action2S2");
+        action2.setActionNick("Действие 2 Шаг 2");
         action2.setDesc("Действие 2 название");
 
         MBParameter ACTION2 = new MBParameter("ACTION2", WS_MB_UNIT_SLAVE, false, ParamType.CONTROL, MembershipType.SINGLE);
@@ -30,17 +32,20 @@ public class Step2 extends Step {
         MBParameter KEY1 = new MBParameter("KEY1", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
         Transition transition1 = new Transition("Transition1S2");
-        transition1.setDesc("Переход 1");
+        transition1.setTransitionNick("Переход 1");
+        transition1.setDesc("Переход 1 описнаие");
         //transition1.setBypassButtonXY(690, 555);
         transition1.condition(KEY1::getBoolValue);
 
         MBParameter KEY2 = new MBParameter("KEY2", WS_MB_UNIT_SLAVE, false, ParamType.READ, MembershipType.GROUP);
 
         Transition transition2 = new Transition("Transition2S2");
-        transition2.setDesc("Переход 2");
+        transition2.setTransitionNick("Переход 2");
+        transition2.setDesc("Переход 2 описание");
         //transition2.setBypassButtonXY(490, 475);
         transition2.condition(KEY2::getBoolValue);
 
+        setNextStep(Step5.getInstance());
         addAction(action1);
         addAction(action2);
         addTransition(transition1);

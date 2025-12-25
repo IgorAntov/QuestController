@@ -52,11 +52,11 @@ public class QuestTimer {
         return sec;
     }
 
-    public static void resetTimer() {
+    public synchronized static void resetTimer() {
         time = 0;
     }
 
-    public static void pause() {
+    public synchronized static void pause() {
         pause = true;
     }
 

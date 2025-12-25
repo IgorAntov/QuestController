@@ -14,7 +14,7 @@ public class Screen3 {
     public static Screen getScreen() {
 
         screen.addCollection(new StepFrame(Step3.getInstance()).getStepFrame(100,100));
-        screen.addCollection(new StepFrame(Step4.getInstance()).getStepFrame(450,100));
+        screen.addCollection(new StepFrame(Step4.getInstance()).getStepFrame(550,100));
 
 
         screen.addImage("StepActive.svg");
